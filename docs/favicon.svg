@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>graphemely</title>
+  <path d="M10 30 L9 7 L27 19 Z" fill="#7B6CF6" stroke="#7B6CF6" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M54 30 L55 7 L37 19 Z" fill="#7B6CF6" stroke="#7B6CF6" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M14 22 L13.5 14 L20 19 Z" fill="#FF6F91" stroke="#FF6F91" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M50 22 L50.5 14 L44 19 Z" fill="#FF6F91" stroke="#FF6F91" stroke-width="2" stroke-linejoin="round"/>
+  <ellipse cx="32" cy="37" rx="28" ry="24" fill="#7B6CF6"/>
+  <ellipse cx="32" cy="46" rx="13" ry="9" fill="#EEEBFF"/>
+  <ellipse cx="21" cy="35" rx="4" ry="5" fill="#231F3A"/>
+  <ellipse cx="43" cy="35" rx="4" ry="5" fill="#231F3A"/>
+  <path d="M28.5 42 H35.5 L32 46 Z" fill="#FF6F91" stroke="#FF6F91" stroke-width="2" stroke-linejoin="round"/>
+</svg>

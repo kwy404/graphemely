@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>graphemely social card</title>
+<!--
+  Source of docs/og.png (1200x630) and assets/social-preview.png (1280x640).
+  Rendered with a headless browser at the target window size.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 100vw; height: 100vh; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: radial-gradient(circle at 22% 40%, #2B2560 0%, #14122A 58%);
+    color: #F4F2FF;
+    display: flex;
+    align-items: center;
+    padding: 0 5vw 0 3vw;
+    gap: 3vw;
+  }
+  img { width: 37vw; height: auto; flex: none; }
+  h1 { font-size: 9.2vw; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .bar { width: 10vw; height: 0.7vw; border-radius: 1vw; background: #FF6F91; margin: 1.6vw 0 2.2vw; }
+  p { font-size: 3vw; font-weight: 600; line-height: 1.25; }
+  p span { color: #B9B4D6; font-weight: 400; font-size: 2.3vw; display: block; margin-top: 1vw; }
+  ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 1vw; margin-top: 3vw; }
+  li {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 1.75vw; padding: 0.7vw 1.3vw; border-radius: 2vw;
+    background: #24204A; border: 0.15vw solid #3A3566; color: #DCD7FF;
+  }
+  li b { color: #FF6F91; font-weight: 600; }
+  .url { margin-top: 2.6vw; font-size: 1.9vw; color: #B9B4D6; }
+</style>
+</head>
+<body>
+  <img src="mascot.svg" alt="Gem, the graphemely cat, playing with a ball of yarn">
+  <main>
+    <h1>graphemely</h1>
+    <div class="bar"></div>
+    <p>Truncate, slice and count strings with emoji safely in JavaScript<span>Grapheme clusters, not code units. Zero dependencies, about 2 kB gzipped.</span></p>
+    <ul>
+      <li><b>truncate</b>()</li>
+      <li><b>length</b>()</li>
+      <li><b>slice</b>()</li>
+      <li><b>reverse</b>()</li>
+      <li><b>wrap</b>()</li>
+      <li><b>graphemes</b>()</li>
+    </ul>
+    <div class="url">npm i graphemely</div>
+  </main>
+</body>
+</html>

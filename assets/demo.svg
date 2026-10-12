@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-labelledby="title desc">
+  <title id="title">Animated demo: native slice breaks an emoji, graphemely keeps it whole</title>
+  <desc id="desc">A cut line moves across the string Hi, family emoji, exclamation mark. Native slice(0, 3) cuts inside the family emoji at code unit 3 and leaves a broken replacement character. graphemely slice(str, 0, 3) snaps the cut to the grapheme boundary and keeps the family whole.</desc>
+  <defs>
+    <clipPath id="left"><rect x="0" y="0" width="158" height="420"/></clipPath>
+    <clipPath id="right"><rect x="158" y="0" width="960" height="420"/></clipPath>
+  </defs>
+  <style>
+    .cut-a { animation: cut-a 6s ease-in-out infinite; }
+    .cut-b { animation: cut-b 6s ease-in-out infinite; }
+    .fall { animation: fall 6s ease-in infinite; }
+    .sliver { animation: sliver 6s ease-out infinite; }
+    .appear { opacity: 0; animation: appear 6s ease-out infinite; }
+    @keyframes cut-a {
+      0%, 6% { transform: translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      32%, 88% { transform: translateX(98px); opacity: 1; }
+      96%, 100% { transform: translateX(98px); opacity: 0; }
+    }
+    @keyframes cut-b {
+      0%, 6% { transform: translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      32%, 88% { transform: translateX(168px); opacity: 1; }
+      96%, 100% { transform: translateX(168px); opacity: 0; }
+    }
+    @keyframes fall {
+      0%, 38% { transform: translateY(0); opacity: 1; }
+      54%, 90% { transform: translateY(30px); opacity: 0.1; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes sliver {
+      0%, 44% { opacity: 1; }
+      54%, 90% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes appear {
+      0%, 46% { opacity: 0; }
+      58%, 88% { opacity: 1; }
+      96%, 100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cut-a, .cut-b, .fall, .sliver, .appear { animation: none; }
+      .appear { opacity: 1; }
+      .sliver { opacity: 0; }
+      .fall { opacity: 0.1; transform: translateY(30px); }
+      .cut-a { transform: translateX(98px); }
+      .cut-b { transform: translateX(168px); }
+    }
+  </style>
+  <rect width="960" height="420" rx="24" fill="#14122A"/>
+  <text x="40" y="50" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="22" font-weight="400" fill="#F4F2FF" text-anchor="start">const str = 'Hi' + family + '!'</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#B9B4D6" text-anchor="start">family = man, woman and girl joined by zero width joiners: 8 UTF-16 code units, 1 grapheme</text>
+
+  <text x="60" y="114" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="400" fill="#FF6F91" text-anchor="start">native   str.slice(0, 3)</text>
+  <text x="82" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#F4F2FF" text-anchor="middle">H</text><text x="126" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#F4F2FF" text-anchor="middle">i</text>
+  <g class="sliver"><g clip-path="url(#left)"><g transform="translate(148 130) scale(1.25)">
+    <rect width="64" height="64" rx="14" fill="#2C2752"/>
+    <circle cx="20" cy="21" r="7.5" fill="#7B6CF6"/>
+    <path d="M9 52 Q9 33 20 33 Q31 33 31 52 Z" fill="#7B6CF6"/>
+    <circle cx="44" cy="21" r="7.5" fill="#FF6F91"/>
+    <path d="M33 52 Q33 33 44 33 Q55 33 55 52 Z" fill="#FF6F91"/>
+    <circle cx="32" cy="38" r="5.5" fill="#F4F2FF"/>
+    <path d="M24.5 58 Q24.5 46 32 46 Q39.5 46 39.5 58 Z" fill="#F4F2FF"/>
+  </g></g></g>
+  <g class="fall"><g clip-path="url(#right)"><g transform="translate(148 130) scale(1.25)">
+    <rect width="64" height="64" rx="14" fill="#2C2752"/>
+    <circle cx="20" cy="21" r="7.5" fill="#7B6CF6"/>
+    <path d="M9 52 Q9 33 20 33 Q31 33 31 52 Z" fill="#7B6CF6"/>
+    <circle cx="44" cy="21" r="7.5" fill="#FF6F91"/>
+    <path d="M33 52 Q33 33 44 33 Q55 33 55 52 Z" fill="#FF6F91"/>
+    <circle cx="32" cy="38" r="5.5" fill="#F4F2FF"/>
+    <path d="M24.5 58 Q24.5 46 32 46 Q39.5 46 39.5 58 Z" fill="#F4F2FF"/>
+  </g></g><text x="250" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#F4F2FF" text-anchor="middle">!</text></g>
+  <g class="appear"><g transform="translate(164 170)">
+    <rect x="-15.84" y="-15.84" width="31.68" height="31.68" rx="4" transform="rotate(45)" fill="#FF6F91"/>
+    <text x="0" y="9.24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="27.28" font-weight="800" fill="#FFFFFF">?</text>
+  </g></g>
+  <path d="M60 222 H272" stroke="#B9B4D6" stroke-width="2"/><path d="M60 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M104 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M148 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M158 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M168 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M178 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M188 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M198 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M208 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M218 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M228 218 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M272 218 v8" stroke="#B9B4D6" stroke-width="2"/><text x="284" y="228" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#B9B4D6" text-anchor="start">UTF-16 code units</text>
+  <g class="appear"><g transform="translate(600 162)"><circle r="14" fill="#FF6F91"/><path d="M-5 -5 L5 5 M5 -5 L-5 5" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/></g><text x="626" y="169" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#FF6F91" text-anchor="start">lone surrogate, broken</text></g>
+  <g class="cut-a"><path d="M60 122 V230" stroke="#FF6F91" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 8"/></g>
+
+  <text x="60" y="274" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="400" fill="#22A06B" text-anchor="start">graphemely   slice(str, 0, 3)</text>
+  <text x="82" y="344" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#F4F2FF" text-anchor="middle">H</text><text x="126" y="344" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#F4F2FF" text-anchor="middle">i</text>
+  <g transform="translate(148 290) scale(1.25)">
+    <rect width="64" height="64" rx="14" fill="#2C2752"/>
+    <circle cx="20" cy="21" r="7.5" fill="#7B6CF6"/>
+    <path d="M9 52 Q9 33 20 33 Q31 33 31 52 Z" fill="#7B6CF6"/>
+    <circle cx="44" cy="21" r="7.5" fill="#FF6F91"/>
+    <path d="M33 52 Q33 33 44 33 Q55 33 55 52 Z" fill="#FF6F91"/>
+    <circle cx="32" cy="38" r="5.5" fill="#F4F2FF"/>
+    <path d="M24.5 58 Q24.5 46 32 46 Q39.5 46 39.5 58 Z" fill="#F4F2FF"/>
+  </g>
+  <g class="fall"><text x="250" y="344" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#F4F2FF" text-anchor="middle">!</text></g>
+  <path d="M60 382 H272" stroke="#B9B4D6" stroke-width="2"/><path d="M60 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M104 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M148 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M158 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M168 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M178 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M188 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M198 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M208 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M218 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M228 378 v8" stroke="#B9B4D6" stroke-width="2"/><path d="M272 378 v8" stroke="#B9B4D6" stroke-width="2"/><text x="284" y="388" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#B9B4D6" text-anchor="start">UTF-16 code units</text>
+  <g class="appear"><g transform="translate(600 322)"><circle r="14" fill="#22A06B"/><path d="M-6 0 L-1.5 5 L7 -5" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><text x="626" y="329" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#22A06B" text-anchor="start">whole grapheme, safe</text></g>
+  <g class="cut-b"><path d="M60 282 V390" stroke="#22A06B" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 8"/></g>
+</svg>
