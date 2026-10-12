@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="graphemely">
+  <meta property="og:site_name" content="@kwy404/graphemely">
   <meta property="og:title" content="graphemely: Truncate, Slice and Count Strings with Emoji Safely in JavaScript">
   <meta property="og:description" content="Unicode safe string length, truncate, substring and reverse for JavaScript. Counts grapheme clusters, so emoji, flags and accents never break. 2 kB, zero deps.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/">
@@ -29,7 +29,7 @@
   "@graph": [
     {
       "@type": "SoftwareSourceCode",
-      "name": "graphemely",
+      "name": "@kwy404/graphemely",
       "description": "Truncate, slice and count strings with emoji safely in JavaScript and TypeScript, by grapheme cluster.",
       "url": "https://kwy404.github.io/graphemely/",
       "codeRepository": "https://github.com/kwy404/graphemely",
@@ -55,7 +55,7 @@
     },
     {
       "@type": "WebSite",
-      "name": "graphemely",
+      "name": "@kwy404/graphemely",
       "url": "https://kwy404.github.io/graphemely/"
     }
   ]
@@ -88,11 +88,11 @@
         <div>
           <h1 id="title">Truncate, slice and count strings with emoji safely in JavaScript</h1>
           <p class="lead"><strong>graphemely</strong> counts and cuts text by grapheme cluster, the characters people actually see. String length with emoji, truncate with an ellipsis, Unicode safe substring, reverse, pad and wrap, without ever splitting an emoji, a flag, a skin tone or an accent.</p>
-<pre data-copy><code>npm install graphemely</code></pre>
+<pre data-copy><code>npm install @kwy404/graphemely</code></pre>
           <div class="cta">
             <a class="btn primary" href="#playground">Try the playground</a>
             <a class="btn" href="https://github.com/kwy404/graphemely">View on GitHub</a>
-            <a class="btn" href="https://www.npmjs.com/package/graphemely">npm</a>
+            <a class="btn" href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
           </div>
         </div>
         <img src="assets/mascot.svg" alt="Gem, the graphemely cat, playing with a ball of yarn whose thread is cut cleanly" width="260" height="260">
@@ -109,7 +109,7 @@ family.length;             <span class="bad">// 8</span>
         </div>
         <div>
           <span class="label ok">graphemely</span>
-<pre><code>import { length, slice, graphemes } from 'graphemely';
+<pre><code>import { length, slice, graphemes } from '@kwy404/graphemely';
 length(family);              <span class="ok">// 1</span>
 slice('Hi' + family, 0, 3);  <span class="ok">// 'Hi' + family</span>
 graphemes('cafe\u{301}');    <span class="ok">// 4 items</span></code></pre>
@@ -162,14 +162,14 @@ graphemes('cafe\u{301}');    <span class="ok">// 4 items</span></code></pre>
       </div>
 
       <h2 id="install">Install</h2>
-<pre data-copy><code>npm install graphemely
+<pre data-copy><code>npm install @kwy404/graphemely
 <span class="c"># or</span>
-pnpm add graphemely
-yarn add graphemely
-bun add graphemely</code></pre>
-<pre data-copy><code>import { truncate, length, slice, reverse } from 'graphemely';
+pnpm add @kwy404/graphemely
+yarn add @kwy404/graphemely
+bun add @kwy404/graphemely</code></pre>
+<pre data-copy><code>import { truncate, length, slice, reverse } from '@kwy404/graphemely';
 <span class="c">// CommonJS</span>
-const { truncate } = require('graphemely');
+const { truncate } = require('@kwy404/graphemely');
 <span class="c">// Deno</span>
 import { truncate } from 'npm:graphemely';</code></pre>
 
@@ -194,7 +194,7 @@ import { truncate } from 'npm:graphemely';</code></pre>
       <h2 id="eslint">ESLint plugin</h2>
       <p>Find unsafe string code in an existing project. Flat config, ESLint 8.57 or newer.</p>
 <pre data-copy><code>// eslint.config.js
-import graphemely from 'graphemely/eslint-plugin';
+import graphemely from '@kwy404/graphemely/eslint-plugin';
 
 export default [graphemely.configs.recommended];</code></pre>
       <ul>
@@ -222,7 +222,7 @@ export default [graphemely.configs.recommended];</code></pre>
       <img src="assets/mascot.svg" alt="" width="28" height="28">
       <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
       <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
       <a href="./">Home</a>
     </div>
   </footer>

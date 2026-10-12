@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="article">
-  <meta property="og:site_name" content="graphemely">
+  <meta property="og:site_name" content="@kwy404/graphemely">
   <meta property="og:title" content="Remove Lone Surrogates from a JavaScript String | graphemely">
   <meta property="og:description" content="What a lone surrogate is, why it breaks encodeURIComponent and JSON, how to detect one with isWellFormed and how to repair a string with toWellFormed on every JavaScript runtime.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/lone-surrogates.html">
@@ -50,7 +50,7 @@
       "proficiencyLevel": "Beginner",
       "isPartOf": {
         "@type": "WebSite",
-        "name": "graphemely",
+        "name": "@kwy404/graphemely",
         "url": "https://kwy404.github.io/graphemely/"
       }
     },
@@ -89,7 +89,7 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "graphemely",
+          "name": "@kwy404/graphemely",
           "item": "https://kwy404.github.io/graphemely/"
         },
         {
@@ -131,7 +131,7 @@
       <p class="lead">A lone surrogate is half of an emoji (or any character outside the Basic Multilingual Plane) left behind when a string is cut by code unit. Detect it with <code>isWellFormed(str)</code> and replace it with U+FFFD using <code>toWellFormed(str)</code>.</p>
 
       <h2>The fix, copy and paste</h2>
-<pre data-copy><code>import { isWellFormed, toWellFormed } from 'graphemely';
+<pre data-copy><code>import { isWellFormed, toWellFormed } from '@kwy404/graphemely';
 
 const broken = '\u{1F600}'.slice(0, 1);   <span class="c">// '\uD83D'</span>
 isWellFormed(broken);                    <span class="c">// false</span>
@@ -154,7 +154,7 @@ encodeURIComponent(toWellFormed(broken)); <span class="c">// '%EF%BF%BD', no URI
       <p>ES2024 added <code>String.prototype.isWellFormed</code> and <code>toWellFormed</code>. They are missing on Node 18 and older browsers. The graphemely versions behave the same and work everywhere.</p>
 
       <h2>Install</h2>
-<pre data-copy><code>npm install graphemely</code></pre>
+<pre data-copy><code>npm install @kwy404/graphemely</code></pre>
       <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
 
       <h2>FAQ</h2>
@@ -179,7 +179,7 @@ encodeURIComponent(toWellFormed(broken)); <span class="c">// '%EF%BF%BD', no URI
       <img src="assets/mascot.svg" alt="" width="28" height="28">
       <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
       <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
       <a href="./">Home</a>
     </div>
   </footer>

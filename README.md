@@ -14,8 +14,8 @@
 <h1 align="center">graphemely: truncate, slice and count strings with emoji safely in JavaScript</h1>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/graphemely"><img src="https://img.shields.io/npm/v/graphemely?color=7B6CF6&label=npm" alt="graphemely npm version" height="20"></a>
-  <a href="https://bundlephobia.com/package/graphemely"><img src="https://img.shields.io/bundlephobia/minzip/graphemely?color=FF6F91&label=minzip" alt="graphemely bundle size, minified and gzipped" height="20"></a>
+  <a href="https://www.npmjs.com/package/@kwy404/graphemely"><img src="https://img.shields.io/npm/v/@kwy404/graphemely?color=7B6CF6&label=npm" alt="graphemely npm version" height="20"></a>
+  <a href="https://bundlephobia.com/package/@kwy404/graphemely"><img src="https://img.shields.io/bundlephobia/minzip/@kwy404/graphemely?color=FF6F91&label=minzip" alt="graphemely bundle size, minified and gzipped" height="20"></a>
   <a href="https://github.com/kwy404/graphemely/actions/workflows/ci.yml"><img src="https://github.com/kwy404/graphemely/actions/workflows/ci.yml/badge.svg" alt="graphemely CI status" height="20"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22A06B" alt="MIT license" height="20"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/types-TypeScript-3178C6" alt="TypeScript types included" height="20"></a>
@@ -25,7 +25,7 @@
 **graphemely** is a tiny, zero dependency library that counts and cuts JavaScript strings the way people see them. JavaScript string length, `slice`, `substring`, `split('')` and `reverse` work on UTF-16 code units, so the length of an emoji is 2 (or 8, or 14), and `str.slice(0, n)` can cut an emoji in half. graphemely works on **grapheme clusters** instead, so you can truncate a string with emoji, get the real string length with emoji, take a Unicode safe substring and reverse a string without breaking flags, skin tones, family emoji, keycaps, accents (`é` composed or decomposed), Hangul, Thai or Devanagari.
 
 ```js
-import { length, truncate, slice, reverse } from 'graphemely';
+import { length, truncate, slice, reverse } from '@kwy404/graphemely';
 
 const family = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}'; // man, woman, girl joined by zero width joiners
 
@@ -84,13 +84,13 @@ Guides with live examples: [truncate a string with emoji](https://kwy404.github.
 ## Install
 
 ```sh
-npm install graphemely
+npm install @kwy404/graphemely
 ```
 
 ```sh
-pnpm add graphemely
-yarn add graphemely
-bun add graphemely
+pnpm add @kwy404/graphemely
+yarn add @kwy404/graphemely
+bun add @kwy404/graphemely
 ```
 
 Deno:
@@ -104,8 +104,8 @@ Ships ESM and CommonJS builds with TypeScript declarations. No runtime dependenc
 ## Quick start
 
 ```js
-import { graphemes, length, truncate, slice, at, reverse, wrap } from 'graphemely';
-// CommonJS: const { truncate } = require('graphemely');
+import { graphemes, length, truncate, slice, at, reverse, wrap } from '@kwy404/graphemely';
+// CommonJS: const { truncate } = require('@kwy404/graphemely');
 
 const tweet = 'Ship it \u{1F680}\u{1F680}\u{1F680} with friends \u{1F469}\u{1F3FD}\u{200D}\u{1F4BB}';
 
@@ -233,7 +233,7 @@ toWellFormed('ok\uD83D');               // 'ok\u{FFFD}'
 The usual `str.slice(0, n) + '...'` counts UTF-16 code units. If the cut lands inside an emoji you get a lone surrogate (a broken box, and an error in `encodeURIComponent`), and even when it does not, it can split a flag, drop a skin tone or separate a family emoji into single people. Use `truncate`:
 
 ```js
-import { truncate } from 'graphemely';
+import { truncate } from '@kwy404/graphemely';
 
 truncate(title, 60);                             // '…' counts toward the 60
 truncate(title, 60, { wordBoundary: true });     // do not cut words in half
@@ -247,7 +247,7 @@ More details and a live demo: [How to truncate a string with emoji in JavaScript
 `String.prototype.length` returns the number of UTF-16 code units. Characters outside the Basic Multilingual Plane, including most emoji, need two code units (a surrogate pair), so `'\u{1F600}'.length === 2`. Many emoji are sequences of several code points: a thumbs up with a skin tone is 4 code units, a flag is 4, a family of three joined with zero width joiners is 8, and the England flag (a tag sequence) is 14. `[...str].length` counts code points, which fixes the surrogate pair case but still counts the family as 5. `length(str)` counts grapheme clusters and returns 1 for all of them.
 
 ```js
-import { length } from 'graphemely';
+import { length } from '@kwy404/graphemely';
 
 '\u{1F600}'.length;                    // 2
 [...'\u{1F44D}\u{1F3FD}'].length;      // 2
@@ -261,7 +261,7 @@ Read more: [String length with emoji in JavaScript](https://kwy404.github.io/gra
 `str.split('').reverse().join('')` reverses code units, so every emoji turns into two lone surrogates. `[...str].reverse().join('')` keeps code points together, but it still reverses the inside of sequences: the two regional indicators of a flag swap (a different flag or none at all), and a combining accent jumps to the previous letter. `reverse(str)` reverses whole grapheme clusters.
 
 ```js
-import { reverse } from 'graphemely';
+import { reverse } from '@kwy404/graphemely';
 
 reverse('a\u{1F1E7}\u{1F1F7}b'); // 'b\u{1F1E7}\u{1F1F7}a', the flag of Brazil survives
 ```
@@ -273,7 +273,7 @@ Read more: [Reverse a string with Unicode and emoji](https://kwy404.github.io/gr
 `split('')` splits into code units, and `Array.from(str)` or `[...str]` split into code points. Neither gives you what a person calls a character. `graphemes(str)` does, and it uses `Intl.Segmenter` under the hood when the runtime has it.
 
 ```js
-import { graphemes } from 'graphemely';
+import { graphemes } from '@kwy404/graphemely';
 
 graphemes('\u{D55C}\u{AE00}');        // Hangul: 2 syllables
 graphemes('\u{E19}\u{E49}\u{E33}');   // Thai "water": 1 grapheme, 3 code points
@@ -299,7 +299,7 @@ graphemely ships an ESLint plugin (flat config, ESLint 8.57 or newer) that finds
 
 ```js
 // eslint.config.js
-import graphemely from 'graphemely/eslint-plugin';
+import graphemely from '@kwy404/graphemely/eslint-plugin';
 
 export default [
   graphemely.configs.recommended,
@@ -309,7 +309,7 @@ export default [
 Or pick rules yourself:
 
 ```js
-import graphemely from 'graphemely/eslint-plugin';
+import graphemely from '@kwy404/graphemely/eslint-plugin';
 
 export default [
   {

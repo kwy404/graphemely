@@ -14,8 +14,8 @@
 <h1 align="center">graphemely: truncar, fatiar e contar strings com emoji com segurança em JavaScript</h1>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/graphemely"><img src="https://img.shields.io/npm/v/graphemely?color=7B6CF6&label=npm" alt="versão do graphemely no npm" height="20"></a>
-  <a href="https://bundlephobia.com/package/graphemely"><img src="https://img.shields.io/bundlephobia/minzip/graphemely?color=FF6F91&label=minzip" alt="tamanho do graphemely minificado e com gzip" height="20"></a>
+  <a href="https://www.npmjs.com/package/@kwy404/graphemely"><img src="https://img.shields.io/npm/v/@kwy404/graphemely?color=7B6CF6&label=npm" alt="versão do graphemely no npm" height="20"></a>
+  <a href="https://bundlephobia.com/package/@kwy404/graphemely"><img src="https://img.shields.io/bundlephobia/minzip/@kwy404/graphemely?color=FF6F91&label=minzip" alt="tamanho do graphemely minificado e com gzip" height="20"></a>
   <a href="https://github.com/kwy404/graphemely/actions/workflows/ci.yml"><img src="https://github.com/kwy404/graphemely/actions/workflows/ci.yml/badge.svg" alt="status do CI do graphemely" height="20"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22A06B" alt="licença MIT" height="20"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/types-TypeScript-3178C6" alt="tipos TypeScript incluídos" height="20"></a>
@@ -24,7 +24,7 @@
 **graphemely** é uma biblioteca pequena e sem dependências que conta e corta strings JavaScript do jeito que as pessoas enxergam. Em JavaScript, `length`, `slice`, `substring`, `split('')` e `reverse` trabalham com unidades de código UTF-16, então o tamanho de um emoji é 2 (ou 8, ou 14) e `str.slice(0, n)` pode cortar um emoji ao meio. O graphemely trabalha com **grapheme clusters** (grafemas), então você pode truncar uma string com emoji, medir o tamanho real de uma string com emoji, fazer um substring seguro para Unicode e inverter uma string sem quebrar bandeiras, tons de pele, emojis de família, keycaps, acentos (`é` composto ou decomposto), coreano, tailandês ou devanágari.
 
 ```js
-import { length, truncate, slice, reverse } from 'graphemely';
+import { length, truncate, slice, reverse } from '@kwy404/graphemely';
 
 const familia = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}'; // homem, mulher e menina unidos por zero width joiners
 
@@ -60,7 +60,7 @@ Guias (em inglês) com exemplos ao vivo: [truncar string com emoji](https://kwy4
 ## Instalação
 
 ```sh
-npm install graphemely
+npm install @kwy404/graphemely
 ```
 
 Inclui builds ESM e CommonJS com declarações TypeScript. Nenhuma dependência em tempo de execução.
@@ -68,7 +68,7 @@ Inclui builds ESM e CommonJS com declarações TypeScript. Nenhuma dependência 
 ## Uso rápido
 
 ```js
-import { graphemes, length, truncate, at, wrap } from 'graphemely';
+import { graphemes, length, truncate, at, wrap } from '@kwy404/graphemely';
 
 const texto = 'Bora \u{1F680}\u{1F680}\u{1F680} com a equipe';
 
@@ -114,7 +114,7 @@ O clássico `str.slice(0, n) + '...'` conta unidades de código UTF-16. Se o cor
 
 ```js
 // eslint.config.js
-import graphemely from 'graphemely/eslint-plugin';
+import graphemely from '@kwy404/graphemely/eslint-plugin';
 
 export default [graphemely.configs.recommended];
 ```

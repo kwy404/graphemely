@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="article">
-  <meta property="og:site_name" content="graphemely">
+  <meta property="og:site_name" content="@kwy404/graphemely">
   <meta property="og:title" content="String Length with Emoji in JavaScript: Why .length Is Wrong | graphemely">
   <meta property="og:description" content="Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/string-length-emoji.html">
@@ -50,7 +50,7 @@
       "proficiencyLevel": "Beginner",
       "isPartOf": {
         "@type": "WebSite",
-        "name": "graphemely",
+        "name": "@kwy404/graphemely",
         "url": "https://kwy404.github.io/graphemely/"
       }
     },
@@ -97,7 +97,7 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "graphemely",
+          "name": "@kwy404/graphemely",
           "item": "https://kwy404.github.io/graphemely/"
         },
         {
@@ -139,7 +139,7 @@
       <p class="lead">Because <code>String.prototype.length</code> counts UTF-16 code units, not characters. Most emoji need two code units, and many are sequences of several code points. To count what a person sees, count grapheme clusters with <code>length(str)</code> from graphemely.</p>
 
       <h2>The fix, copy and paste</h2>
-<pre data-copy><code>import { length } from 'graphemely';
+<pre data-copy><code>import { length } from '@kwy404/graphemely';
 
 length('hello');                                          <span class="c">// 5</span>
 length('\u{1F600}');                                      <span class="c">// 1 (grinning face)</span>
@@ -173,7 +173,7 @@ length('e\u{301}');                                       <span class="c">// 1 (
       <p>Note that some limits are defined in bytes or code units on purpose, for example database column sizes. Use <code>.length</code> or <code>new TextEncoder().encode(str).length</code> for those, and <code>length(str)</code> for anything a human reads.</p>
 
       <h2>Install</h2>
-<pre data-copy><code>npm install graphemely</code></pre>
+<pre data-copy><code>npm install @kwy404/graphemely</code></pre>
       <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
 
       <h2>FAQ</h2>
@@ -199,7 +199,7 @@ length('e\u{301}');                                       <span class="c">// 1 (
       <img src="assets/mascot.svg" alt="" width="28" height="28">
       <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
       <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
       <a href="./">Home</a>
     </div>
   </footer>

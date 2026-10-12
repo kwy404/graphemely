@@ -23,7 +23,7 @@ describe('plugin shape', () => {
       'no-unsafe-reverse',
       'prefer-graphemely-truncate',
     ]);
-    expect(plugin.meta.name).toBe('graphemely/eslint-plugin');
+    expect(plugin.meta.name).toBe('@kwy404/graphemely/eslint-plugin');
     expect(plugin.configs.recommended.plugins?.graphemely).toBe(plugin);
     expect(plugin.configs.recommended.rules).toEqual({
       'graphemely/no-unsafe-string-split': 'warn',

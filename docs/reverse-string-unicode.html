@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="article">
-  <meta property="og:site_name" content="graphemely">
+  <meta property="og:site_name" content="@kwy404/graphemely">
   <meta property="og:title" content="Reverse a String with Emoji and Unicode in JavaScript | graphemely">
   <meta property="og:description" content="How to reverse a string with emoji in JavaScript. Why split('').reverse().join('') and [...str].reverse() break flags, skin tones and accents, and a Unicode safe reverse.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/reverse-string-unicode.html">
@@ -50,7 +50,7 @@
       "proficiencyLevel": "Beginner",
       "isPartOf": {
         "@type": "WebSite",
-        "name": "graphemely",
+        "name": "@kwy404/graphemely",
         "url": "https://kwy404.github.io/graphemely/"
       }
     },
@@ -89,7 +89,7 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "graphemely",
+          "name": "@kwy404/graphemely",
           "item": "https://kwy404.github.io/graphemely/"
         },
         {
@@ -131,7 +131,7 @@
       <p class="lead">The classic <code>str.split('').reverse().join('')</code> turns every emoji into broken halves. Reverse by grapheme cluster instead with <code>reverse(str)</code> from graphemely.</p>
 
       <h2>The fix, copy and paste</h2>
-<pre data-copy><code>import { reverse } from 'graphemely';
+<pre data-copy><code>import { reverse } from '@kwy404/graphemely';
 
 reverse('hello');                     <span class="c">// 'olleh'</span>
 reverse('cafe\u{301}');               <span class="c">// 'e\u{301}fac', the accent stays on the e</span>
@@ -158,12 +158,12 @@ reverse('a\u{1F1E7}\u{1F1F7}b');      <span class="c">// 'b\u{1F1E7}\u{1F1F7}a',
       <h2>Catch it with ESLint</h2>
       <p>The graphemely ESLint plugin reports these patterns with the <a href="https://github.com/kwy404/graphemely/blob/main/docs/rules/no-unsafe-reverse.md">no-unsafe-reverse</a> rule:</p>
 <pre data-copy><code>// eslint.config.js
-import graphemely from 'graphemely/eslint-plugin';
+import graphemely from '@kwy404/graphemely/eslint-plugin';
 
 export default [graphemely.configs.recommended];</code></pre>
 
       <h2>Install</h2>
-<pre data-copy><code>npm install graphemely</code></pre>
+<pre data-copy><code>npm install @kwy404/graphemely</code></pre>
       <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
 
       <h2>FAQ</h2>
@@ -188,7 +188,7 @@ export default [graphemely.configs.recommended];</code></pre>
       <img src="assets/mascot.svg" alt="" width="28" height="28">
       <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
       <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
       <a href="./">Home</a>
     </div>
   </footer>

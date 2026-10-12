@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="article">
-  <meta property="og:site_name" content="graphemely">
+  <meta property="og:site_name" content="@kwy404/graphemely">
   <meta property="og:title" content="Substring Without Breaking Emoji in JavaScript | graphemely">
   <meta property="og:description" content="Why substring, substr and slice break emoji in JavaScript, and how to take a Unicode safe substring by grapheme index, with negative indices and safe split points.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/substring-without-breaking-emoji.html">
@@ -50,7 +50,7 @@
       "proficiencyLevel": "Beginner",
       "isPartOf": {
         "@type": "WebSite",
-        "name": "graphemely",
+        "name": "@kwy404/graphemely",
         "url": "https://kwy404.github.io/graphemely/"
       }
     },
@@ -89,7 +89,7 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "graphemely",
+          "name": "@kwy404/graphemely",
           "item": "https://kwy404.github.io/graphemely/"
         },
         {
@@ -131,7 +131,7 @@
       <p class="lead"><code>substring</code>, <code>substr</code> and <code>slice</code> use UTF-16 code unit indices, so any index that falls inside an emoji cuts it. <code>slice(str, start, end)</code> from graphemely uses grapheme indices, so every cut is safe.</p>
 
       <h2>The fix, copy and paste</h2>
-<pre data-copy><code>import { slice, at, splitAt } from 'graphemely';
+<pre data-copy><code>import { slice, at, splitAt } from '@kwy404/graphemely';
 
 const s = 'I \u{2764}\u{FE0F} JS';
 s.slice(0, 3);            <span class="c">// 'I \u{2764}', the emoji presentation selector is lost</span>
@@ -153,7 +153,7 @@ s.charAt(0);
         </div>
         <div>
           <span class="label ok">Fixed</span>
-<pre><code>import { slice, at } from 'graphemely';
+<pre><code>import { slice, at } from '@kwy404/graphemely';
 
 slice(s, 0, 2);
 <span class="ok">// two whole emoji</span>
@@ -164,7 +164,7 @@ at(s, 0);
       <p>Indices often come from somewhere else (a cursor position, a search match, a database limit). If they were computed in code units, convert the logic to graphemes end to end, and use <code>isWellFormed</code> to assert that a result has no <a href="lone-surrogates.html">lone surrogates</a>.</p>
 
       <h2>Install</h2>
-<pre data-copy><code>npm install graphemely</code></pre>
+<pre data-copy><code>npm install @kwy404/graphemely</code></pre>
       <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
 
       <h2>FAQ</h2>
@@ -189,7 +189,7 @@ at(s, 0);
       <img src="assets/mascot.svg" alt="" width="28" height="28">
       <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
       <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
       <a href="./">Home</a>
     </div>
   </footer>

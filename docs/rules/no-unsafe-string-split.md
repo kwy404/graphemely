@@ -28,7 +28,7 @@ name.trim().split('').map(toUpper);
 Examples of **correct** code:
 
 ```js
-import { graphemes } from 'graphemely';
+import { graphemes } from '@kwy404/graphemely';
 
 graphemes(str);
 str.split(' ');

@@ -37,7 +37,7 @@ Array.from(str).reverse().join('');
 Examples of **correct** code:
 
 ```js
-import { reverse } from 'graphemely';
+import { reverse } from '@kwy404/graphemely';
 
 reverse(str);
 [...items].reverse();

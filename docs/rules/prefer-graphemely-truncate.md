@@ -30,7 +30,7 @@ title.slice(0, max - 1) + '\u{2026}';
 Examples of **correct** code:
 
 ```js
-import { truncate } from 'graphemely';
+import { truncate } from '@kwy404/graphemely';
 
 truncate(str, 10);
 truncate(str, 10, { ellipsis: '...' });

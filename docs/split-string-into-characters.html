@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="article">
-  <meta property="og:site_name" content="graphemely">
+  <meta property="og:site_name" content="@kwy404/graphemely">
   <meta property="og:title" content="Split a String into Characters in JavaScript, Unicode Safe | graphemely">
   <meta property="og:description" content="How to split a string into characters in JavaScript with full Unicode support. Why split(''), Array.from and the spread operator break emoji and accents, and how to split into grapheme clusters.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/split-string-into-characters.html">
@@ -50,7 +50,7 @@
       "proficiencyLevel": "Beginner",
       "isPartOf": {
         "@type": "WebSite",
-        "name": "graphemely",
+        "name": "@kwy404/graphemely",
         "url": "https://kwy404.github.io/graphemely/"
       }
     },
@@ -89,7 +89,7 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "graphemely",
+          "name": "@kwy404/graphemely",
           "item": "https://kwy404.github.io/graphemely/"
         },
         {
@@ -131,7 +131,7 @@
       <p class="lead"><code>split('')</code> gives you UTF-16 code units and <code>[...str]</code> gives you code points. Neither matches what a person calls a character. <code>graphemes(str)</code> from graphemely splits into grapheme clusters.</p>
 
       <h2>The fix, copy and paste</h2>
-<pre data-copy><code>import { graphemes } from 'graphemely';
+<pre data-copy><code>import { graphemes } from '@kwy404/graphemely';
 
 graphemes('abc');                         <span class="c">// ['a', 'b', 'c']</span>
 graphemes('cafe\u{301}');                 <span class="c">// ['c', 'a', 'f', 'e\u{301}']</span>
@@ -157,7 +157,7 @@ const chars = Array.from(segmenter.segment(str), (s) => s.segment);</code></pre>
       <p>graphemely adds a fast path for plain ASCII and Latin-1 text, a built-in fallback for runtimes without <code>Intl.Segmenter</code>, and the operations you usually need next: <a href="truncate-string-with-emoji.html">truncate</a>, <a href="substring-without-breaking-emoji.html">slice</a>, <a href="reverse-string-unicode.html">reverse</a>, pad and wrap.</p>
 
       <h2>Install</h2>
-<pre data-copy><code>npm install graphemely</code></pre>
+<pre data-copy><code>npm install @kwy404/graphemely</code></pre>
       <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
 
       <h2>FAQ</h2>
@@ -182,7 +182,7 @@ const chars = Array.from(segmenter.segment(str), (s) => s.segment);</code></pre>
       <img src="assets/mascot.svg" alt="" width="28" height="28">
       <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
       <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
       <a href="./">Home</a>
     </div>
   </footer>

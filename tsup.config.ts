@@ -19,9 +19,9 @@ export default defineConfig([
     ...shared,
     entry: { 'eslint-plugin': 'src/eslint-plugin/index.ts' },
     external: ['eslint'],
-    // Typings use `export =` so `require('graphemely/eslint-plugin')` is typed as the plugin.
+    // Typings use `export =` so `require('@kwy404/graphemely/eslint-plugin')` is typed as the plugin.
     cjsInterop: true,
-    // Make `require('graphemely/eslint-plugin')` return the plugin itself,
+    // Make `require('@kwy404/graphemely/eslint-plugin')` return the plugin itself,
     // while `.default` keeps working for transpiled ESM consumers.
     footer: ({ format }) =>
       format === 'cjs'
