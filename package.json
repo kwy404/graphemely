@@ -1,6 +1,6 @@
 {
   "name": "@kwy404/graphemely",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Truncate, slice and count strings with emoji safely in JavaScript and TypeScript. Unicode safe string length, substring, reverse, pad and wrap by grapheme clusters, so emoji, flags, skin tones, accents and surrogate pairs never break.",
   "keywords": [
     "truncate-string-emoji",

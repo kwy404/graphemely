@@ -1,12 +1,12 @@
 <p align="center">
-  <a href="README.md">English</a> | <b>Português (Brasil)</b>
+  <a href="https://github.com/kwy404/graphemely/blob/main/README.md">English</a> | <b>Português (Brasil)</b>
 </p>
 
 <p align="center">
   <a href="https://kwy404.github.io/graphemely/">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-      <img src="assets/banner.svg" width="880" alt="Banner do graphemely: a gata Gem com um novelo de lã ao lado do slogan truncar, fatiar e contar strings com emoji com segurança em JavaScript. O str.slice nativo quebra um emoji de família, o slice do graphemely mantém o grafema inteiro.">
+      <source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/banner-dark.svg">
+      <img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/banner.svg" width="880" alt="Banner do graphemely: a gata Gem com um novelo de lã ao lado do slogan truncar, fatiar e contar strings com emoji com segurança em JavaScript. O str.slice nativo quebra um emoji de família, o slice do graphemely mantém o grafema inteiro.">
     </picture>
   </a>
 </p>
@@ -17,7 +17,7 @@
   <a href="https://www.npmjs.com/package/@kwy404/graphemely"><img src="https://img.shields.io/npm/v/@kwy404/graphemely?color=7B6CF6&label=npm" alt="versão do graphemely no npm" height="20"></a>
   <a href="https://bundlephobia.com/package/@kwy404/graphemely"><img src="https://img.shields.io/bundlephobia/minzip/@kwy404/graphemely?color=FF6F91&label=minzip" alt="tamanho do graphemely minificado e com gzip" height="20"></a>
   <a href="https://github.com/kwy404/graphemely/actions/workflows/ci.yml"><img src="https://github.com/kwy404/graphemely/actions/workflows/ci.yml/badge.svg" alt="status do CI do graphemely" height="20"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22A06B" alt="licença MIT" height="20"></a>
+  <a href="https://github.com/kwy404/graphemely/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-22A06B" alt="licença MIT" height="20"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/types-TypeScript-3178C6" alt="tipos TypeScript incluídos" height="20"></a>
 </p>
 
@@ -39,7 +39,7 @@ reverse(str);               // '!' + familia + 'iO'
 ```
 
 <p align="center">
-  <img src="assets/demo.svg" width="720" alt="Demonstração animada: str.slice(0, 3) nativo corta um emoji de família no meio e deixa um surrogate solitário, enquanto slice(str, 0, 3) do graphemely corta na fronteira do grafema e mantém o emoji inteiro">
+  <img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/demo.svg" width="720" alt="Demonstração animada: str.slice(0, 3) nativo corta um emoji de família no meio e deixa um surrogate solitário, enquanto slice(str, 0, 3) do graphemely corta na fronteira do grafema e mantém o emoji inteiro">
 </p>
 
 ## Sumário
@@ -100,7 +100,7 @@ Todas as funções contam em **grapheme clusters**, conforme o [Unicode UAX #29]
 | `wrap(str, width, { hard }?)` | `string[]` | quebra de linha feita à mão |
 | `isWellFormed(str)` / `toWellFormed(str)` | `boolean` / `string` | métodos do ES2024 |
 
-Em `truncate`, a reticência padrão é `'…'` (um único caractere, U+2026) e **conta para o `maxLength`**, então o resultado sempre cabe. Com `wordBoundary: true` o corte acontece no último espaço que couber. A documentação completa de cada função está no [README em inglês](README.md#api-reference).
+Em `truncate`, a reticência padrão é `'…'` (um único caractere, U+2026) e **conta para o `maxLength`**, então o resultado sempre cabe. Com `wordBoundary: true` o corte acontece no último espaço que couber. A documentação completa de cada função está no [README em inglês](https://github.com/kwy404/graphemely/blob/main/README.md#api-reference).
 
 ## Como truncar uma string com emoji em JavaScript?
 
@@ -119,7 +119,7 @@ import graphemely from '@kwy404/graphemely/eslint-plugin';
 export default [graphemely.configs.recommended];
 ```
 
-Regras: `no-unsafe-string-split` (aponta `str.split('')`), `no-unsafe-reverse` (aponta `str.split('').reverse()` e `[...str].reverse().join('')`) e `prefer-graphemely-truncate` (aponta `str.slice(0, n) + '...'`). Documentação em [docs/rules](docs/rules).
+Regras: `no-unsafe-string-split` (aponta `str.split('')`), `no-unsafe-reverse` (aponta `str.split('').reverse()` e `[...str].reverse().join('')`) e `prefer-graphemely-truncate` (aponta `str.slice(0, n) + '...'`). Documentação em [docs/rules](https://github.com/kwy404/graphemely/blob/main/docs/rules).
 
 ## Comparação com alternativas
 
@@ -134,8 +134,8 @@ Node.js 16 ou mais novo, Chrome e Edge 87+, Safari 14.1+, Firefox 125+, Deno e B
 
 ## Contribuindo
 
-Issues e pull requests são bem-vindos. Veja [CONTRIBUTING.md](CONTRIBUTING.md).
+Issues e pull requests são bem-vindos. Veja [CONTRIBUTING.md](https://github.com/kwy404/graphemely/blob/main/CONTRIBUTING.md).
 
 ## Licença
 
-[MIT](LICENSE) © 2026 [Alexandre Kohler](https://github.com/kwy404).
+[MIT](https://github.com/kwy404/graphemely/blob/main/LICENSE) © 2026 [Alexandre Kohler](https://github.com/kwy404).

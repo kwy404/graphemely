@@ -37,7 +37,7 @@ export interface GraphemelyPlugin extends ESLint.Plugin {
 }
 
 const plugin: GraphemelyPlugin = {
-  meta: { name: '@kwy404/graphemely/eslint-plugin', version: '0.1.0' },
+  meta: { name: '@kwy404/graphemely/eslint-plugin', version: '0.1.1' },
   rules,
   configs: { recommended: {} },
 };

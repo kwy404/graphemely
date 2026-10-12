@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format is based on 
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-12
+
+### Changed
+
+- Published as `@kwy404/graphemely` on npm.
+- README images and links use absolute URLs so they render on npmjs.com.
+
 ## [0.1.0] - 2026-10-12
 
 ### Added

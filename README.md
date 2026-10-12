@@ -1,12 +1,12 @@
 <p align="center">
-  <b>English</b> | <a href="README.pt-BR.md">Português (Brasil)</a>
+  <b>English</b> | <a href="https://github.com/kwy404/graphemely/blob/main/README.pt-BR.md">Português (Brasil)</a>
 </p>
 
 <p align="center">
   <a href="https://kwy404.github.io/graphemely/">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-      <img src="assets/banner.svg" width="880" alt="graphemely banner: Gem the cat with a ball of yarn next to the tagline truncate, slice and count strings with emoji safely in JavaScript. Native str.slice breaks a family emoji into a replacement character, graphemely slice keeps the grapheme cluster whole.">
+      <source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/banner-dark.svg">
+      <img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/banner.svg" width="880" alt="graphemely banner: Gem the cat with a ball of yarn next to the tagline truncate, slice and count strings with emoji safely in JavaScript. Native str.slice breaks a family emoji into a replacement character, graphemely slice keeps the grapheme cluster whole.">
     </picture>
   </a>
 </p>
@@ -17,7 +17,7 @@
   <a href="https://www.npmjs.com/package/@kwy404/graphemely"><img src="https://img.shields.io/npm/v/@kwy404/graphemely?color=7B6CF6&label=npm" alt="graphemely npm version" height="20"></a>
   <a href="https://bundlephobia.com/package/@kwy404/graphemely"><img src="https://img.shields.io/bundlephobia/minzip/@kwy404/graphemely?color=FF6F91&label=minzip" alt="graphemely bundle size, minified and gzipped" height="20"></a>
   <a href="https://github.com/kwy404/graphemely/actions/workflows/ci.yml"><img src="https://github.com/kwy404/graphemely/actions/workflows/ci.yml/badge.svg" alt="graphemely CI status" height="20"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22A06B" alt="MIT license" height="20"></a>
+  <a href="https://github.com/kwy404/graphemely/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-22A06B" alt="MIT license" height="20"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/types-TypeScript-3178C6" alt="TypeScript types included" height="20"></a>
   <img src="https://img.shields.io/badge/dependencies-0-7B6CF6" alt="zero dependencies" height="20">
 </p>
@@ -41,24 +41,24 @@ reverse(str);               // '!' + family + 'iH'
 
 <table align="center">
   <tr>
-    <td align="center" width="33%"><img src="assets/icons/length.svg" width="40" height="40" alt="string length with emoji icon"><br><b>Real length</b><br>Count graphemes, not code units</td>
-    <td align="center" width="33%"><img src="assets/icons/truncate.svg" width="40" height="40" alt="truncate string with emoji icon"><br><b>Truncate</b><br>Ellipsis and word boundaries, never half an emoji</td>
-    <td align="center" width="33%"><img src="assets/icons/slice.svg" width="40" height="40" alt="unicode safe substring icon"><br><b>Slice and at</b><br>Unicode safe substring with negative indices</td>
+    <td align="center" width="33%"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/length.svg" width="40" height="40" alt="string length with emoji icon"><br><b>Real length</b><br>Count graphemes, not code units</td>
+    <td align="center" width="33%"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/truncate.svg" width="40" height="40" alt="truncate string with emoji icon"><br><b>Truncate</b><br>Ellipsis and word boundaries, never half an emoji</td>
+    <td align="center" width="33%"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/slice.svg" width="40" height="40" alt="unicode safe substring icon"><br><b>Slice and at</b><br>Unicode safe substring with negative indices</td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/icons/reverse.svg" width="40" height="40" alt="reverse string with emoji icon"><br><b>Reverse</b><br>Flags and accents stay intact</td>
-    <td align="center"><img src="assets/icons/graphemes.svg" width="40" height="40" alt="split string into characters icon"><br><b>Split</b><br>Split a string into user visible characters</td>
-    <td align="center"><img src="assets/icons/wrap.svg" width="40" height="40" alt="word wrap unicode text icon"><br><b>Pad and wrap</b><br>Fixed width text that lines up</td>
+    <td align="center"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/reverse.svg" width="40" height="40" alt="reverse string with emoji icon"><br><b>Reverse</b><br>Flags and accents stay intact</td>
+    <td align="center"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/graphemes.svg" width="40" height="40" alt="split string into characters icon"><br><b>Split</b><br>Split a string into user visible characters</td>
+    <td align="center"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/wrap.svg" width="40" height="40" alt="word wrap unicode text icon"><br><b>Pad and wrap</b><br>Fixed width text that lines up</td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/icons/well-formed.svg" width="40" height="40" alt="fix lone surrogates icon"><br><b>Well formed</b><br>Detect and repair lone surrogates</td>
-    <td align="center"><img src="assets/icons/eslint.svg" width="40" height="40" alt="ESLint plugin icon"><br><b>ESLint plugin</b><br>Catch <code>split('')</code> and unsafe truncation</td>
-    <td align="center"><img src="assets/icons/tiny.svg" width="40" height="40" alt="tiny zero dependency package icon"><br><b>Tiny</b><br>About 2 kB gzipped, tree shakeable, zero deps</td>
+    <td align="center"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/well-formed.svg" width="40" height="40" alt="fix lone surrogates icon"><br><b>Well formed</b><br>Detect and repair lone surrogates</td>
+    <td align="center"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/eslint.svg" width="40" height="40" alt="ESLint plugin icon"><br><b>ESLint plugin</b><br>Catch <code>split('')</code> and unsafe truncation</td>
+    <td align="center"><img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/icons/tiny.svg" width="40" height="40" alt="tiny zero dependency package icon"><br><b>Tiny</b><br>About 2 kB gzipped, tree shakeable, zero deps</td>
   </tr>
 </table>
 
 <p align="center">
-  <img src="assets/demo.svg" width="720" alt="Animated demo: native JavaScript str.slice(0, 3) cuts a family emoji in the middle and leaves a lone surrogate, while graphemely slice(str, 0, 3) cuts at the grapheme cluster boundary and keeps the emoji whole">
+  <img src="https://cdn.jsdelivr.net/gh/kwy404/graphemely@main/assets/demo.svg" width="720" alt="Animated demo: native JavaScript str.slice(0, 3) cuts a family emoji in the middle and leaves a lone surrogate, while graphemely slice(str, 0, 3) cuts at the grapheme cluster boundary and keeps the emoji whole">
 </p>
 
 ## Contents
@@ -325,9 +325,9 @@ export default [
 
 | Rule | Flags | Docs |
 | --- | --- | --- |
-| `no-unsafe-string-split` | `str.split('')` | [docs](docs/rules/no-unsafe-string-split.md) |
-| `no-unsafe-reverse` | `str.split('').reverse()`, `[...str].reverse().join('')`, `Array.from(str).reverse().join('')` | [docs](docs/rules/no-unsafe-reverse.md) |
-| `prefer-graphemely-truncate` | `str.slice(0, n) + '...'` and the `substring`, `substr` and template literal forms (conservative heuristic) | [docs](docs/rules/prefer-graphemely-truncate.md) |
+| `no-unsafe-string-split` | `str.split('')` | [docs](https://github.com/kwy404/graphemely/blob/main/docs/rules/no-unsafe-string-split.md) |
+| `no-unsafe-reverse` | `str.split('').reverse()`, `[...str].reverse().join('')`, `Array.from(str).reverse().join('')` | [docs](https://github.com/kwy404/graphemely/blob/main/docs/rules/no-unsafe-reverse.md) |
+| `prefer-graphemely-truncate` | `str.slice(0, n) + '...'` and the `substring`, `substr` and template literal forms (conservative heuristic) | [docs](https://github.com/kwy404/graphemely/blob/main/docs/rules/prefer-graphemely-truncate.md) |
 
 All three are enabled as warnings in `configs.recommended`.
 
@@ -373,7 +373,7 @@ The package is marked `sideEffects: false`, so bundlers drop what you do not imp
 
 ## Contributing
 
-Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). In short:
+Issues and pull requests are welcome. See [CONTRIBUTING.md](https://github.com/kwy404/graphemely/blob/main/CONTRIBUTING.md). In short:
 
 ```sh
 npm install
@@ -385,4 +385,4 @@ npm run build
 
 ## License
 
-[MIT](LICENSE) © 2026 [Alexandre Kohler](https://github.com/kwy404). Mascot Gem and artwork are part of the project and share the same license.
+[MIT](https://github.com/kwy404/graphemely/blob/main/LICENSE) © 2026 [Alexandre Kohler](https://github.com/kwy404). Mascot Gem and artwork are part of the project and share the same license.
