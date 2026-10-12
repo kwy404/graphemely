@@ -365,7 +365,7 @@ Measured with esbuild (minified) and zlib for version 0.1.0, run `npm run size` 
 
 | Import | Minified | Gzip | Brotli |
 | --- | --- | --- | --- |
-| everything | 4.1 kB | 2.0 kB | 1.8 kB |
+| everything | 4.2 kB | 2.0 kB | 1.8 kB |
 | `{ truncate }` only | 2.5 kB | 1.3 kB | 1.2 kB |
 | `{ isWellFormed }` only | 1.0 kB | 0.6 kB | 0.5 kB |
 
