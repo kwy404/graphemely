@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reverse a String with Emoji and Unicode in JavaScript | graphemely</title>
+  <meta name="description" content="How to reverse a string with emoji in JavaScript. Why split('').reverse().join('') and [...str].reverse() break flags, skin tones and accents, and a Unicode safe reverse.">
+  <link rel="canonical" href="https://kwy404.github.io/graphemely/reverse-string-unicode.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#7B6CF6">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="graphemely">
+  <meta property="og:title" content="Reverse a String with Emoji and Unicode in JavaScript | graphemely">
+  <meta property="og:description" content="How to reverse a string with emoji in JavaScript. Why split('').reverse().join('') and [...str].reverse() break flags, skin tones and accents, and a Unicode safe reverse.">
+  <meta property="og:url" content="https://kwy404.github.io/graphemely/reverse-string-unicode.html">
+  <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reverse a String with Emoji and Unicode in JavaScript | graphemely">
+  <meta name="twitter:description" content="How to reverse a string with emoji in JavaScript. Why split('').reverse().join('') and [...str].reverse() break flags, skin tones and accents, and a Unicode safe reverse.">
+  <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to reverse a string with emoji in JavaScript",
+      "description": "How to reverse a string with emoji in JavaScript. Why split('').reverse().join('') and [...str].reverse() break flags, skin tones and accents, and a Unicode safe reverse.",
+      "url": "https://kwy404.github.io/graphemely/reverse-string-unicode.html",
+      "image": "https://kwy404.github.io/graphemely/og.png",
+      "inLanguage": "en",
+      "datePublished": "2026-10-12",
+      "dateModified": "2026-10-12",
+      "author": {
+        "@type": "Person",
+        "name": "Alexandre Kohler",
+        "url": "https://github.com/kwy404"
+      },
+      "about": [
+        "JavaScript",
+        "Unicode",
+        "Grapheme cluster",
+        "Emoji"
+      ],
+      "proficiencyLevel": "Beginner",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "graphemely",
+        "url": "https://kwy404.github.io/graphemely/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does split('').reverse().join('') break emoji?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "split('') splits a string into UTF-16 code units. Reversing them puts the low surrogate before the high surrogate, which leaves two lone surrogates that render as broken boxes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is [...str].reverse().join(\"\") safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only for text without sequences. It keeps code points together but reverses the parts of flags, skin tones, keycaps, ZWJ emoji and combining accents."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I reverse a string with emoji correctly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Split it into grapheme clusters and reverse those: reverse(str) from graphemely does exactly that."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "graphemely",
+          "item": "https://kwy404.github.io/graphemely/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How to reverse a string with emoji in JavaScript",
+          "item": "https://kwy404.github.io/graphemely/reverse-string-unicode.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+      <nav class="site" aria-label="Guides">
+        <a href="truncate-string-with-emoji.html">Truncate</a>
+        <a href="string-length-emoji.html">Length</a>
+        <a href="reverse-string-unicode.html" aria-current="page">Reverse</a>
+        <a href="split-string-into-characters.html">Split</a>
+        <a href="substring-without-breaking-emoji.html">Substring</a>
+        <a href="./#playground">Playground</a>
+        <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+
+      <p><a href="./">graphemely</a> / Guides</p>
+      <h1>How to reverse a string with emoji in JavaScript</h1>
+      <p class="lead">The classic <code>str.split('').reverse().join('')</code> turns every emoji into broken halves. Reverse by grapheme cluster instead with <code>reverse(str)</code> from graphemely.</p>
+
+      <h2>The fix, copy and paste</h2>
+<pre data-copy><code>import { reverse } from 'graphemely';
+
+reverse('hello');                     <span class="c">// 'olleh'</span>
+reverse('cafe\u{301}');               <span class="c">// 'e\u{301}fac', the accent stays on the e</span>
+reverse('a\u{1F1E7}\u{1F1F7}b');      <span class="c">// 'b\u{1F1E7}\u{1F1F7}a', the flag of Brazil survives</span></code></pre>
+      <p class="callout">Emoji in the code samples are written as JavaScript escapes, for example <code>\u{1F468}</code> for a man. In your own code you can type the emoji directly.</p>
+
+      <h2>Why the usual one liners break</h2>
+      <div class="compare">
+        <div>
+          <span class="label bad">Broken: code units</span>
+<pre><code>'a\u{1F600}b'.split('').reverse().join('');
+<span class="bad">// 'b\uDE00\uD83Da'
+// two lone surrogates in the wrong order</span></code></pre>
+        </div>
+        <div>
+          <span class="label bad">Still broken: code points</span>
+<pre><code>[...'a\u{1F1E7}\u{1F1F7}b'].reverse().join('');
+<span class="bad">// 'b\u{1F1F7}\u{1F1E7}a'
+// the regional indicators swap: BR becomes RB</span></code></pre>
+        </div>
+      </div>
+      <p>The spread version keeps surrogate pairs together, so it looks right for simple emoji. It still reverses the inside of multi code point sequences: flags turn into different flags or into two letters in boxes, a skin tone modifier moves in front of its emoji, a combining accent jumps to the previous letter, and family emoji fall apart into single people.</p>
+
+      <h2>Catch it with ESLint</h2>
+      <p>The graphemely ESLint plugin reports these patterns with the <a href="https://github.com/kwy404/graphemely/blob/main/docs/rules/no-unsafe-reverse.md">no-unsafe-reverse</a> rule:</p>
+<pre data-copy><code>// eslint.config.js
+import graphemely from 'graphemely/eslint-plugin';
+
+export default [graphemely.configs.recommended];</code></pre>
+
+      <h2>Install</h2>
+<pre data-copy><code>npm install graphemely</code></pre>
+      <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>Why does split('').reverse().join('') break emoji?</summary><p><code>split('')</code> splits a string into UTF-16 code units. Reversing them puts the low surrogate before the high surrogate, which leaves two lone surrogates that render as broken boxes.</p></details>
+        <details><summary>Is [...str].reverse().join("") safe?</summary><p>Only for text without sequences. It keeps code points together but reverses the parts of flags, skin tones, keycaps, ZWJ emoji and combining accents.</p></details>
+        <details><summary>How do I reverse a string with emoji correctly?</summary><p>Split it into grapheme clusters and reverse those: <code>reverse(str)</code> from graphemely does exactly that.</p></details>
+      </div>
+
+      <h2>Related guides</h2>
+      <div class="grid">
+        <a class="card" href="truncate-string-with-emoji.html"><img src="assets/icons/truncate.svg" alt="" width="40" height="40"><h3>Truncate a string with emoji</h3><p>Cut text to a length with an ellipsis, never half an emoji.</p></a>
+        <a class="card" href="string-length-emoji.html"><img src="assets/icons/length.svg" alt="" width="40" height="40"><h3>String length with emoji</h3><p>Why an emoji has length 2, and how to count what users see.</p></a>
+        <a class="card" href="split-string-into-characters.html"><img src="assets/icons/graphemes.svg" alt="" width="40" height="40"><h3>Split a string into characters</h3><p>Get the visible characters, not code units or code points.</p></a>
+        <a class="card" href="substring-without-breaking-emoji.html"><img src="assets/icons/slice.svg" alt="" width="40" height="40"><h3>Substring without breaking emoji</h3><p>A Unicode safe substring and slice with negative indices.</p></a>
+        <a class="card" href="lone-surrogates.html"><img src="assets/icons/well-formed.svg" alt="" width="40" height="40"><h3>Remove lone surrogates</h3><p>Detect and repair the broken halves of emoji.</p></a>
+      </div>
+    </div>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <img src="assets/mascot.svg" alt="" width="28" height="28">
+      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+      <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="./">Home</a>
+    </div>
+  </footer>
+</body>
+</html>

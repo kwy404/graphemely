@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>graphemely: Truncate, Slice and Count Strings with Emoji Safely in JavaScript</title>
+  <meta name="description" content="Unicode safe string length, truncate, substring and reverse for JavaScript. Counts grapheme clusters, so emoji, flags and accents never break. 2 kB, zero deps.">
+  <link rel="canonical" href="https://kwy404.github.io/graphemely/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#7B6CF6">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="graphemely">
+  <meta property="og:title" content="graphemely: Truncate, Slice and Count Strings with Emoji Safely in JavaScript">
+  <meta property="og:description" content="Unicode safe string length, truncate, substring and reverse for JavaScript. Counts grapheme clusters, so emoji, flags and accents never break. 2 kB, zero deps.">
+  <meta property="og:url" content="https://kwy404.github.io/graphemely/">
+  <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="graphemely: Truncate, Slice and Count Strings with Emoji Safely in JavaScript">
+  <meta name="twitter:description" content="Unicode safe string length, truncate, substring and reverse for JavaScript. Counts grapheme clusters, so emoji, flags and accents never break. 2 kB, zero deps.">
+  <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "graphemely",
+      "description": "Truncate, slice and count strings with emoji safely in JavaScript and TypeScript, by grapheme cluster.",
+      "url": "https://kwy404.github.io/graphemely/",
+      "codeRepository": "https://github.com/kwy404/graphemely",
+      "programmingLanguage": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "runtimePlatform": [
+        "Node.js",
+        "Browser",
+        "Deno",
+        "Bun"
+      ],
+      "license": "https://opensource.org/licenses/MIT",
+      "version": "0.1.0",
+      "image": "https://kwy404.github.io/graphemely/og.png",
+      "author": {
+        "@type": "Person",
+        "name": "Alexandre Kohler",
+        "url": "https://github.com/kwy404"
+      },
+      "keywords": "truncate string emoji javascript, string length emoji, grapheme clusters, unicode safe substring, reverse string unicode, split string into characters"
+    },
+    {
+      "@type": "WebSite",
+      "name": "graphemely",
+      "url": "https://kwy404.github.io/graphemely/"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+      <nav class="site" aria-label="Guides">
+        <a href="truncate-string-with-emoji.html">Truncate</a>
+        <a href="string-length-emoji.html">Length</a>
+        <a href="reverse-string-unicode.html">Reverse</a>
+        <a href="split-string-into-characters.html">Split</a>
+        <a href="substring-without-breaking-emoji.html">Substring</a>
+        <a href="./#playground">Playground</a>
+        <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+
+      <section class="hero" aria-labelledby="title">
+        <div>
+          <h1 id="title">Truncate, slice and count strings with emoji safely in JavaScript</h1>
+          <p class="lead"><strong>graphemely</strong> counts and cuts text by grapheme cluster, the characters people actually see. String length with emoji, truncate with an ellipsis, Unicode safe substring, reverse, pad and wrap, without ever splitting an emoji, a flag, a skin tone or an accent.</p>
+<pre data-copy><code>npm install graphemely</code></pre>
+          <div class="cta">
+            <a class="btn primary" href="#playground">Try the playground</a>
+            <a class="btn" href="https://github.com/kwy404/graphemely">View on GitHub</a>
+            <a class="btn" href="https://www.npmjs.com/package/graphemely">npm</a>
+          </div>
+        </div>
+        <img src="assets/mascot.svg" alt="Gem, the graphemely cat, playing with a ball of yarn whose thread is cut cleanly" width="260" height="260">
+      </section>
+
+      <h2 id="problem">The problem in four lines</h2>
+      <div class="compare">
+        <div>
+          <span class="label bad">Native JavaScript</span>
+<pre><code>const family = '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}';
+family.length;             <span class="bad">// 8</span>
+('Hi' + family).slice(0, 3); <span class="bad">// 'Hi\uD83D', broken</span>
+'cafe\u{301}'.split('');   <span class="bad">// 5 items, accent detached</span></code></pre>
+        </div>
+        <div>
+          <span class="label ok">graphemely</span>
+<pre><code>import { length, slice, graphemes } from 'graphemely';
+length(family);              <span class="ok">// 1</span>
+slice('Hi' + family, 0, 3);  <span class="ok">// 'Hi' + family</span>
+graphemes('cafe\u{301}');    <span class="ok">// 4 items</span></code></pre>
+        </div>
+      </div>
+      <p class="callout">The family emoji above is a man, a woman and a girl joined by zero width joiners: 8 UTF-16 code units, 5 code points, 1 visible character.</p>
+
+      <section id="playground" class="playground" aria-labelledby="pg-title">
+        <h2 id="pg-title">Playground: native vs graphemely</h2>
+        <p>Type or paste any text, including emoji, and compare the results. Everything runs in your browser with the same build that ships on npm.</p>
+        <div class="samples" role="group" aria-label="Sample texts">
+          <button type="button" data-sample="family">Family emoji</button>
+          <button type="button" data-sample="flags">Flags</button>
+          <button type="button" data-sample="skin">Skin tones</button>
+          <button type="button" data-sample="accents">Accents</button>
+          <button type="button" data-sample="scripts">Hangul, Thai, Devanagari</button>
+          <button type="button" data-sample="keycaps">Keycaps</button>
+        </div>
+        <div class="row">
+          <div style="flex: 1 1 320px">
+            <label for="pg-input">Text</label>
+            <textarea id="pg-input" rows="2" spellcheck="false"></textarea>
+          </div>
+          <div>
+            <label for="pg-n">Cut at n</label>
+            <input id="pg-n" type="number" min="0" max="500" value="4">
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="result">
+            <thead><tr><th scope="col">Operation</th><th scope="col">Native</th><th scope="col">graphemely</th></tr></thead>
+            <tbody id="pg-body" aria-live="polite"></tbody>
+          </table>
+        </div>
+        <h3>Grapheme clusters</h3>
+        <div id="pg-chips" class="chips" aria-label="Grapheme clusters with their code points"></div>
+      </section>
+
+      <h2 id="features">Features</h2>
+      <div class="grid">
+        <a class="card" href="string-length-emoji.html"><img src="assets/icons/length.svg" alt="" width="40" height="40"><h3>Real length</h3><p>Count graphemes, not UTF-16 code units.</p></a>
+        <a class="card" href="truncate-string-with-emoji.html"><img src="assets/icons/truncate.svg" alt="" width="40" height="40"><h3>Truncate</h3><p>Ellipsis and word boundaries, never half an emoji.</p></a>
+        <a class="card" href="substring-without-breaking-emoji.html"><img src="assets/icons/slice.svg" alt="" width="40" height="40"><h3>Slice and at</h3><p>Unicode safe substring with negative indices.</p></a>
+        <a class="card" href="reverse-string-unicode.html"><img src="assets/icons/reverse.svg" alt="" width="40" height="40"><h3>Reverse</h3><p>Flags, skin tones and accents stay intact.</p></a>
+        <a class="card" href="split-string-into-characters.html"><img src="assets/icons/graphemes.svg" alt="" width="40" height="40"><h3>Split</h3><p>Split a string into the characters users see.</p></a>
+        <a class="card" href="lone-surrogates.html"><img src="assets/icons/well-formed.svg" alt="" width="40" height="40"><h3>Well formed</h3><p>Detect and repair lone surrogates.</p></a>
+        <a class="card" href="#api"><img src="assets/icons/wrap.svg" alt="" width="40" height="40"><h3>Pad and wrap</h3><p>Fixed width text and word wrap by grapheme.</p></a>
+        <a class="card" href="#eslint"><img src="assets/icons/eslint.svg" alt="" width="40" height="40"><h3>ESLint plugin</h3><p>Find split(''), unsafe reverse and hand made truncation.</p></a>
+        <a class="card" href="#install"><img src="assets/icons/tiny.svg" alt="" width="40" height="40"><h3>Tiny</h3><p>About 2 kB gzipped, tree shakeable, zero dependencies.</p></a>
+      </div>
+
+      <h2 id="install">Install</h2>
+<pre data-copy><code>npm install graphemely
+<span class="c"># or</span>
+pnpm add graphemely
+yarn add graphemely
+bun add graphemely</code></pre>
+<pre data-copy><code>import { truncate, length, slice, reverse } from 'graphemely';
+<span class="c">// CommonJS</span>
+const { truncate } = require('graphemely');
+<span class="c">// Deno</span>
+import { truncate } from 'npm:graphemely';</code></pre>
+
+      <h2 id="api">API</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Function</th><th scope="col">Returns</th><th scope="col">Replaces</th></tr></thead>
+        <tbody>
+          <tr><td><code>graphemes(str)</code></td><td><code>string[]</code></td><td><code>str.split('')</code>, <code>[...str]</code></td></tr>
+          <tr><td><code>length(str)</code>, <code>count(str)</code></td><td><code>number</code></td><td><code>str.length</code></td></tr>
+          <tr><td><code>slice(str, start?, end?)</code></td><td><code>string</code></td><td><code>str.slice</code>, <code>str.substring</code></td></tr>
+          <tr><td><code>at(str, index)</code></td><td><code>string | undefined</code></td><td><code>str.at</code>, <code>str[i]</code></td></tr>
+          <tr><td><code>splitAt(str, index)</code></td><td><code>[string, string]</code></td><td>two slices</td></tr>
+          <tr><td><code>truncate(str, max, { ellipsis, wordBoundary }?)</code></td><td><code>string</code></td><td><code>str.slice(0, n) + '...'</code></td></tr>
+          <tr><td><code>reverse(str)</code></td><td><code>string</code></td><td><code>str.split('').reverse().join('')</code></td></tr>
+          <tr><td><code>padStart(str, n, pad?)</code>, <code>padEnd(str, n, pad?)</code></td><td><code>string</code></td><td><code>str.padStart</code>, <code>str.padEnd</code></td></tr>
+          <tr><td><code>wrap(str, width, { hard }?)</code></td><td><code>string[]</code></td><td>hand written word wrap</td></tr>
+          <tr><td><code>isWellFormed(str)</code>, <code>toWellFormed(str)</code></td><td><code>boolean</code>, <code>string</code></td><td>ES2024 methods, everywhere</td></tr>
+        </tbody>
+      </table></div>
+      <p>Full reference with examples in the <a href="https://github.com/kwy404/graphemely#api-reference">README</a>.</p>
+
+      <h2 id="eslint">ESLint plugin</h2>
+      <p>Find unsafe string code in an existing project. Flat config, ESLint 8.57 or newer.</p>
+<pre data-copy><code>// eslint.config.js
+import graphemely from 'graphemely/eslint-plugin';
+
+export default [graphemely.configs.recommended];</code></pre>
+      <ul>
+        <li><a href="https://github.com/kwy404/graphemely/blob/main/docs/rules/no-unsafe-string-split.md">no-unsafe-string-split</a>: reports <code>str.split('')</code></li>
+        <li><a href="https://github.com/kwy404/graphemely/blob/main/docs/rules/no-unsafe-reverse.md">no-unsafe-reverse</a>: reports <code>str.split('').reverse()</code> and <code>[...str].reverse().join('')</code></li>
+        <li><a href="https://github.com/kwy404/graphemely/blob/main/docs/rules/prefer-graphemely-truncate.md">prefer-graphemely-truncate</a>: reports <code>str.slice(0, n) + '...'</code></li>
+      </ul>
+
+      <h2 id="guides">Guides</h2>
+      <div class="grid">
+        <a class="card" href="truncate-string-with-emoji.html"><img src="assets/icons/truncate.svg" alt="" width="40" height="40"><h3>Truncate a string with emoji</h3><p>Cut text to a length with an ellipsis, never half an emoji.</p></a>
+        <a class="card" href="string-length-emoji.html"><img src="assets/icons/length.svg" alt="" width="40" height="40"><h3>String length with emoji</h3><p>Why an emoji has length 2, and how to count what users see.</p></a>
+        <a class="card" href="reverse-string-unicode.html"><img src="assets/icons/reverse.svg" alt="" width="40" height="40"><h3>Reverse a string with Unicode</h3><p>Reverse text without scrambling flags, accents or emoji.</p></a>
+        <a class="card" href="split-string-into-characters.html"><img src="assets/icons/graphemes.svg" alt="" width="40" height="40"><h3>Split a string into characters</h3><p>Get the visible characters, not code units or code points.</p></a>
+        <a class="card" href="substring-without-breaking-emoji.html"><img src="assets/icons/slice.svg" alt="" width="40" height="40"><h3>Substring without breaking emoji</h3><p>A Unicode safe substring and slice with negative indices.</p></a>
+        <a class="card" href="lone-surrogates.html"><img src="assets/icons/well-formed.svg" alt="" width="40" height="40"><h3>Remove lone surrogates</h3><p>Detect and repair the broken halves of emoji.</p></a>
+      </div>
+
+      <h2 id="support">Browser and runtime support</h2>
+      <p>graphemely uses <code>Intl.Segmenter</code> in Node 16+, Chrome and Edge 87+, Safari 14.1+, Firefox 125+, Deno and Bun, and a built-in Unicode UAX #29 fallback everywhere else. Output is ES2020.</p>
+    </div>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <img src="assets/mascot.svg" alt="" width="28" height="28">
+      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+      <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="./">Home</a>
+    </div>
+  </footer>
+  <script type="module" src="playground.js"></script>
+</body>
+</html>

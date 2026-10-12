@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>String Length with Emoji in JavaScript: Why .length Is Wrong | graphemely</title>
+  <meta name="description" content="Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.">
+  <link rel="canonical" href="https://kwy404.github.io/graphemely/string-length-emoji.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#7B6CF6">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="graphemely">
+  <meta property="og:title" content="String Length with Emoji in JavaScript: Why .length Is Wrong | graphemely">
+  <meta property="og:description" content="Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.">
+  <meta property="og:url" content="https://kwy404.github.io/graphemely/string-length-emoji.html">
+  <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="String Length with Emoji in JavaScript: Why .length Is Wrong | graphemely">
+  <meta name="twitter:description" content="Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.">
+  <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Why is the length of an emoji 2 in JavaScript?",
+      "description": "Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.",
+      "url": "https://kwy404.github.io/graphemely/string-length-emoji.html",
+      "image": "https://kwy404.github.io/graphemely/og.png",
+      "inLanguage": "en",
+      "datePublished": "2026-10-12",
+      "dateModified": "2026-10-12",
+      "author": {
+        "@type": "Person",
+        "name": "Alexandre Kohler",
+        "url": "https://github.com/kwy404"
+      },
+      "about": [
+        "JavaScript",
+        "Unicode",
+        "Grapheme cluster",
+        "Emoji"
+      ],
+      "proficiencyLevel": "Beginner",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "graphemely",
+        "url": "https://kwy404.github.io/graphemely/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is the length of an emoji 2 in JavaScript?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "JavaScript strings use UTF-16. Emoji live outside the Basic Multilingual Plane, so each one is stored as a surrogate pair of two code units, and .length counts code units."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is a family emoji length 8?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is three emoji (man, woman, girl) joined by two zero width joiners: 2 + 1 + 2 + 1 + 2 code units. It displays as one character, which is one grapheme cluster."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is [...str].length correct?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It counts code points, which is better than code units but still wrong for emoji sequences, flags, skin tones and combining accents."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I count characters like a human would?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Count grapheme clusters: length(str) from graphemely, or Intl.Segmenter with granularity grapheme."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "graphemely",
+          "item": "https://kwy404.github.io/graphemely/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Why is the length of an emoji 2 in JavaScript?",
+          "item": "https://kwy404.github.io/graphemely/string-length-emoji.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+      <nav class="site" aria-label="Guides">
+        <a href="truncate-string-with-emoji.html">Truncate</a>
+        <a href="string-length-emoji.html" aria-current="page">Length</a>
+        <a href="reverse-string-unicode.html">Reverse</a>
+        <a href="split-string-into-characters.html">Split</a>
+        <a href="substring-without-breaking-emoji.html">Substring</a>
+        <a href="./#playground">Playground</a>
+        <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+
+      <p><a href="./">graphemely</a> / Guides</p>
+      <h1>Why is the length of an emoji 2 in JavaScript?</h1>
+      <p class="lead">Because <code>String.prototype.length</code> counts UTF-16 code units, not characters. Most emoji need two code units, and many are sequences of several code points. To count what a person sees, count grapheme clusters with <code>length(str)</code> from graphemely.</p>
+
+      <h2>The fix, copy and paste</h2>
+<pre data-copy><code>import { length } from 'graphemely';
+
+length('hello');                                          <span class="c">// 5</span>
+length('\u{1F600}');                                      <span class="c">// 1 (grinning face)</span>
+length('\u{1F44D}\u{1F3FD}');                             <span class="c">// 1 (thumbs up, medium skin tone)</span>
+length('\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}');    <span class="c">// 1 (family of three)</span>
+length('e\u{301}');                                       <span class="c">// 1 (e with a combining accent)</span></code></pre>
+      <p class="callout">Emoji in the code samples are written as JavaScript escapes, for example <code>\u{1F468}</code> for a man. In your own code you can type the emoji directly.</p>
+
+      <h2>What .length actually measures</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Text (described)</th><th scope="col"><code>.length</code></th><th scope="col"><code>[...str].length</code></th><th scope="col"><code>length(str)</code></th></tr></thead>
+        <tbody>
+          <tr><td>Letter <code>a</code></td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>e with a combining acute accent</td><td>2</td><td>2</td><td>1</td></tr>
+          <tr><td>Grinning face emoji</td><td>2</td><td>1</td><td>1</td></tr>
+          <tr><td>Thumbs up with a skin tone</td><td>4</td><td>2</td><td>1</td></tr>
+          <tr><td>Flag of Brazil (two regional indicators)</td><td>4</td><td>2</td><td>1</td></tr>
+          <tr><td>Keycap digit one</td><td>3</td><td>3</td><td>1</td></tr>
+          <tr><td>Family: man, woman, girl with zero width joiners</td><td>8</td><td>5</td><td>1</td></tr>
+          <tr><td>Flag of England (tag sequence)</td><td>14</td><td>7</td><td>1</td></tr>
+        </tbody>
+      </table></div>
+      <p>The spread operator and <code>Array.from</code> iterate by <strong>code point</strong>, which fixes surrogate pairs but still counts every part of a sequence. Only grapheme segmentation, as defined by Unicode UAX #29, matches what users see.</p>
+
+      <h2>Where this bites in real code</h2>
+      <ul>
+        <li>Character counters on text fields that disagree with what the user typed.</li>
+        <li>Validation like "username must be at most 20 characters" that rejects short names with emoji or accents.</li>
+        <li>Fixed width layouts and tables where padding is computed from <code>.length</code>. See <code>padStart</code> and <code>padEnd</code> in graphemely.</li>
+      </ul>
+      <p>Note that some limits are defined in bytes or code units on purpose, for example database column sizes. Use <code>.length</code> or <code>new TextEncoder().encode(str).length</code> for those, and <code>length(str)</code> for anything a human reads.</p>
+
+      <h2>Install</h2>
+<pre data-copy><code>npm install graphemely</code></pre>
+      <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>Why is the length of an emoji 2 in JavaScript?</summary><p>JavaScript strings use UTF-16. Emoji live outside the Basic Multilingual Plane, so each one is stored as a surrogate pair of two code units, and <code>.length</code> counts code units.</p></details>
+        <details><summary>Why is a family emoji length 8?</summary><p>It is three emoji (man, woman, girl) joined by two zero width joiners: 2 + 1 + 2 + 1 + 2 code units. It displays as one character, which is one grapheme cluster.</p></details>
+        <details><summary>Is [...str].length correct?</summary><p>It counts code points, which is better than code units but still wrong for emoji sequences, flags, skin tones and combining accents.</p></details>
+        <details><summary>How do I count characters like a human would?</summary><p>Count grapheme clusters: <code>length(str)</code> from graphemely, or <code>Intl.Segmenter</code> with granularity grapheme.</p></details>
+      </div>
+
+      <h2>Related guides</h2>
+      <div class="grid">
+        <a class="card" href="truncate-string-with-emoji.html"><img src="assets/icons/truncate.svg" alt="" width="40" height="40"><h3>Truncate a string with emoji</h3><p>Cut text to a length with an ellipsis, never half an emoji.</p></a>
+        <a class="card" href="reverse-string-unicode.html"><img src="assets/icons/reverse.svg" alt="" width="40" height="40"><h3>Reverse a string with Unicode</h3><p>Reverse text without scrambling flags, accents or emoji.</p></a>
+        <a class="card" href="split-string-into-characters.html"><img src="assets/icons/graphemes.svg" alt="" width="40" height="40"><h3>Split a string into characters</h3><p>Get the visible characters, not code units or code points.</p></a>
+        <a class="card" href="substring-without-breaking-emoji.html"><img src="assets/icons/slice.svg" alt="" width="40" height="40"><h3>Substring without breaking emoji</h3><p>A Unicode safe substring and slice with negative indices.</p></a>
+        <a class="card" href="lone-surrogates.html"><img src="assets/icons/well-formed.svg" alt="" width="40" height="40"><h3>Remove lone surrogates</h3><p>Detect and repair the broken halves of emoji.</p></a>
+      </div>
+    </div>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <img src="assets/mascot.svg" alt="" width="28" height="28">
+      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+      <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="./">Home</a>
+    </div>
+  </footer>
+</body>
+</html>

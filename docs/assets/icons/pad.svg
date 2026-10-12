@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#7B6CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Pad start and end">
+  <title>Pad start and end</title>
+  <rect x="16" y="15" width="16" height="18" rx="4" fill="#FF6F91" stroke="#FF6F91"/>
+  <path d="M5 24 H10 M38 24 H43" stroke-dasharray="1 4"/>
+  <path d="M5 15 V33 M43 15 V33"/>
+</svg>

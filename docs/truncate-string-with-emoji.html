@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Truncate a String with Emoji in JavaScript Without Breaking It | graphemely</title>
+  <meta name="description" content="How to truncate a string with emoji in JavaScript without cutting an emoji in half. Why str.slice(0, n) + '...' breaks, and a grapheme safe truncate with ellipsis and word boundaries.">
+  <link rel="canonical" href="https://kwy404.github.io/graphemely/truncate-string-with-emoji.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#7B6CF6">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="graphemely">
+  <meta property="og:title" content="Truncate a String with Emoji in JavaScript Without Breaking It | graphemely">
+  <meta property="og:description" content="How to truncate a string with emoji in JavaScript without cutting an emoji in half. Why str.slice(0, n) + '...' breaks, and a grapheme safe truncate with ellipsis and word boundaries.">
+  <meta property="og:url" content="https://kwy404.github.io/graphemely/truncate-string-with-emoji.html">
+  <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Truncate a String with Emoji in JavaScript Without Breaking It | graphemely">
+  <meta name="twitter:description" content="How to truncate a string with emoji in JavaScript without cutting an emoji in half. Why str.slice(0, n) + '...' breaks, and a grapheme safe truncate with ellipsis and word boundaries.">
+  <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to truncate a string with emoji in JavaScript",
+      "description": "How to truncate a string with emoji in JavaScript without cutting an emoji in half. Why str.slice(0, n) + '...' breaks, and a grapheme safe truncate with ellipsis and word boundaries.",
+      "url": "https://kwy404.github.io/graphemely/truncate-string-with-emoji.html",
+      "image": "https://kwy404.github.io/graphemely/og.png",
+      "inLanguage": "en",
+      "datePublished": "2026-10-12",
+      "dateModified": "2026-10-12",
+      "author": {
+        "@type": "Person",
+        "name": "Alexandre Kohler",
+        "url": "https://github.com/kwy404"
+      },
+      "about": [
+        "JavaScript",
+        "Unicode",
+        "Grapheme cluster",
+        "Emoji"
+      ],
+      "proficiencyLevel": "Beginner",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "graphemely",
+        "url": "https://kwy404.github.io/graphemely/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I truncate a string with emoji in JavaScript?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use truncate(str, maxLength) from graphemely. It counts grapheme clusters instead of UTF-16 code units, so an emoji is never cut in half."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the ellipsis count toward the maximum length?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. truncate(str, 10) returns at most 10 visible characters including the ellipsis, so the result always fits the space you have."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does lodash truncate still break some text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "lodash uses a regular expression that approximates grapheme clusters. It handles common emoji but splits Hangul syllables written with conjoining jamo, counts the England flag as 7 characters and Thai SARA AM as a separate character."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I truncate at a word boundary?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, pass { wordBoundary: true }. graphemely cuts at the last whitespace that fits and removes trailing spaces before the ellipsis."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "graphemely",
+          "item": "https://kwy404.github.io/graphemely/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How to truncate a string with emoji in JavaScript",
+          "item": "https://kwy404.github.io/graphemely/truncate-string-with-emoji.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+      <nav class="site" aria-label="Guides">
+        <a href="truncate-string-with-emoji.html" aria-current="page">Truncate</a>
+        <a href="string-length-emoji.html">Length</a>
+        <a href="reverse-string-unicode.html">Reverse</a>
+        <a href="split-string-into-characters.html">Split</a>
+        <a href="substring-without-breaking-emoji.html">Substring</a>
+        <a href="./#playground">Playground</a>
+        <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+
+      <p><a href="./">graphemely</a> / Guides</p>
+      <h1>How to truncate a string with emoji in JavaScript</h1>
+      <p class="lead">Use <code>truncate(str, maxLength)</code> from graphemely. It counts grapheme clusters, the characters a person actually sees, so it never cuts an emoji, a flag, a skin tone or an accented letter in half. The ellipsis counts toward the limit, so the result always fits.</p>
+
+      <h2>The fix, copy and paste</h2>
+<pre data-copy><code>import { truncate } from 'graphemely';
+
+truncate('Hello world', 8);                          <span class="c">// 'Hello w…'</span>
+truncate('Hello world', 8, { wordBoundary: true });  <span class="c">// 'Hello…'</span>
+truncate('Hello world', 8, { ellipsis: '...' });     <span class="c">// 'Hello...'</span>
+
+const str = 'Hi' + '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}' + '!';  <span class="c">// a family emoji between two words</span>
+truncate(str, 3);                                    <span class="c">// 'Hi…', the family is dropped whole</span></code></pre>
+      <p class="callout">Emoji in the code samples are written as JavaScript escapes, for example <code>\u{1F468}</code> for a man. In your own code you can type the emoji directly.</p>
+
+      <h2>Why str.slice(0, n) + '...' breaks emoji</h2>
+      <p>JavaScript strings are sequences of UTF-16 <strong>code units</strong>. <code>slice</code>, <code>substring</code> and <code>substr</code> count code units, but most emoji take two code units (a surrogate pair), and many are built from several code points: a family of three is 8 code units, a flag is 4, a thumbs up with a skin tone is 4. Cutting at an arbitrary code unit index lands inside those sequences.</p>
+      <div class="compare">
+        <div>
+          <span class="label bad">Broken: native slice</span>
+<pre><code>const str = 'Hi' + family + '!';
+str.slice(0, 3) + '...';
+<span class="bad">// 'Hi\uD83D...'  half of an emoji</span>
+str.slice(0, 5) + '...';
+<span class="bad">// 'Hi' + man + ZWJ + '...'  one lonely person</span></code></pre>
+        </div>
+        <div>
+          <span class="label ok">Fixed: graphemely</span>
+<pre><code>import { truncate } from 'graphemely';
+
+truncate(str, 3);
+<span class="ok">// 'Hi…'</span>
+truncate(str, 4);
+<span class="ok">// unchanged, it already fits</span></code></pre>
+        </div>
+      </div>
+      <p>The leftover <code>\uD83D</code> is a <a href="lone-surrogates.html">lone surrogate</a>. It renders as a replacement box, makes <code>encodeURIComponent</code> throw a <code>URIError</code>, and can be rejected by APIs that validate UTF-8.</p>
+
+      <h2>Options</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Option</th><th scope="col">Default</th><th scope="col">What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>ellipsis</code></td><td><code>'…'</code></td><td>Text appended when the string is cut. A single character by default. Counts toward <code>maxLength</code>.</td></tr>
+          <tr><td><code>wordBoundary</code></td><td><code>false</code></td><td>Cut at the last space that fits instead of in the middle of a word, and drop trailing spaces. Falls back to a hard cut for one very long word.</td></tr>
+        </tbody>
+      </table></div>
+      <p>If the ellipsis does not leave room for any text, the string is cut to <code>maxLength</code> graphemes without an ellipsis. A negative or <code>NaN</code> limit throws a <code>RangeError</code>.</p>
+
+      <h2>Without a library</h2>
+      <p>Modern runtimes have <code>Intl.Segmenter</code>, which graphemely uses under the hood. The minimal hand written version looks like this:</p>
+<pre data-copy><code>function truncate(str, max, ellipsis = '…') {
+  const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+  const parts = Array.from(segmenter.segment(str), (s) => s.segment);
+  if (parts.length <= max) return str;
+  return parts.slice(0, max - 1).join('') + ellipsis;
+}</code></pre>
+      <p>It works, but it does not handle runtimes without <code>Intl.Segmenter</code>, word boundaries, multi character ellipses or invalid input. graphemely does, in about 1.3 kB gzipped when you only import <code>truncate</code>.</p>
+
+      <h2>Install</h2>
+<pre data-copy><code>npm install graphemely</code></pre>
+      <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>How do I truncate a string with emoji in JavaScript?</summary><p>Use <code>truncate(str, maxLength)</code> from graphemely. It counts grapheme clusters instead of UTF-16 code units, so an emoji is never cut in half.</p></details>
+        <details><summary>Does the ellipsis count toward the maximum length?</summary><p>Yes. <code>truncate(str, 10)</code> returns at most 10 visible characters including the ellipsis, so the result always fits the space you have.</p></details>
+        <details><summary>Why does lodash truncate still break some text?</summary><p>lodash uses a regular expression that approximates grapheme clusters. It handles common emoji but splits Hangul syllables written with conjoining jamo, counts the England flag as 7 characters and Thai SARA AM as a separate character.</p></details>
+        <details><summary>Can I truncate at a word boundary?</summary><p>Yes, pass <code>{ wordBoundary: true }</code>. graphemely cuts at the last whitespace that fits and removes trailing spaces before the ellipsis.</p></details>
+      </div>
+
+      <h2>Related guides</h2>
+      <div class="grid">
+        <a class="card" href="string-length-emoji.html"><img src="assets/icons/length.svg" alt="" width="40" height="40"><h3>String length with emoji</h3><p>Why an emoji has length 2, and how to count what users see.</p></a>
+        <a class="card" href="reverse-string-unicode.html"><img src="assets/icons/reverse.svg" alt="" width="40" height="40"><h3>Reverse a string with Unicode</h3><p>Reverse text without scrambling flags, accents or emoji.</p></a>
+        <a class="card" href="split-string-into-characters.html"><img src="assets/icons/graphemes.svg" alt="" width="40" height="40"><h3>Split a string into characters</h3><p>Get the visible characters, not code units or code points.</p></a>
+        <a class="card" href="substring-without-breaking-emoji.html"><img src="assets/icons/slice.svg" alt="" width="40" height="40"><h3>Substring without breaking emoji</h3><p>A Unicode safe substring and slice with negative indices.</p></a>
+        <a class="card" href="lone-surrogates.html"><img src="assets/icons/well-formed.svg" alt="" width="40" height="40"><h3>Remove lone surrogates</h3><p>Detect and repair the broken halves of emoji.</p></a>
+      </div>
+    </div>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <img src="assets/mascot.svg" alt="" width="28" height="28">
+      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+      <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="./">Home</a>
+    </div>
+  </footer>
+</body>
+</html>

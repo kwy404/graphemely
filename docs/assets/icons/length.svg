@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#7B6CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Count graphemes">
+  <title>Count graphemes</title>
+  <path d="M6 30 H42"/>
+  <path d="M6 24 V36 M42 24 V36"/>
+  <path d="M15 30 V26 M24 30 V24 M33 30 V26"/>
+  <circle cx="24" cy="13" r="5" fill="#FF6F91" stroke="#FF6F91"/>
+</svg>

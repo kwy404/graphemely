@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Substring Without Breaking Emoji in JavaScript | graphemely</title>
+  <meta name="description" content="Why substring, substr and slice break emoji in JavaScript, and how to take a Unicode safe substring by grapheme index, with negative indices and safe split points.">
+  <link rel="canonical" href="https://kwy404.github.io/graphemely/substring-without-breaking-emoji.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#7B6CF6">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="graphemely">
+  <meta property="og:title" content="Substring Without Breaking Emoji in JavaScript | graphemely">
+  <meta property="og:description" content="Why substring, substr and slice break emoji in JavaScript, and how to take a Unicode safe substring by grapheme index, with negative indices and safe split points.">
+  <meta property="og:url" content="https://kwy404.github.io/graphemely/substring-without-breaking-emoji.html">
+  <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Substring Without Breaking Emoji in JavaScript | graphemely">
+  <meta name="twitter:description" content="Why substring, substr and slice break emoji in JavaScript, and how to take a Unicode safe substring by grapheme index, with negative indices and safe split points.">
+  <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Why substring breaks emoji, and a Unicode safe substring",
+      "description": "Why substring, substr and slice break emoji in JavaScript, and how to take a Unicode safe substring by grapheme index, with negative indices and safe split points.",
+      "url": "https://kwy404.github.io/graphemely/substring-without-breaking-emoji.html",
+      "image": "https://kwy404.github.io/graphemely/og.png",
+      "inLanguage": "en",
+      "datePublished": "2026-10-12",
+      "dateModified": "2026-10-12",
+      "author": {
+        "@type": "Person",
+        "name": "Alexandre Kohler",
+        "url": "https://github.com/kwy404"
+      },
+      "about": [
+        "JavaScript",
+        "Unicode",
+        "Grapheme cluster",
+        "Emoji"
+      ],
+      "proficiencyLevel": "Beginner",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "graphemely",
+        "url": "https://kwy404.github.io/graphemely/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does substring break emoji in JavaScript?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Its indices count UTF-16 code units. An emoji uses two or more code units, so an index can point to the middle of it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between slice, substring and substr?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They differ in how they treat negative and swapped arguments, but all three count UTF-16 code units, so all three can break emoji."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I take a substring by visible characters?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use slice(str, start, end) from graphemely. It has the same contract as String.prototype.slice, including negative indices, but counts grapheme clusters."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "graphemely",
+          "item": "https://kwy404.github.io/graphemely/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Why substring breaks emoji, and a Unicode safe substring",
+          "item": "https://kwy404.github.io/graphemely/substring-without-breaking-emoji.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+      <nav class="site" aria-label="Guides">
+        <a href="truncate-string-with-emoji.html">Truncate</a>
+        <a href="string-length-emoji.html">Length</a>
+        <a href="reverse-string-unicode.html">Reverse</a>
+        <a href="split-string-into-characters.html">Split</a>
+        <a href="substring-without-breaking-emoji.html" aria-current="page">Substring</a>
+        <a href="./#playground">Playground</a>
+        <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+
+      <p><a href="./">graphemely</a> / Guides</p>
+      <h1>Why substring breaks emoji, and a Unicode safe substring</h1>
+      <p class="lead"><code>substring</code>, <code>substr</code> and <code>slice</code> use UTF-16 code unit indices, so any index that falls inside an emoji cuts it. <code>slice(str, start, end)</code> from graphemely uses grapheme indices, so every cut is safe.</p>
+
+      <h2>The fix, copy and paste</h2>
+<pre data-copy><code>import { slice, at, splitAt } from 'graphemely';
+
+const s = 'I \u{2764}\u{FE0F} JS';
+s.slice(0, 3);            <span class="c">// 'I \u{2764}', the emoji presentation selector is lost</span>
+slice(s, 0, 3);           <span class="c">// 'I \u{2764}\u{FE0F}'</span>
+slice('hello', -3);       <span class="c">// 'llo', negative indices work like String.prototype.slice</span>
+at('ab\u{1F600}', -1);    <span class="c">// '\u{1F600}', the whole emoji</span>
+splitAt('hello', 2);      <span class="c">// ['he', 'llo']</span></code></pre>
+      <p class="callout">Emoji in the code samples are written as JavaScript escapes, for example <code>\u{1F468}</code> for a man. In your own code you can type the emoji directly.</p>
+
+      <h2>What goes wrong with code unit indices</h2>
+      <div class="compare">
+        <div>
+          <span class="label bad">Broken</span>
+<pre><code>const s = '\u{1F600}\u{1F600}\u{1F600}';
+s.substring(0, 3);
+<span class="bad">// '\u{1F600}\uD83D', one and a half emoji</span>
+s.charAt(0);
+<span class="bad">// '\uD83D', half of an emoji</span></code></pre>
+        </div>
+        <div>
+          <span class="label ok">Fixed</span>
+<pre><code>import { slice, at } from 'graphemely';
+
+slice(s, 0, 2);
+<span class="ok">// two whole emoji</span>
+at(s, 0);
+<span class="ok">// '\u{1F600}'</span></code></pre>
+        </div>
+      </div>
+      <p>Indices often come from somewhere else (a cursor position, a search match, a database limit). If they were computed in code units, convert the logic to graphemes end to end, and use <code>isWellFormed</code> to assert that a result has no <a href="lone-surrogates.html">lone surrogates</a>.</p>
+
+      <h2>Install</h2>
+<pre data-copy><code>npm install graphemely</code></pre>
+      <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>Why does substring break emoji in JavaScript?</summary><p>Its indices count UTF-16 code units. An emoji uses two or more code units, so an index can point to the middle of it.</p></details>
+        <details><summary>What is the difference between slice, substring and substr?</summary><p>They differ in how they treat negative and swapped arguments, but all three count UTF-16 code units, so all three can break emoji.</p></details>
+        <details><summary>How do I take a substring by visible characters?</summary><p>Use <code>slice(str, start, end)</code> from graphemely. It has the same contract as <code>String.prototype.slice</code>, including negative indices, but counts grapheme clusters.</p></details>
+      </div>
+
+      <h2>Related guides</h2>
+      <div class="grid">
+        <a class="card" href="truncate-string-with-emoji.html"><img src="assets/icons/truncate.svg" alt="" width="40" height="40"><h3>Truncate a string with emoji</h3><p>Cut text to a length with an ellipsis, never half an emoji.</p></a>
+        <a class="card" href="string-length-emoji.html"><img src="assets/icons/length.svg" alt="" width="40" height="40"><h3>String length with emoji</h3><p>Why an emoji has length 2, and how to count what users see.</p></a>
+        <a class="card" href="reverse-string-unicode.html"><img src="assets/icons/reverse.svg" alt="" width="40" height="40"><h3>Reverse a string with Unicode</h3><p>Reverse text without scrambling flags, accents or emoji.</p></a>
+        <a class="card" href="split-string-into-characters.html"><img src="assets/icons/graphemes.svg" alt="" width="40" height="40"><h3>Split a string into characters</h3><p>Get the visible characters, not code units or code points.</p></a>
+        <a class="card" href="lone-surrogates.html"><img src="assets/icons/well-formed.svg" alt="" width="40" height="40"><h3>Remove lone surrogates</h3><p>Detect and repair the broken halves of emoji.</p></a>
+      </div>
+    </div>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <img src="assets/mascot.svg" alt="" width="28" height="28">
+      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+      <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="./">Home</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Remove Lone Surrogates from a JavaScript String | graphemely</title>
+  <meta name="description" content="What a lone surrogate is, why it breaks encodeURIComponent and JSON, how to detect one with isWellFormed and how to repair a string with toWellFormed on every JavaScript runtime.">
+  <link rel="canonical" href="https://kwy404.github.io/graphemely/lone-surrogates.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#7B6CF6">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="graphemely">
+  <meta property="og:title" content="Remove Lone Surrogates from a JavaScript String | graphemely">
+  <meta property="og:description" content="What a lone surrogate is, why it breaks encodeURIComponent and JSON, how to detect one with isWellFormed and how to repair a string with toWellFormed on every JavaScript runtime.">
+  <meta property="og:url" content="https://kwy404.github.io/graphemely/lone-surrogates.html">
+  <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Remove Lone Surrogates from a JavaScript String | graphemely">
+  <meta name="twitter:description" content="What a lone surrogate is, why it breaks encodeURIComponent and JSON, how to detect one with isWellFormed and how to repair a string with toWellFormed on every JavaScript runtime.">
+  <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "What is a lone surrogate and how do I remove it?",
+      "description": "What a lone surrogate is, why it breaks encodeURIComponent and JSON, how to detect one with isWellFormed and how to repair a string with toWellFormed on every JavaScript runtime.",
+      "url": "https://kwy404.github.io/graphemely/lone-surrogates.html",
+      "image": "https://kwy404.github.io/graphemely/og.png",
+      "inLanguage": "en",
+      "datePublished": "2026-10-12",
+      "dateModified": "2026-10-12",
+      "author": {
+        "@type": "Person",
+        "name": "Alexandre Kohler",
+        "url": "https://github.com/kwy404"
+      },
+      "about": [
+        "JavaScript",
+        "Unicode",
+        "Grapheme cluster",
+        "Emoji"
+      ],
+      "proficiencyLevel": "Beginner",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "graphemely",
+        "url": "https://kwy404.github.io/graphemely/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a lone surrogate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A UTF-16 code unit in the range U+D800 to U+DFFF that is not part of a valid high and low surrogate pair. It is half of a character."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check if a string has lone surrogates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Call isWellFormed(str) from graphemely, or str.isWellFormed() on runtimes that support ES2024."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I remove lone surrogates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Call toWellFormed(str), which replaces each one with U+FFFD, the replacement character. Then fix the code that cut the string by code unit."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "graphemely",
+          "item": "https://kwy404.github.io/graphemely/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "What is a lone surrogate and how do I remove it?",
+          "item": "https://kwy404.github.io/graphemely/lone-surrogates.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+      <nav class="site" aria-label="Guides">
+        <a href="truncate-string-with-emoji.html">Truncate</a>
+        <a href="string-length-emoji.html">Length</a>
+        <a href="reverse-string-unicode.html">Reverse</a>
+        <a href="split-string-into-characters.html">Split</a>
+        <a href="substring-without-breaking-emoji.html">Substring</a>
+        <a href="./#playground">Playground</a>
+        <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+
+      <p><a href="./">graphemely</a> / Guides</p>
+      <h1>What is a lone surrogate and how do I remove it?</h1>
+      <p class="lead">A lone surrogate is half of an emoji (or any character outside the Basic Multilingual Plane) left behind when a string is cut by code unit. Detect it with <code>isWellFormed(str)</code> and replace it with U+FFFD using <code>toWellFormed(str)</code>.</p>
+
+      <h2>The fix, copy and paste</h2>
+<pre data-copy><code>import { isWellFormed, toWellFormed } from 'graphemely';
+
+const broken = '\u{1F600}'.slice(0, 1);   <span class="c">// '\uD83D'</span>
+isWellFormed(broken);                    <span class="c">// false</span>
+toWellFormed('ok' + broken);             <span class="c">// 'ok\u{FFFD}'</span>
+encodeURIComponent(toWellFormed(broken)); <span class="c">// '%EF%BF%BD', no URIError</span></code></pre>
+      <p class="callout">Emoji in the code samples are written as JavaScript escapes, for example <code>\u{1F468}</code> for a man. In your own code you can type the emoji directly.</p>
+
+      <h2>Why lone surrogates are a problem</h2>
+      <ul>
+        <li><code>encodeURIComponent</code> throws <code>URIError: URI malformed</code>.</li>
+        <li><code>TextEncoder</code> and most UTF-8 encoders silently replace them with U+FFFD, so data changes on its way to a server.</li>
+        <li>Some APIs and databases reject the request as invalid UTF-8.</li>
+        <li>They render as a replacement box or a question mark in a diamond.</li>
+      </ul>
+
+      <h2>Where they come from</h2>
+      <p>Almost always from cutting text with code unit indices: <code>str.slice(0, n)</code>, <code>str.substring</code>, <code>str[i]</code>, <code>str.split('')</code> or a maximum length enforced by an input field. The real fix is to cut by grapheme cluster with <a href="truncate-string-with-emoji.html">truncate</a> or <a href="substring-without-breaking-emoji.html">slice</a>, so they never appear. <code>toWellFormed</code> is the safety net for data that is already broken.</p>
+
+      <h2>Native methods</h2>
+      <p>ES2024 added <code>String.prototype.isWellFormed</code> and <code>toWellFormed</code>. They are missing on Node 18 and older browsers. The graphemely versions behave the same and work everywhere.</p>
+
+      <h2>Install</h2>
+<pre data-copy><code>npm install graphemely</code></pre>
+      <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>What is a lone surrogate?</summary><p>A UTF-16 code unit in the range U+D800 to U+DFFF that is not part of a valid high and low surrogate pair. It is half of a character.</p></details>
+        <details><summary>How do I check if a string has lone surrogates?</summary><p>Call <code>isWellFormed(str)</code> from graphemely, or <code>str.isWellFormed()</code> on runtimes that support ES2024.</p></details>
+        <details><summary>How do I remove lone surrogates?</summary><p>Call <code>toWellFormed(str)</code>, which replaces each one with U+FFFD, the replacement character. Then fix the code that cut the string by code unit.</p></details>
+      </div>
+
+      <h2>Related guides</h2>
+      <div class="grid">
+        <a class="card" href="truncate-string-with-emoji.html"><img src="assets/icons/truncate.svg" alt="" width="40" height="40"><h3>Truncate a string with emoji</h3><p>Cut text to a length with an ellipsis, never half an emoji.</p></a>
+        <a class="card" href="string-length-emoji.html"><img src="assets/icons/length.svg" alt="" width="40" height="40"><h3>String length with emoji</h3><p>Why an emoji has length 2, and how to count what users see.</p></a>
+        <a class="card" href="reverse-string-unicode.html"><img src="assets/icons/reverse.svg" alt="" width="40" height="40"><h3>Reverse a string with Unicode</h3><p>Reverse text without scrambling flags, accents or emoji.</p></a>
+        <a class="card" href="split-string-into-characters.html"><img src="assets/icons/graphemes.svg" alt="" width="40" height="40"><h3>Split a string into characters</h3><p>Get the visible characters, not code units or code points.</p></a>
+        <a class="card" href="substring-without-breaking-emoji.html"><img src="assets/icons/slice.svg" alt="" width="40" height="40"><h3>Substring without breaking emoji</h3><p>A Unicode safe substring and slice with negative indices.</p></a>
+      </div>
+    </div>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <img src="assets/mascot.svg" alt="" width="28" height="28">
+      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+      <a href="https://github.com/kwy404/graphemely">GitHub</a>
+      <a href="https://www.npmjs.com/package/graphemely">npm</a>
+      <a href="./">Home</a>
+    </div>
+  </footer>
+</body>
+</html>
