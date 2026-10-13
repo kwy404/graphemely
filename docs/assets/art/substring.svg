@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" width="520" height="220" role="img" aria-labelledby="substring-t">
+  <title id="substring-t">A selection bracket around whole characters, and a code unit index that cuts through the middle of an emoji</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <rect class="a-tile" x="60" y="70" width="56" height="70" rx="6"/>
+  <rect class="a-tile" x="124" y="70" width="56" height="70" rx="6"/>
+  <rect class="a-tile" x="188" y="70" width="56" height="70" rx="6"/>
+  <rect class="a-tile" x="252" y="70" width="56" height="70" rx="6"/>
+  <rect class="a-tile" x="316" y="70" width="56" height="70" rx="6"/>
+  <rect class="a-tile" x="380" y="70" width="56" height="70" rx="6"/>
+  <text class="a-gl" x="76" y="117">H</text><text class="a-gl" x="146" y="117">i</text>
+  <path class="a-ink" transform="translate(216 103) scale(1.0)" d="M0 9C-9 3-13-2-13-7c0-4 3-7 7-7 3 0 5 2 6 4 1-2 3-4 6-4 4 0 7 3 7 7 0 5-4 10-13 16Z"/><circle class="a-ink" cx="280" cy="105" r="15"/><path class="a-ink" d="M273 109c3 5 11 5 14 0M275 100v2M285 100v2"/><path class="a-ink" d="M334 86v40"/><path class="a-ink" d="M334 88c7-4 13 4 21 0s11-2 13 0v17c-2-2-6-4-13 0s-14-4-21 0Z"/><text class="a-gl" x="403" y="117">!</text>
+  <path class="a-ink" d="M120 54v-10H372v10"/>
+  <text class="a-lbl" x="120" y="34">SLICE(STR, 1, 5) KEEPS WHOLE CLUSTERS</text>
+  <path class="a-cut" d="M120 156v10H280v-10M280 60V150"/>
+  <path class="a-thread" d="M274 52l12 10M286 52l-12 10" style="stroke-width:2"/>
+  <text class="a-lbl" x="120" y="186">A CODE UNIT INDEX LANDS INSIDE ONE</text>
+</svg>

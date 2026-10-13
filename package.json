@@ -96,6 +96,7 @@
     "size": "node scripts/size.mjs",
     "bench": "node scripts/bench.mjs",
     "docs:copy": "node scripts/copy-docs.mjs",
+    "docs:build": "npm run build && node scripts/copy-docs.mjs && node scripts/build-docs.mjs && node scripts/highlight-docs.mjs",
     "prepublishOnly": "npm run build && npm run typecheck && npm test",
     "docs:highlight": "node scripts/highlight-docs.mjs"
   },

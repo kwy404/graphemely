@@ -23,6 +23,14 @@ npm run size        # bundle size report (after build)
 
 All of them run in CI on every pull request.
 
+## Docs site
+
+The site in `docs/` is plain HTML styled with Monsoon. Shared parts (header, footer, install tabs, the guide rail, the inline drawings from `docs/assets/art/`), the search index, the ESLint demo bundle and the highlighted code are generated in place:
+
+```sh
+npm run docs:build  # library build, then scripts/build-docs.mjs and scripts/highlight-docs.mjs
+```
+
 ## Guidelines
 
 - Keep the public API small. New functions need a clear use case, TSDoc with an example, and tests.

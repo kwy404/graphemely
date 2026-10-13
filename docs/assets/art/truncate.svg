@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" width="520" height="220" role="img" aria-labelledby="truncate-t">
+  <title id="truncate-t">Scissors cutting a thread of clusters cleanly between two characters: three whole characters and an ellipsis stay, the rest falls away</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <rect class="a-tile" x="36" y="64" width="56" height="72" rx="6"/>
+  <rect class="a-tile" x="102" y="64" width="56" height="72" rx="6"/>
+  <rect class="a-tile" x="168" y="64" width="56" height="72" rx="6"/>
+  <rect class="a-tile" x="234" y="64" width="56" height="72" rx="6"/>
+  <text class="a-gl" x="53" y="112">T</text><text class="a-gl" x="121" y="112">a</text>
+  <path class="a-ink" transform="translate(196 98) scale(1.0)" d="M0 9C-9 3-13-2-13-7c0-4 3-7 7-7 3 0 5 2 6 4 1-2 3-4 6-4 4 0 7 3 7 7 0 5-4 10-13 16Z"/>
+  <circle class="a-dot" cx="250" cy="104" r="3"/><circle class="a-dot" cx="262" cy="104" r="3"/><circle class="a-dot" cx="274" cy="104" r="3"/>
+  <g class="a-faint" transform="rotate(9 360 110)"><rect class="a-tile" x="334" y="70" width="56" height="72" rx="6"/><path class="a-ink" d="M352 84v40"/><path class="a-ink" d="M352 86c7-4 13 4 21 0s11-2 13 0v17c-2-2-6-4-13 0s-14-4-21 0Z"/></g>
+  <g class="a-faint" transform="rotate(17 434 130)"><rect class="a-tile" x="406" y="92" width="56" height="72" rx="6"/><text class="a-gl" x="428" y="140">!</text></g>
+  <path class="a-thread" d="M20 160H296"/><path class="a-thread a-faint" d="M314 162c20 2 40 10 66 14s50 8 76 18"/>
+  <circle class="a-dot" cx="64" cy="160" r="4.5"/>
+  <circle class="a-dot" cx="130" cy="160" r="4.5"/>
+  <circle class="a-dot" cx="196" cy="160" r="4.5"/>
+  <circle class="a-dot" cx="262" cy="160" r="4.5"/>
+  <path class="a-ink" d="M296 153v14M314 155v14"/>
+  <path class="a-guide" d="M305 46V196"/>
+  <circle class="a-ink" cx="291" cy="13" r="8"/><circle class="a-ink" cx="319" cy="13" r="8"/>
+  <path class="a-ink" d="M296 20 309 58M314 20 301 58"/><circle class="a-vdot" cx="305" cy="33" r="2.2"/>
+  <text class="a-lbl" x="36" y="206">TRUNCATE(STR, 4)</text><text class="a-lbl" x="330" y="30">CUT BETWEEN CLUSTERS</text>
+</svg>

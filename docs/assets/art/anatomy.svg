@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 470" width="560" height="470" role="img" aria-labelledby="anatomy-t">
+  <title id="anatomy-t">Anatomy of one grapheme: the letter e and a combining acute accent, two code points joined by a thread into one character</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <!-- metric guides -->
+  <path class="a-guide" d="M24 110H536M24 200H536M24 360H536M24 420H536"/>
+  <text class="a-lbl" x="24" y="102">ASCENDER</text>
+  <text class="a-lbl" x="24" y="192">X HEIGHT</text>
+  <text class="a-lbl" x="24" y="352">BASELINE</text>
+  <text class="a-lbl" x="24" y="412">DESCENDER</text>
+  <!-- the cluster box with crop ticks -->
+  <path class="a-soft" d="M136 84v-14M136 84h-14M366 84v-14M366 84h14M136 386v14M136 386h-14M366 386v14M366 386h14"/>
+  <rect class="a-guide" x="136" y="84" width="230" height="302" rx="2"/>
+  <!-- the letter e, drawn as an outline with vertical stress -->
+  <path class="a-fill" d="M340 286C340 236 302 200 252 200C196 200 160 240 160 284C160 332 198 364 252 364C290 364 318 348 336 322L324 313C308 336 288 346 264 346C222 346 196 320 194 286Z"/>
+  <path class="a-ink" d="M196 272C200 236 222 216 250 216C280 216 302 238 304 272Z"/>
+  <!-- stress axis and construction circle -->
+  <path class="a-soft" d="M226 186 278 378" stroke-dasharray="2 4"/>
+  <!-- combining acute accent -->
+  <path class="a-fill" d="M252 178 282 116Q286 108 294 110L302 113Q308 116 304 123L263 182Z"/>
+  <!-- leader lines to the code point labels -->
+  <path class="a-soft" d="M306 120H462M342 262H462"/>
+  <circle class="a-vdot" cx="306" cy="120" r="2.5"/>
+  <circle class="a-vdot" cx="342" cy="262" r="2.5"/>
+  <text class="a-big" x="378" y="111">U+0301</text>
+  <text class="a-lbl" x="378" y="136">COMBINING</text>
+  <text class="a-lbl" x="378" y="149">ACUTE</text>
+  <text class="a-big" x="378" y="253">U+0065</text>
+  <text class="a-lbl" x="378" y="278">LATIN</text>
+  <text class="a-lbl" x="378" y="291">SMALL E</text>
+  <!-- the thread that ties the two code points into one cluster -->
+  <path class="a-thread" d="M470 120C516 120 540 150 536 178C533 198 510 202 509 189C508 176 530 177 534 196C540 226 512 262 470 262"/>
+  <circle class="a-dot" cx="470" cy="120" r="5"/>
+  <circle class="a-dot" cx="470" cy="262" r="5"/>
+  <text class="a-lbl a-rose" x="452" y="330">ONE CLUSTER</text>
+  <!-- counts -->
+  <text class="a-lbl" x="24" y="455">CODE POINTS 2</text>
+  <text class="a-lbl" x="196" y="455">UTF-16 UNITS 2</text>
+  <text class="a-lbl a-rose" x="376" y="455">GRAPHEMES 1</text>
+</svg>

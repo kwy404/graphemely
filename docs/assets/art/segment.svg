@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 136" width="224" height="136" role="img" aria-labelledby="segment-t">
+  <title id="segment-t">A thread of code points with dashed outlines around each grapheme cluster</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <path class="a-thread" d="M10 74C40 66 60 82 90 74S140 66 170 74 200 80 214 74"/>
+  <circle class="a-dot" cx="28" cy="74" r="5"/>
+  <circle class="a-dot" cx="66" cy="74" r="5"/>
+  <circle class="a-hole" cx="84" cy="74" r="3.5"/>
+  <circle class="a-dot" cx="122" cy="74" r="5"/>
+  <circle class="a-hole" cx="140" cy="74" r="3.5"/>
+  <circle class="a-dot" cx="158" cy="74" r="5"/>
+  <circle class="a-dot" cx="196" cy="74" r="5"/>
+  <rect class="a-guide" x="16" y="50" width="24" height="48" rx="8"/>
+  <rect class="a-guide" x="54" y="50" width="42" height="48" rx="8"/>
+  <rect class="a-guide" x="110" y="50" width="60" height="48" rx="8"/>
+  <rect class="a-guide" x="184" y="50" width="24" height="48" rx="8"/>
+  <text class="a-lbl" x="16" y="124">UAX #29 BOUNDARIES</text>
+</svg>

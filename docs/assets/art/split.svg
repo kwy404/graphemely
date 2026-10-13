@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" width="520" height="220" role="img" aria-labelledby="split-t">
+  <title id="split-t">Code points threaded like beads on a string of yarn, grouped into four clusters: c, a, f and e with its combining accent</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <path class="a-thread" d="M14 132C60 124 90 140 130 132S200 124 240 132 330 140 380 132 470 124 506 132"/>
+  <rect class="a-guide" x="40" y="34" width="64" height="124" rx="10"/>
+  <text class="a-gl" x="63" y="92">c</text>
+  <text class="a-lbl" x="46" y="182">U+0063</text>
+  <rect class="a-guide" x="124" y="34" width="64" height="124" rx="10"/>
+  <text class="a-gl" x="147" y="92">a</text>
+  <text class="a-lbl" x="130" y="182">U+0061</text>
+  <rect class="a-guide" x="208" y="34" width="64" height="124" rx="10"/>
+  <text class="a-gl" x="231" y="92">f</text>
+  <text class="a-lbl" x="214" y="182">U+0066</text>
+  <rect class="a-guide" x="292" y="34" width="104" height="124" rx="10"/>
+  <text class="a-gl" x="335" y="92">e</text>
+  <text class="a-lbl" x="298" y="182">U+0065</text>
+  <text class="a-lbl" x="298" y="195">U+0301</text>
+  <path class="a-fill" d="M344 60 356 44Q358 41 361 42L364 43Q366 44 365 47L349 62Z"/>
+  <circle class="a-dot" cx="72" cy="132" r="5"/>
+  <circle class="a-dot" cx="156" cy="132" r="5"/>
+  <circle class="a-dot" cx="240" cy="132" r="5"/>
+  <circle class="a-dot" cx="326" cy="132" r="5"/>
+  <circle class="a-hole" cx="368" cy="134" r="4"/>
+  <path class="a-ink" d="M114 112v-8M198 112v-8M282 112v-8M406 112v-8"/>
+  <text class="a-lbl" x="420" y="60">GRAPHEMES(STR)</text><text class="a-lbl" x="420" y="74">4 CLUSTERS</text><text class="a-lbl" x="420" y="88">5 CODE POINTS</text>
+</svg>

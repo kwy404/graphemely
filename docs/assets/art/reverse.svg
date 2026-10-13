@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" width="520" height="220" role="img" aria-labelledby="reverse-t">
+  <title id="reverse-t">A row of characters mirrored by cluster: a, a flag and b become b, the same flag and a, while reversing by code point swaps the halves of the flag</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <rect class="a-tile" x="150" y="18" width="52" height="64" rx="6"/>
+  <rect class="a-tile" x="214" y="18" width="52" height="64" rx="6"/>
+  <rect class="a-tile" x="278" y="18" width="52" height="64" rx="6"/>
+  <text class="a-gl" x="167" y="60">a</text><text class="a-gl" x="294" y="60">b</text><path class="a-ink" d="M228 30v40"/><path class="a-ink" d="M228 32c7-4 13 4 21 0s11-2 13 0v17c-2-2-6-4-13 0s-14-4-21 0Z"/>
+  <path class="a-guide" d="M20 104H380"/><text class="a-lbl" x="20" y="96">MIRROR BY CLUSTER</text>
+  <rect class="a-tile" x="150" y="128" width="52" height="64" rx="6"/>
+  <rect class="a-tile" x="214" y="128" width="52" height="64" rx="6"/>
+  <rect class="a-tile" x="278" y="128" width="52" height="64" rx="6"/>
+  <text class="a-gl" x="166" y="170">b</text><text class="a-gl" x="295" y="170">a</text><path class="a-ink" d="M228 140v40"/><path class="a-ink" d="M228 142c7-4 13 4 21 0s11-2 13 0v17c-2-2-6-4-13 0s-14-4-21 0Z"/>
+  <path class="a-thread" d="M176 86C176 104 296 108 304 124M304 86C304 104 184 108 176 124"/>
+  <path class="a-thread" d="M170 118l6 7 7-5M298 118l6 7 7-5"/>
+  <rect class="a-tile" x="404" y="34" width="34" height="40" rx="5"/><rect class="a-tile" x="442" y="34" width="34" height="40" rx="5"/>
+  <text class="a-big" x="417" y="59">B</text><text class="a-big" x="455" y="59">R</text>
+  <rect class="a-tile" x="404" y="138" width="34" height="40" rx="5"/><rect class="a-tile" x="442" y="138" width="34" height="40" rx="5"/>
+  <text class="a-big a-rose" x="417" y="163">R</text><text class="a-big a-rose" x="455" y="163">B</text>
+  <path class="a-cut" d="M422 80C430 100 460 110 460 132M460 80C452 100 422 110 422 132"/>
+  <text class="a-lbl" x="398" y="206">[...STR] SWAPS</text><text class="a-lbl" x="150" y="214">REVERSE(STR)</text>
+</svg>

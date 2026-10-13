@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 136" width="224" height="136" role="img" aria-labelledby="count-t">
+  <title id="count-t">Three whole clusters numbered one, two and three</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <rect class="a-tile" x="18" y="46" width="52" height="60" rx="6"/>
+  <text class="a-big a-rose" x="40" y="32">1</text>
+  <rect class="a-tile" x="86" y="46" width="52" height="60" rx="6"/>
+  <text class="a-big a-rose" x="108" y="32">2</text>
+  <rect class="a-tile" x="154" y="46" width="52" height="60" rx="6"/>
+  <text class="a-big a-rose" x="176" y="32">3</text>
+  <text class="a-gl" x="35" y="88">e</text><path class="a-ink" transform="translate(112 76) scale(0.85)" d="M0 9C-9 3-13-2-13-7c0-4 3-7 7-7 3 0 5 2 6 4 1-2 3-4 6-4 4 0 7 3 7 7 0 5-4 10-13 16Z"/><path class="a-ink" d="M167 56v40"/><path class="a-ink" d="M167 58c7-4 13 4 21 0s11-2 13 0v17c-2-2-6-4-13 0s-14-4-21 0Z"/>
+  <path class="a-soft" d="M78 40V112M146 40V112" stroke-dasharray="2 4"/>
+  <text class="a-lbl" x="18" y="128">INDEX BY CLUSTER</text>
+</svg>

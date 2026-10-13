@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" width="520" height="220" role="img" aria-labelledby="length-t">
+  <title id="length-t">One family emoji measured three ways: one grapheme, five code points and eight UTF-16 code units</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <rect class="a-tile" x="200" y="22" width="120" height="96" rx="6"/>
+  <circle class="a-ink" cx="232" cy="56" r="10"/>
+  <circle class="a-ink" cx="260" cy="52" r="10"/>
+  <circle class="a-ink" cx="290" cy="62" r="7.5"/>
+  <path class="a-ink" d="M216 102c0-14 8-24 16-24s16 10 16 24M244 102c0-16 7-28 16-28s16 12 16 28M278 102c0-12 5-19 12-19s12 7 12 19"/>
+  <path class="a-soft" d="M200 128v84M320 128v84" stroke-dasharray="2 4"/>
+  <text class="a-lbl" x="24" y="152">GRAPHEMES</text><text class="a-lbl" x="24" y="180">CODE POINTS</text><text class="a-lbl" x="24" y="208">UTF-16 UNITS</text>
+  <path class="a-thread" d="M204 140v8H316v-8"/>
+  <path class="a-ink" d="M206 176H314"/>
+  <circle class="a-dot" cx="206" cy="176" r="5"/>
+  <circle class="a-dot" cx="260" cy="176" r="5"/>
+  <circle class="a-dot" cx="314" cy="176" r="5"/>
+  <circle class="a-hole" cx="233" cy="176" r="3.5"/>
+  <circle class="a-hole" cx="287" cy="176" r="3.5"/>
+  <rect class="a-ink" x="200" y="198" width="120" height="12" rx="1"/>
+  <path class="a-ink" d="M215 198v12M230 198v12M245 198v12M260 198v12M275 198v12M290 198v12M305 198v12"/>
+  <text class="a-big a-rose" x="340" y="153">1</text><text class="a-big" x="340" y="181">5</text><text class="a-big" x="340" y="209">8</text>
+  <text class="a-lbl" x="368" y="153">WHAT PEOPLE SEE</text><text class="a-lbl" x="368" y="181">[...STR].LENGTH</text><text class="a-lbl" x="368" y="209">STR.LENGTH</text>
+</svg>

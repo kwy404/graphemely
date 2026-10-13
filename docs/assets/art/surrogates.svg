@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" width="520" height="220" role="img" aria-labelledby="surrogates-t">
+  <title id="surrogates-t">An emoji torn into its two UTF-16 halves, a high and a low surrogate, and the replacement character that repairs it</title>
+  <style>
+    .a-ink{fill:none;stroke:#231F3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-soft{fill:none;stroke:#8A84A8;stroke-width:1;stroke-linecap:round}
+    .a-guide{fill:none;stroke:#7B6CF6;stroke-width:1;stroke-dasharray:4 5}
+    .a-thread{fill:none;stroke:#E0466F;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .a-cut{fill:none;stroke:#E0466F;stroke-width:1.5;stroke-dasharray:3 4;stroke-linecap:round}
+    .a-fill{fill:#F4F1FF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-tile{fill:#FFFFFF;stroke:#231F3A;stroke-width:1.5;stroke-linejoin:round}
+    .a-dot{fill:#E0466F}
+    .a-hole{fill:#FFFFFF;stroke:#E0466F;stroke-width:2}
+    .a-vdot{fill:#7B6CF6}
+    .a-gl{fill:#231F3A;font:400 32px Fraunces,Georgia,serif}
+    .a-lbl{fill:#6B6588;font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em}
+    .a-big{fill:#231F3A;font:400 13px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+    .a-rose{fill:#E0466F}
+    .a-faint{opacity:.4}
+    @media (prefers-color-scheme:dark){
+      .a-ink{stroke:#EEEBFF}.a-soft{stroke:#8F89AE}.a-guide{stroke:#A99CFF}.a-thread,.a-cut{stroke:#FF6F91}
+      .a-fill{fill:#221D3A;stroke:#EEEBFF}.a-tile{fill:#15121F;stroke:#EEEBFF}.a-hole{fill:#15121F;stroke:#FF6F91}
+      .a-dot,.a-rose{fill:#FF6F91}.a-vdot{fill:#A99CFF}.a-gl,.a-big{fill:#EEEBFF}.a-lbl{fill:#A6A0C4}
+    }
+  </style>
+  <path class="a-tile" d="M120 52H200L192 70 204 88 192 106 204 124 196 142H120Z"/>
+  <path class="a-tile" d="M226 60H300V150H222L230 132 218 114 230 96 218 78Z"/>
+  <path class="a-ink" d="M188 80A17 17 0 0 0 188 114M176 102c3 4 7 6 12 6M181 89v3"/>
+  <path class="a-ink" d="M234 88A17 17 0 0 1 234 122M234 116c5 0 9-2 12-6M241 97v3"/>
+  <path class="a-thread" d="M30 160C70 150 100 150 160 156"/>
+  <path class="a-thread" d="M262 164C300 168 330 170 352 168"/>
+  <path class="a-thread" d="M160 156l12-4M160 156l10 6M160 156l14 2" style="stroke-width:1.5"/>
+  <path class="a-thread" d="M262 164l-12-5M262 164l-10 6M262 164l-14 1" style="stroke-width:1.5"/>
+  <text class="a-lbl" x="122" y="186">\uD83D</text><text class="a-lbl" x="232" y="190">\uDE00</text>
+  <path class="a-soft" d="M330 104H384M376 98l8 6-8 6"/>
+  <path class="a-fill" d="M430 64 466 100 430 136 394 100Z"/>
+  <text class="a-gl" x="421" y="111" style="font-size:28px">?</text>
+  <text class="a-lbl" x="406" y="160">U+FFFD</text><text class="a-lbl" x="388" y="174">TOWELLFORMED</text>
+  <text class="a-lbl" x="122" y="40">ONE EMOJI, TWO HALVES</text>
+</svg>

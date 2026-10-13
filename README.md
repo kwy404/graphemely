@@ -79,9 +79,11 @@ reverse(str);               // '!' + family + 'iH'
 - [Browser and runtime support](#browser-and-runtime-support)
 - [Bundle size](#bundle-size)
 - [Contributing](#contributing)
+- [More from kwy404](#more-from-kwy404)
+- [Author](#author)
 - [License](#license)
 
-Guides with live examples: [truncate a string with emoji](https://kwy404.github.io/graphemely/truncate-string-with-emoji.html), [string length with emoji](https://kwy404.github.io/graphemely/string-length-emoji.html), [reverse a string with Unicode](https://kwy404.github.io/graphemely/reverse-string-unicode.html), [split a string into characters](https://kwy404.github.io/graphemely/split-string-into-characters.html), [substring without breaking emoji](https://kwy404.github.io/graphemely/substring-without-breaking-emoji.html), [remove lone surrogates](https://kwy404.github.io/graphemely/lone-surrogates.html). Try it in the [online playground](https://kwy404.github.io/graphemely/#playground).
+Guides with live examples: [truncate a string with emoji](https://kwy404.github.io/graphemely/truncate-string-with-emoji.html), [string length with emoji](https://kwy404.github.io/graphemely/string-length-emoji.html), [reverse a string with Unicode](https://kwy404.github.io/graphemely/reverse-string-unicode.html), [split a string into characters](https://kwy404.github.io/graphemely/split-string-into-characters.html), [substring without breaking emoji](https://kwy404.github.io/graphemely/substring-without-breaking-emoji.html), [remove lone surrogates](https://kwy404.github.io/graphemely/lone-surrogates.html). Try it in the [Text Lab](https://kwy404.github.io/graphemely/#playground), with a live ESLint demo.
 
 ## Install
 
@@ -387,12 +389,16 @@ npm run build
 
 ## More from kwy404
 
-- [graphemely](https://kwy404.github.io/graphemely/): truncate, slice and count strings with emoji safely in JavaScript.
-- [edgegoat](https://kwy404.github.io/edgegoat/): edge case test inputs for time zones, unicode, NaN, URLs and more.
+- [Monsoon](https://kwy404.github.io/monsoon/): utility first CSS from one file, no build step.
+- [Voodoo.js](https://kwy404.github.io/Voodoo.js/): the HTML first JavaScript framework.
+- [breakhound](https://kwy404.github.io/breakhound/): find bugs in any JavaScript or TypeScript library automatically, no tests required.
 - [vueleap](https://kwy404.github.io/vueleap/): migrate Vue 2 to Vue 3 with one command.
 - [numberparrot](https://kwy404.github.io/numberparrot/): parse localized number and currency strings back into numbers.
-- [breakhound](https://github.com/kwy404/breakhound): find bugs in any JavaScript or TypeScript library automatically, no tests required.
-- [Voodoo.js](https://github.com/kwy404/Voodoo.js): the HTML first JavaScript framework.
+- [edgegoat](https://kwy404.github.io/edgegoat/): edge case test inputs for time zones, unicode, NaN, URLs and more.
+
+## Author
+
+Made by Alexandre Kohler ([GitHub](https://github.com/kwy404), [LinkedIn](https://www.linkedin.com/in/alexandre-silva-173687256/)). The [docs site](https://kwy404.github.io/graphemely/) is built with [Monsoon](https://kwy404.github.io/monsoon/), and its interactive parts are built with [Voodoo.js](https://kwy404.github.io/Voodoo.js/).
 
 ## License
 

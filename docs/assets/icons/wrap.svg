@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#7B6CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Wrap lines">
-  <title>Wrap lines</title>
-  <path d="M6 12 H40"/>
-  <path d="M6 24 H34 A6 6 0 0 1 34 36 H26" stroke="#FF6F91"/>
-  <path d="M30 32 L26 36 L30 40" stroke="#FF6F91"/>
-  <path d="M6 36 H18"/>
-</svg>
