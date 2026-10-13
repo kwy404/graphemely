@@ -1,22 +1,24 @@
 // Pre-renders every code example in docs/*.html with Shiki, using the VS Code
-// themes Light+ and Dark+ (dual themes, switched by CSS with the site theme).
+// themes Light+ and Dark+ (dual themes, switched by CSS with the site theme),
+// inside a VS Code style window: dots, a tab with the file name and icon, line
+// numbers and a copy button. Shell commands get a terminal frame instead.
 //
 // Source blocks are written by hand as:
 //
 //   <pre><code class="language-js" data-title="eslint.config.js" data-bad="2" data-ok="3">raw code</code></pre>
 //
-// `data-title` (optional) names the file in the title bar, `data-bad` and
-// `data-ok` (optional) are comma separated line numbers to mark. Each block is
-// replaced by a <figure class="code"> that keeps those attributes, so running
-// the script again reads the code back from its own output and produces the
-// same file. The highlighted text is checked against the source on every run.
+// `data-title` (optional) names the file in the tab, `data-bad` and `data-ok`
+// (optional) are comma separated line numbers to mark. Each block is replaced
+// by a <figure class="code"> that keeps those attributes, so running the script
+// again reads the code back from its own output and produces the same file.
+// The highlighted text is checked against the source on every run.
 //
-// Usage: npm run docs:highlight   (local only, needs Node 18 or newer)
+// Usage: npm run docs:highlight   (local only, not part of CI)
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createHighlighter } from 'shiki';
 
 const docs = new URL('../docs/', import.meta.url);
-const LANGS = { js: 'JavaScript', ts: 'TypeScript', bash: 'Terminal', json: 'JSON', html: 'HTML' };
+const LANGS = { js: 'example.js', ts: 'example.ts', bash: 'Terminal', json: 'data.json', html: 'index.html' };
 const SOURCE = /<pre><code class="language-([\w-]+)"([^>]*)>([\s\S]*?)<\/code><\/pre>/g;
 const OUTPUT = /<figure class="code[^"]*"([^>]*)>[\s\S]*?<\/figure>/g;
 const BLOCK = new RegExp(`${OUTPUT.source}|${SOURCE.source}`, 'g');
@@ -74,16 +76,19 @@ function render({ lang, title, bad, ok, code }, id) {
   const back = textOf(/<code[^>]*>([\s\S]*)<\/code>/.exec(html)[1]);
   if (back !== code) throw new Error(`highlighted text differs from the source in block ${id}`);
 
+  const terminal = lang === 'bash';
   const label = title || LANGS[lang] || lang;
-  const multi = code.includes('\n');
-  let figure = `<figure class="code${multi ? ' numbered' : ''}" data-lang="${lang}"`;
+  const classes = ['code', terminal ? 'terminal' : 'editor'];
+  if (!terminal && code.includes('\n')) classes.push('numbered');
+  let figure = `<figure class="${classes.join(' ')}" data-lang="${lang}"`;
   if (title) figure += ` data-title="${escape(title)}"`;
   if (bad) figure += ` data-bad="${bad}"`;
   if (ok) figure += ` data-ok="${ok}"`;
   return (
     `${figure}>\n` +
-    `<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-${lang}" aria-hidden="true"></span>${escape(label)}</span>` +
-    `<button type="button" class="code-copy" v-copy-from="#${id}" aria-label="Copy ${escape(label)} code">Copy</button></div>\n` +
+    `<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>` +
+    `<span class="code-tab"><span class="file-icon file-icon-${lang}" aria-hidden="true"></span>${escape(label)}</span>` +
+    `<button type="button" class="code-copy" v-copy-from="#${id}" aria-label="Copy ${terminal ? 'command' : escape(label)}">Copy</button></div>\n` +
     // The scroll container is focusable so keyboard users can scroll long lines.
     html.replace('<pre ', '<pre tabindex="0" ') +
     `\n</figure>`

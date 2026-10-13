@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { RuleTester } from 'eslint';
 import { afterAll, describe, expect, it } from 'vitest';
 import plugin from '../src/eslint-plugin/index';
@@ -24,6 +25,9 @@ describe('plugin shape', () => {
       'prefer-graphemely-truncate',
     ]);
     expect(plugin.meta.name).toBe('@kwy404/graphemely/eslint-plugin');
+    // Compared with package.json, so a release only has to bump the version in one more place.
+    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version: string };
+    expect(plugin.meta.version).toBe(pkg.version);
     expect(plugin.configs.recommended.plugins?.graphemely).toBe(plugin);
     expect(plugin.configs.recommended.rules).toEqual({
       'graphemely/no-unsafe-string-split': 'warn',

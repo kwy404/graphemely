@@ -1,5 +1,5 @@
 <p align="center">
-  <b>English</b> | <a href="https://github.com/kwy404/graphemely/blob/main/README.pt-BR.md">Português (Brasil)</a>
+  <b>English</b> | <a href="https://github.com/kwy404/graphemely/blob/main/i18n/README.pt-BR.md">Português (Brasil)</a>
 </p>
 
 <p align="center">
@@ -15,6 +15,8 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@kwy404/graphemely"><img src="https://img.shields.io/npm/v/@kwy404/graphemely?color=7B6CF6&label=npm" alt="graphemely npm version" height="20"></a>
+  <a href="https://www.npmjs.com/package/@kwy404/graphemely"><img src="https://img.shields.io/npm/dm/@kwy404/graphemely?color=7B6CF6" alt="graphemely npm downloads per month" height="20"></a>
+  <a href="https://www.npmjs.com/package/@kwy404/graphemely"><img src="https://img.shields.io/npm/dt/@kwy404/graphemely?color=7B6CF6" alt="graphemely total npm downloads" height="20"></a>
   <a href="https://bundlephobia.com/package/@kwy404/graphemely"><img src="https://img.shields.io/bundlephobia/minzip/@kwy404/graphemely?color=FF6F91&label=minzip" alt="graphemely bundle size, minified and gzipped" height="20"></a>
   <a href="https://github.com/kwy404/graphemely/actions/workflows/ci.yml"><img src="https://github.com/kwy404/graphemely/actions/workflows/ci.yml/badge.svg" alt="graphemely CI status" height="20"></a>
   <a href="https://github.com/kwy404/graphemely/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-22A06B" alt="MIT license" height="20"></a>
@@ -382,6 +384,15 @@ npm run lint
 npm run typecheck
 npm run build
 ```
+
+## More from kwy404
+
+- [graphemely](https://kwy404.github.io/graphemely/): truncate, slice and count strings with emoji safely in JavaScript.
+- [edgegoat](https://kwy404.github.io/edgegoat/): edge case test inputs for time zones, unicode, NaN, URLs and more.
+- [vueleap](https://kwy404.github.io/vueleap/): migrate Vue 2 to Vue 3 with one command.
+- [numberparrot](https://kwy404.github.io/numberparrot/): parse localized number and currency strings back into numbers.
+- [breakhound](https://github.com/kwy404/breakhound): find bugs in any JavaScript or TypeScript library automatically, no tests required.
+- [Voodoo.js](https://github.com/kwy404/Voodoo.js): the HTML first JavaScript framework.
 
 ## License
 

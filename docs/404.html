@@ -55,11 +55,11 @@
   <main id="main">
     <div class="wrap">
 
-      <div style="text-align:center; padding: 40px 0">
+      <div class="not-found">
         <img src="assets/mascot.svg" alt="Gem, the graphemely cat, looking at a cut thread" width="200" height="200">
         <h1>Page not found</h1>
-        <p class="lead" style="margin: 0 auto">Gem cut this thread a little too short. The page you are looking for does not exist.</p>
-        <div class="cta" style="justify-content: center">
+        <p class="lead">Gem cut this thread a little too short. The page you are looking for does not exist.</p>
+        <div class="cta">
           <a class="btn primary" href="./">Go to the home page</a>
           <a class="btn" href="./#guides">Browse the guides</a>
         </div>
@@ -67,13 +67,47 @@
     </div>
   </main>
   <footer class="site">
-    <div class="wrap">
-      <img src="assets/mascot.svg" alt="" width="28" height="28">
-      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+        <p>Truncate, slice and count strings with emoji safely in JavaScript and TypeScript. Made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</p>
+      </div>
+      <nav class="footer-col" aria-labelledby="footer-guides">
+        <h2 id="footer-guides">Guides</h2>
+        <ul>
+          <li><a href="truncate-string-with-emoji.html">Truncate a string with emoji</a></li>
+          <li><a href="string-length-emoji.html">String length with emoji</a></li>
+          <li><a href="reverse-string-unicode.html">Reverse a string with Unicode</a></li>
+          <li><a href="split-string-into-characters.html">Split a string into characters</a></li>
+          <li><a href="substring-without-breaking-emoji.html">Substring without breaking emoji</a></li>
+          <li><a href="lone-surrogates.html">Remove lone surrogates</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="footer-project">
+        <h2 id="footer-project">Project</h2>
+        <ul>
+          <li><a href="./#playground">Playground</a></li>
+          <li><a href="https://github.com/kwy404/graphemely">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a></li>
+          <li><a href="https://github.com/kwy404/graphemely/blob/main/CHANGELOG.md">Changelog</a></li>
+          <li><a href="https://github.com/kwy404/graphemely/issues">Report an issue</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col footer-more">
+        <h2 id="footer-more">More from kwy404</h2>
+        <ul aria-labelledby="footer-more">
+          <li><a href="https://kwy404.github.io/graphemely/">graphemely</a><span>Truncate, slice and count strings with emoji safely.</span></li>
+          <li><a href="https://kwy404.github.io/edgegoat/">edgegoat</a><span>Edge case test inputs: time zones, unicode, NaN and more.</span></li>
+          <li><a href="https://kwy404.github.io/vueleap/">vueleap</a><span>Migrate Vue 2 to Vue 3 with one command.</span></li>
+          <li><a href="https://kwy404.github.io/numberparrot/">numberparrot</a><span>Parse localized number and currency strings.</span></li>
+          <li><a href="https://github.com/kwy404/breakhound">breakhound</a><span>Find bugs in any JavaScript library, no tests required.</span></li>
+          <li><a href="https://github.com/kwy404/Voodoo.js">Voodoo.js</a><span>The HTML first JavaScript framework.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>MIT licensed.</span>
       <span>Interactive parts built with <a href="https://github.com/kwy404/Voodoo.js">Voodoo.js</a>.</span>
-      <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
-      <a href="./">Home</a>
     </div>
   </footer>
 </body>

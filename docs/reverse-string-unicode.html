@@ -131,16 +131,16 @@
       </button>
     </div>
   </header>
-  <main id="main">
+  <main id="main" class="article">
     <div class="wrap">
 
-      <p><a href="./">graphemely</a> / Guides</p>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="./">graphemely</a><span aria-hidden="true">/</span><a href="./#guides">Guides</a></nav>
       <h1>How to reverse a string with emoji in JavaScript</h1>
       <p class="lead">The classic <code>str.split('').reverse().join('')</code> turns every emoji into broken halves. Reverse by grapheme cluster instead with <code>reverse(str)</code> from graphemely.</p>
 
       <h2>The fix, copy and paste</h2>
-<figure class="code numbered" data-lang="js">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-js" aria-hidden="true"></span>JavaScript</span><button type="button" class="code-copy" v-copy-from="#code-1" aria-label="Copy JavaScript code">Copy</button></div>
+<figure class="code editor numbered" data-lang="js">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-js" aria-hidden="true"></span>example.js</span><button type="button" class="code-copy" v-copy-from="#code-1" aria-label="Copy example.js">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-1"><span class="line"><span style="--shiki-light:#AF00DB;--shiki-dark:#C586C0">import</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> { </span><span style="--shiki-light:#001080;--shiki-dark:#9CDCFE">reverse</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> } </span><span style="--shiki-light:#AF00DB;--shiki-dark:#C586C0">from</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> '@kwy404/graphemely'</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">reverse</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">(</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">'hello'</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">);                     </span><span style="--shiki-light:#008000;--shiki-dark:#6A9955">// 'olleh'</span></span>
@@ -153,8 +153,8 @@
       <div class="compare">
         <div>
           <span class="label bad">Broken: code units</span>
-<figure class="code numbered" data-lang="js" data-bad="2,3">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-js" aria-hidden="true"></span>JavaScript</span><button type="button" class="code-copy" v-copy-from="#code-2" aria-label="Copy JavaScript code">Copy</button></div>
+<figure class="code editor numbered" data-lang="js" data-bad="2,3">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-js" aria-hidden="true"></span>example.js</span><button type="button" class="code-copy" v-copy-from="#code-2" aria-label="Copy example.js">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-2"><span class="line"><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">'a</span><span style="--shiki-light:#EE0000;--shiki-dark:#D7BA7D">\u{1F600}</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">b'</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">.</span><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">split</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">(</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">''</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">).</span><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">reverse</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">().</span><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">join</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">(</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">''</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">);</span></span>
 <span class="line mark-bad"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">// 'b\uDE00\uD83Da'</span></span>
 <span class="line mark-bad"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">// two lone surrogates in the wrong order</span></span></code></pre>
@@ -162,8 +162,8 @@
         </div>
         <div>
           <span class="label bad">Still broken: code points</span>
-<figure class="code numbered" data-lang="js" data-bad="2,3">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-js" aria-hidden="true"></span>JavaScript</span><button type="button" class="code-copy" v-copy-from="#code-3" aria-label="Copy JavaScript code">Copy</button></div>
+<figure class="code editor numbered" data-lang="js" data-bad="2,3">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-js" aria-hidden="true"></span>example.js</span><button type="button" class="code-copy" v-copy-from="#code-3" aria-label="Copy example.js">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-3"><span class="line"><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">[...</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">'a</span><span style="--shiki-light:#EE0000;--shiki-dark:#D7BA7D">\u{1F1E7}\u{1F1F7}</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">b'</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">].</span><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">reverse</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">().</span><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">join</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">(</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178">''</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">);</span></span>
 <span class="line mark-bad"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">// 'b\u{1F1F7}\u{1F1E7}a'</span></span>
 <span class="line mark-bad"><span style="--shiki-light:#008000;--shiki-dark:#6A9955">// the regional indicators swap: BR becomes RB</span></span></code></pre>
@@ -174,8 +174,8 @@
 
       <h2>Catch it with ESLint</h2>
       <p>The graphemely ESLint plugin reports these patterns with the <a href="https://github.com/kwy404/graphemely/blob/main/docs/rules/no-unsafe-reverse.md">no-unsafe-reverse</a> rule:</p>
-<figure class="code numbered" data-lang="js" data-title="eslint.config.js">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-js" aria-hidden="true"></span>eslint.config.js</span><button type="button" class="code-copy" v-copy-from="#code-4" aria-label="Copy eslint.config.js code">Copy</button></div>
+<figure class="code editor numbered" data-lang="js" data-title="eslint.config.js">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-js" aria-hidden="true"></span>eslint.config.js</span><button type="button" class="code-copy" v-copy-from="#code-4" aria-label="Copy eslint.config.js">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-4"><span class="line"><span style="--shiki-light:#AF00DB;--shiki-dark:#C586C0">import</span><span style="--shiki-light:#001080;--shiki-dark:#9CDCFE"> graphemely</span><span style="--shiki-light:#AF00DB;--shiki-dark:#C586C0"> from</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> '@kwy404/graphemely/eslint-plugin'</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">;</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#AF00DB;--shiki-dark:#C586C0">export</span><span style="--shiki-light:#AF00DB;--shiki-dark:#C586C0"> default</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4"> [</span><span style="--shiki-light:#001080;--shiki-dark:#9CDCFE">graphemely</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">.</span><span style="--shiki-light:#001080;--shiki-dark:#9CDCFE">configs</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">.</span><span style="--shiki-light:#001080;--shiki-dark:#9CDCFE">recommended</span><span style="--shiki-light:#000000;--shiki-dark:#D4D4D4">];</span></span></code></pre>
@@ -190,26 +190,26 @@
           <button type="button" role="tab" aria-selected="false" tabindex="-1" v-tab="bun">bun</button>
         </div>
         <div class="tabpanel" role="tabpanel" v-tab-panel="npm">
-<figure class="code" data-lang="bash">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-5" aria-label="Copy Terminal code">Copy</button></div>
+<figure class="code terminal" data-lang="bash">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-5" aria-label="Copy command">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-5"><span class="line"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">npm</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> install</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> @kwy404/graphemely</span></span></code></pre>
 </figure>
         </div>
         <div class="tabpanel" role="tabpanel" v-tab-panel="pnpm" hidden>
-<figure class="code" data-lang="bash">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-6" aria-label="Copy Terminal code">Copy</button></div>
+<figure class="code terminal" data-lang="bash">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-6" aria-label="Copy command">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-6"><span class="line"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">pnpm</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> add</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> @kwy404/graphemely</span></span></code></pre>
 </figure>
         </div>
         <div class="tabpanel" role="tabpanel" v-tab-panel="yarn" hidden>
-<figure class="code" data-lang="bash">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-7" aria-label="Copy Terminal code">Copy</button></div>
+<figure class="code terminal" data-lang="bash">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-7" aria-label="Copy command">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-7"><span class="line"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">yarn</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> add</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> @kwy404/graphemely</span></span></code></pre>
 </figure>
         </div>
         <div class="tabpanel" role="tabpanel" v-tab-panel="bun" hidden>
-<figure class="code" data-lang="bash">
-<div class="code-bar"><span class="code-tab"><span class="code-lang code-lang-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-8" aria-label="Copy Terminal code">Copy</button></div>
+<figure class="code terminal" data-lang="bash">
+<div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-8" aria-label="Copy command">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-8"><span class="line"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">bun</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> add</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> @kwy404/graphemely</span></span></code></pre>
 </figure>
         </div>
@@ -217,10 +217,19 @@
       <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">playground</a>.</p>
 
       <h2>FAQ</h2>
-      <div class="faq">
-        <details><summary>Why does split('').reverse().join('') break emoji?</summary><p><code>split('')</code> splits a string into UTF-16 code units. Reversing them puts the low surrogate before the high surrogate, which leaves two lone surrogates that render as broken boxes.</p></details>
-        <details><summary>Is [...str].reverse().join("") safe?</summary><p>Only for text without sequences. It keeps code points together but reverses the parts of flags, skin tones, keycaps, ZWJ emoji and combining accents.</p></details>
-        <details><summary>How do I reverse a string with emoji correctly?</summary><p>Split it into grapheme clusters and reverse those: <code>reverse(str)</code> from graphemely does exactly that.</p></details>
+      <div class="faq" v-data="{ open: 1 }">
+        <div class="faq-item" :class="{ open: open === 1 }">
+          <h3><button type="button" id="faq-q1" aria-controls="faq-a1" aria-expanded="true" :aria-expanded="open === 1 ? 'true' : 'false'" @click="open = open === 1 ? 0 : 1">Why does split('').reverse().join('') break emoji?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1" :hidden="open !== 1"><p><code>split('')</code> splits a string into UTF-16 code units. Reversing them puts the low surrogate before the high surrogate, which leaves two lone surrogates that render as broken boxes.</p></div>
+        </div>
+        <div class="faq-item" :class="{ open: open === 2 }">
+          <h3><button type="button" id="faq-q2" aria-controls="faq-a2" aria-expanded="true" :aria-expanded="open === 2 ? 'true' : 'false'" @click="open = open === 2 ? 0 : 2">Is [...str].reverse().join("") safe?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2" :hidden="open !== 2"><p>Only for text without sequences. It keeps code points together but reverses the parts of flags, skin tones, keycaps, ZWJ emoji and combining accents.</p></div>
+        </div>
+        <div class="faq-item" :class="{ open: open === 3 }">
+          <h3><button type="button" id="faq-q3" aria-controls="faq-a3" aria-expanded="true" :aria-expanded="open === 3 ? 'true' : 'false'" @click="open = open === 3 ? 0 : 3">How do I reverse a string with emoji correctly?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3" :hidden="open !== 3"><p>Split it into grapheme clusters and reverse those: <code>reverse(str)</code> from graphemely does exactly that.</p></div>
+        </div>
       </div>
 
       <h2>Related guides</h2>
@@ -234,13 +243,47 @@
     </div>
   </main>
   <footer class="site">
-    <div class="wrap">
-      <img src="assets/mascot.svg" alt="" width="28" height="28">
-      <span>graphemely is MIT licensed, made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</span>
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="./"><img src="assets/mascot.svg" alt="" width="36" height="36">graphemely</a>
+        <p>Truncate, slice and count strings with emoji safely in JavaScript and TypeScript. Made by <a href="https://github.com/kwy404">Alexandre Kohler</a>.</p>
+      </div>
+      <nav class="footer-col" aria-labelledby="footer-guides">
+        <h2 id="footer-guides">Guides</h2>
+        <ul>
+          <li><a href="truncate-string-with-emoji.html">Truncate a string with emoji</a></li>
+          <li><a href="string-length-emoji.html">String length with emoji</a></li>
+          <li><a href="reverse-string-unicode.html">Reverse a string with Unicode</a></li>
+          <li><a href="split-string-into-characters.html">Split a string into characters</a></li>
+          <li><a href="substring-without-breaking-emoji.html">Substring without breaking emoji</a></li>
+          <li><a href="lone-surrogates.html">Remove lone surrogates</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="footer-project">
+        <h2 id="footer-project">Project</h2>
+        <ul>
+          <li><a href="./#playground">Playground</a></li>
+          <li><a href="https://github.com/kwy404/graphemely">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a></li>
+          <li><a href="https://github.com/kwy404/graphemely/blob/main/CHANGELOG.md">Changelog</a></li>
+          <li><a href="https://github.com/kwy404/graphemely/issues">Report an issue</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col footer-more">
+        <h2 id="footer-more">More from kwy404</h2>
+        <ul aria-labelledby="footer-more">
+          <li><a href="https://kwy404.github.io/graphemely/">graphemely</a><span>Truncate, slice and count strings with emoji safely.</span></li>
+          <li><a href="https://kwy404.github.io/edgegoat/">edgegoat</a><span>Edge case test inputs: time zones, unicode, NaN and more.</span></li>
+          <li><a href="https://kwy404.github.io/vueleap/">vueleap</a><span>Migrate Vue 2 to Vue 3 with one command.</span></li>
+          <li><a href="https://kwy404.github.io/numberparrot/">numberparrot</a><span>Parse localized number and currency strings.</span></li>
+          <li><a href="https://github.com/kwy404/breakhound">breakhound</a><span>Find bugs in any JavaScript library, no tests required.</span></li>
+          <li><a href="https://github.com/kwy404/Voodoo.js">Voodoo.js</a><span>The HTML first JavaScript framework.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>MIT licensed.</span>
       <span>Interactive parts built with <a href="https://github.com/kwy404/Voodoo.js">Voodoo.js</a>.</span>
-      <a href="https://github.com/kwy404/graphemely">GitHub</a>
-      <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm</a>
-      <a href="./">Home</a>
     </div>
   </footer>
 </body>
