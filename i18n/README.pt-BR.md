@@ -132,6 +132,20 @@ Regras: `no-unsafe-string-split` (aponta `str.split('')`), `no-unsafe-reverse` (
 
 Node.js 16 ou mais novo, Chrome e Edge 87+, Safari 14.1+, Firefox 125+, Deno e Bun usam `Intl.Segmenter`. Ambientes sem `Intl.Segmenter` usam um fallback embutido que implementa as regras do UAX #29 usadas na prática. Tamanho: cerca de 2 kB minificado e com gzip.
 
+## Mais de kwy404
+
+- [Monsoon](https://kwy404.github.io/monsoon/): CSS utility first em um único arquivo, sem etapa de build.
+- [Voodoo.js](https://kwy404.github.io/Voodoo.js/): o framework JavaScript HTML first.
+- [breakhound](https://kwy404.github.io/breakhound/): encontre bugs em qualquer biblioteca JavaScript ou TypeScript automaticamente, sem escrever testes.
+- [vueleap](https://kwy404.github.io/vueleap/): migre de Vue 2 para Vue 3 com um comando.
+- [numberparrot](https://kwy404.github.io/numberparrot/): converta números e valores monetários localizados de volta em números.
+- [edgegoat](https://kwy404.github.io/edgegoat/): entradas de teste para casos extremos de fuso horário, unicode, NaN, URLs e mais.
+- [cookieowl](https://kwy404.github.io/cookieowl/): banner de cookies gratuito para LGPD e GDPR que bloqueia rastreadores de verdade.
+- [installkite](https://kwy404.github.io/installkite/): torne qualquer site instalável e com funcionamento offline.
+- [a11ymedic](https://kwy404.github.io/a11ymedic/): verificador de acessibilidade que explica cada problema e entrega a correção exata.
+- [fontsketch](https://kwy404.github.io/fontsketch/): crie uma fonte com a sua letra, grátis e no navegador.
+- [kastor](https://kwy404.github.io/kastor/): o ORM para TypeScript para quase todos os bancos de dados.
+
 ## Contribuindo
 
 Issues e pull requests são bem-vindos. Veja [CONTRIBUTING.md](https://github.com/kwy404/graphemely/blob/main/CONTRIBUTING.md).

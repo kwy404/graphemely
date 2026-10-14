@@ -58,6 +58,11 @@ const others = [
   ['vueleap', 'https://kwy404.github.io/vueleap/', 'Migrate Vue 2 to Vue 3 with one command.'],
   ['numberparrot', 'https://kwy404.github.io/numberparrot/', 'Parse localized number and currency strings.'],
   ['edgegoat', 'https://kwy404.github.io/edgegoat/', 'Edge case test inputs: time zones, unicode, NaN and more.'],
+  ['cookieowl', 'https://kwy404.github.io/cookieowl/', 'Cookie consent for LGPD and GDPR that really blocks trackers.'],
+  ['installkite', 'https://kwy404.github.io/installkite/', 'Make any website installable and offline capable.'],
+  ['a11ymedic', 'https://kwy404.github.io/a11ymedic/', 'Accessibility checker that gives the exact fix.'],
+  ['fontsketch', 'https://kwy404.github.io/fontsketch/', 'Turn your handwriting into a font, in your browser.'],
+  ['kastor', 'https://kwy404.github.io/kastor/', 'The TypeScript ORM for almost every database.'],
 ];
 
 export const icon = (name, cls = 'icon') =>
