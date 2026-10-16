@@ -62,260 +62,158 @@ export default [
  },
  {
   "kind": "Guide",
-  "title": "What is a lone surrogate and how do I remove it?",
+  "title": "Lone surrogates",
   "page": "graphemely",
   "url": "lone-surrogates.html"
  },
  {
   "kind": "Section",
   "title": "The fix, copy and paste",
-  "page": "What is a lone surrogate and how do I remove it?",
+  "page": "Lone surrogates",
   "url": "lone-surrogates.html#fix-copy-paste"
  },
  {
   "kind": "Section",
   "title": "Why lone surrogates are a problem",
-  "page": "What is a lone surrogate and how do I remove it?",
+  "page": "Lone surrogates",
   "url": "lone-surrogates.html#why-lone-surrogates-are"
  },
  {
   "kind": "Section",
   "title": "Where they come from",
-  "page": "What is a lone surrogate and how do I remove it?",
+  "page": "Lone surrogates",
   "url": "lone-surrogates.html#where-they-come-from"
  },
  {
   "kind": "Section",
   "title": "Native methods",
-  "page": "What is a lone surrogate and how do I remove it?",
+  "page": "Lone surrogates",
   "url": "lone-surrogates.html#native-methods"
  },
  {
   "kind": "Section",
   "title": "Install",
-  "page": "What is a lone surrogate and how do I remove it?",
+  "page": "Lone surrogates",
   "url": "lone-surrogates.html#install"
  },
  {
   "kind": "Section",
-  "title": "FAQ",
-  "page": "What is a lone surrogate and how do I remove it?",
-  "url": "lone-surrogates.html#faq"
- },
- {
-  "kind": "Section",
   "title": "Related guides",
-  "page": "What is a lone surrogate and how do I remove it?",
+  "page": "Lone surrogates",
   "url": "lone-surrogates.html#related"
  },
  {
   "kind": "Guide",
-  "title": "How to reverse a string with emoji in JavaScript",
-  "page": "graphemely",
-  "url": "reverse-string-unicode.html"
- },
- {
-  "kind": "Section",
-  "title": "The fix, copy and paste",
-  "page": "How to reverse a string with emoji in JavaScript",
-  "url": "reverse-string-unicode.html#fix-copy-paste"
- },
- {
-  "kind": "Section",
-  "title": "Why the usual one liners break",
-  "page": "How to reverse a string with emoji in JavaScript",
-  "url": "reverse-string-unicode.html#why-usual-one-liners"
- },
- {
-  "kind": "Section",
-  "title": "Catch it with ESLint",
-  "page": "How to reverse a string with emoji in JavaScript",
-  "url": "reverse-string-unicode.html#catch-it-eslint"
- },
- {
-  "kind": "Section",
-  "title": "Install",
-  "page": "How to reverse a string with emoji in JavaScript",
-  "url": "reverse-string-unicode.html#install"
- },
- {
-  "kind": "Section",
-  "title": "FAQ",
-  "page": "How to reverse a string with emoji in JavaScript",
-  "url": "reverse-string-unicode.html#faq"
- },
- {
-  "kind": "Section",
-  "title": "Related guides",
-  "page": "How to reverse a string with emoji in JavaScript",
-  "url": "reverse-string-unicode.html#related"
- },
- {
-  "kind": "Guide",
-  "title": "How to split a string into characters with Unicode support",
+  "title": "Splitting text into characters",
   "page": "graphemely",
   "url": "split-string-into-characters.html"
  },
  {
   "kind": "Section",
   "title": "The fix, copy and paste",
-  "page": "How to split a string into characters with Unicode support",
+  "page": "Splitting text into characters",
   "url": "split-string-into-characters.html#fix-copy-paste"
  },
  {
   "kind": "Section",
   "title": "Three ways to split, compared",
-  "page": "How to split a string into characters with Unicode support",
+  "page": "Splitting text into characters",
   "url": "split-string-into-characters.html#three-ways-to-split"
  },
  {
   "kind": "Section",
   "title": "Using Intl.Segmenter directly",
-  "page": "How to split a string into characters with Unicode support",
+  "page": "Splitting text into characters",
   "url": "split-string-into-characters.html#using-intl-segmenter-directly"
  },
  {
   "kind": "Section",
   "title": "Install",
-  "page": "How to split a string into characters with Unicode support",
+  "page": "Splitting text into characters",
   "url": "split-string-into-characters.html#install"
  },
  {
   "kind": "Section",
-  "title": "FAQ",
-  "page": "How to split a string into characters with Unicode support",
-  "url": "split-string-into-characters.html#faq"
- },
- {
-  "kind": "Section",
   "title": "Related guides",
-  "page": "How to split a string into characters with Unicode support",
+  "page": "Splitting text into characters",
   "url": "split-string-into-characters.html#related"
  },
  {
   "kind": "Guide",
-  "title": "Why is the length of an emoji 2 in JavaScript?",
+  "title": "Counting characters",
   "page": "graphemely",
   "url": "string-length-emoji.html"
  },
  {
   "kind": "Section",
   "title": "The fix, copy and paste",
-  "page": "Why is the length of an emoji 2 in JavaScript?",
+  "page": "Counting characters",
   "url": "string-length-emoji.html#fix-copy-paste"
  },
  {
   "kind": "Section",
   "title": "What .length actually measures",
-  "page": "Why is the length of an emoji 2 in JavaScript?",
+  "page": "Counting characters",
   "url": "string-length-emoji.html#what-length-actually-measures"
  },
  {
   "kind": "Section",
   "title": "Where this bites in real code",
-  "page": "Why is the length of an emoji 2 in JavaScript?",
+  "page": "Counting characters",
   "url": "string-length-emoji.html#where-this-bites-in"
  },
  {
   "kind": "Section",
   "title": "Install",
-  "page": "Why is the length of an emoji 2 in JavaScript?",
+  "page": "Counting characters",
   "url": "string-length-emoji.html#install"
  },
  {
   "kind": "Section",
-  "title": "FAQ",
-  "page": "Why is the length of an emoji 2 in JavaScript?",
-  "url": "string-length-emoji.html#faq"
- },
- {
-  "kind": "Section",
   "title": "Related guides",
-  "page": "Why is the length of an emoji 2 in JavaScript?",
+  "page": "Counting characters",
   "url": "string-length-emoji.html#related"
  },
  {
   "kind": "Guide",
-  "title": "Why substring breaks emoji, and a Unicode safe substring",
-  "page": "graphemely",
-  "url": "substring-without-breaking-emoji.html"
- },
- {
-  "kind": "Section",
-  "title": "The fix, copy and paste",
-  "page": "Why substring breaks emoji, and a Unicode safe substring",
-  "url": "substring-without-breaking-emoji.html#fix-copy-paste"
- },
- {
-  "kind": "Section",
-  "title": "What goes wrong with code unit indices",
-  "page": "Why substring breaks emoji, and a Unicode safe substring",
-  "url": "substring-without-breaking-emoji.html#what-goes-wrong-code"
- },
- {
-  "kind": "Section",
-  "title": "Install",
-  "page": "Why substring breaks emoji, and a Unicode safe substring",
-  "url": "substring-without-breaking-emoji.html#install"
- },
- {
-  "kind": "Section",
-  "title": "FAQ",
-  "page": "Why substring breaks emoji, and a Unicode safe substring",
-  "url": "substring-without-breaking-emoji.html#faq"
- },
- {
-  "kind": "Section",
-  "title": "Related guides",
-  "page": "Why substring breaks emoji, and a Unicode safe substring",
-  "url": "substring-without-breaking-emoji.html#related"
- },
- {
-  "kind": "Guide",
-  "title": "How to truncate a string with emoji in JavaScript",
+  "title": "Truncating text without cutting characters",
   "page": "graphemely",
   "url": "truncate-string-with-emoji.html"
  },
  {
   "kind": "Section",
   "title": "The fix, copy and paste",
-  "page": "How to truncate a string with emoji in JavaScript",
+  "page": "Truncating text without cutting characters",
   "url": "truncate-string-with-emoji.html#fix-copy-paste"
  },
  {
   "kind": "Section",
   "title": "Why str.slice(0, n) + '...' breaks emoji",
-  "page": "How to truncate a string with emoji in JavaScript",
+  "page": "Truncating text without cutting characters",
   "url": "truncate-string-with-emoji.html#why-str-slice-0"
  },
  {
   "kind": "Section",
   "title": "Options",
-  "page": "How to truncate a string with emoji in JavaScript",
+  "page": "Truncating text without cutting characters",
   "url": "truncate-string-with-emoji.html#options"
  },
  {
   "kind": "Section",
   "title": "Without a library",
-  "page": "How to truncate a string with emoji in JavaScript",
+  "page": "Truncating text without cutting characters",
   "url": "truncate-string-with-emoji.html#without-library"
  },
  {
   "kind": "Section",
   "title": "Install",
-  "page": "How to truncate a string with emoji in JavaScript",
+  "page": "Truncating text without cutting characters",
   "url": "truncate-string-with-emoji.html#install"
  },
  {
   "kind": "Section",
-  "title": "FAQ",
-  "page": "How to truncate a string with emoji in JavaScript",
-  "url": "truncate-string-with-emoji.html#faq"
- },
- {
-  "kind": "Section",
   "title": "Related guides",
-  "page": "How to truncate a string with emoji in JavaScript",
+  "page": "Truncating text without cutting characters",
   "url": "truncate-string-with-emoji.html#related"
  },
  {
@@ -335,6 +233,12 @@ export default [
   "title": "count()",
   "page": "API index",
   "url": "./#fn-count"
+ },
+ {
+  "kind": "Function",
+  "title": "measure()",
+  "page": "API index",
+  "url": "./#fn-measure"
  },
  {
   "kind": "Function",

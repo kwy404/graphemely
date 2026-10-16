@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>String Length with Emoji in JavaScript: Why .length Is Wrong | graphemely</title>
-  <meta name="description" content="Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.">
+  <title>Counting characters | graphemely</title>
+  <meta name="description" content="Why an emoji can have a length of 2 or more in JavaScript, and how to count the characters people see.">
   <link rel="canonical" href="https://kwy404.github.io/graphemely/string-length-emoji.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="@kwy404/graphemely">
-  <meta property="og:title" content="String Length with Emoji in JavaScript: Why .length Is Wrong | graphemely">
-  <meta property="og:description" content="Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.">
+  <meta property="og:title" content="Counting characters | graphemely">
+  <meta property="og:description" content="Why an emoji can have a length of 2 or more in JavaScript, and how to count the characters people see.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/string-length-emoji.html">
   <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="String Length with Emoji in JavaScript: Why .length Is Wrong | graphemely">
-  <meta name="twitter:description" content="Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.">
+  <meta name="twitter:title" content="Counting characters | graphemely">
+  <meta name="twitter:description" content="Why an emoji can have a length of 2 or more in JavaScript, and how to count the characters people see.">
   <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,13 +35,13 @@
   "@graph": [
     {
       "@type": "TechArticle",
-      "headline": "Why is the length of an emoji 2 in JavaScript?",
-      "description": "Why the length of an emoji is 2 in JavaScript, why a family emoji has length 8, and how to count characters the way users see them with grapheme clusters.",
+      "headline": "Counting characters",
+      "description": "Why an emoji can have a length of 2 or more in JavaScript, and how to count the characters people see.",
       "url": "https://kwy404.github.io/graphemely/string-length-emoji.html",
       "image": "https://kwy404.github.io/graphemely/og.png",
       "inLanguage": "en",
       "datePublished": "2026-10-12",
-      "dateModified": "2026-10-13",
+      "dateModified": "2026-10-15",
       "author": {
         "@type": "Person",
         "name": "Alexandre Kohler",
@@ -65,43 +65,6 @@
       }
     },
     {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Why is the length of an emoji 2 in JavaScript?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "JavaScript strings use UTF-16. Emoji live outside the Basic Multilingual Plane, so each one is stored as a surrogate pair of two code units, and .length counts code units."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why is a family emoji length 8?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It is three emoji (man, woman, girl) joined by two zero width joiners: 2 + 1 + 2 + 1 + 2 code units. It displays as one character, which is one grapheme cluster."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is [...str].length correct?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It counts code points, which is better than code units but still wrong for emoji sequences, flags, skin tones and combining accents."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I count characters like a human would?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Count grapheme clusters: length(str) from graphemely, or Intl.Segmenter with granularity grapheme."
-          }
-        }
-      ]
-    },
-    {
       "@type": "BreadcrumbList",
       "itemListElement": [
         {
@@ -113,7 +76,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Why is the length of an emoji 2 in JavaScript?",
+          "name": "Counting characters",
           "item": "https://kwy404.github.io/graphemely/string-length-emoji.html"
         }
       ]
@@ -185,8 +148,7 @@
             <li><a href="#what-length-actually-measures"><span class="toc-n">02</span>What .length actually measures</a></li>
             <li><a href="#where-this-bites-in"><span class="toc-n">03</span>Where this bites in real code</a></li>
             <li><a href="#install"><span class="toc-n">04</span>Install</a></li>
-            <li><a href="#faq"><span class="toc-n">05</span>FAQ</a></li>
-            <li><a href="#related"><span class="toc-n">06</span>Related guides</a></li>
+            <li><a href="#related"><span class="toc-n">05</span>Related guides</a></li>
             </ol>
           </nav>
           <!-- /@toc -->
@@ -196,10 +158,8 @@
             <ol>
             <li><a href="truncate-string-with-emoji.html"><span class="toc-n">01</span>Truncate</a></li>
             <li><a href="string-length-emoji.html" aria-current="page"><span class="toc-n">02</span>Length</a></li>
-            <li><a href="reverse-string-unicode.html"><span class="toc-n">03</span>Reverse</a></li>
-            <li><a href="split-string-into-characters.html"><span class="toc-n">04</span>Split</a></li>
-            <li><a href="substring-without-breaking-emoji.html"><span class="toc-n">05</span>Substring</a></li>
-            <li><a href="lone-surrogates.html"><span class="toc-n">06</span>Surrogates</a></li>
+            <li><a href="split-string-into-characters.html"><span class="toc-n">03</span>Split</a></li>
+            <li><a href="lone-surrogates.html"><span class="toc-n">04</span>Surrogates</a></li>
             </ol>
           </nav>
           <!-- /@railguides -->
@@ -211,9 +171,9 @@
       <article class="article">
         <header>
           <p class="kicker">Guide No. 02 <span aria-hidden="true">/</span> Length</p>
-          <h1>Why is the length of an emoji 2 in JavaScript?</h1>
+          <h1>Counting characters</h1>
           <p class="lead dropcap">Because <code>String.prototype.length</code> counts UTF-16 code units, not characters. Most emoji need two code units, and many are sequences of several code points. To count what a person sees, count grapheme clusters with <code>length(str)</code> from graphemely.</p>
-          <p class="byline"><span>By Alexandre Kohler</span><span>Updated 13 October 2026</span><span>2 min read</span></p>
+          <p class="byline"><span>By Alexandre Kohler</span><span>Updated 15 October 2026</span><span>2 min read</span></p>
           <figure class="plate">
             <!-- @art length -->
 <svg class="art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" role="img" aria-labelledby="length-t">
@@ -312,21 +272,12 @@
       </div>
       <!-- /@install -->
       <p>Works in Node 16 and newer, all modern browsers, Deno and Bun. ESM and CommonJS, TypeScript types included, zero dependencies, about 2 kB gzipped. Try your own text in the <a href="./#playground">Text Lab</a>.</p>
-      <h2 id="faq">FAQ</h2>
-            <div class="accordion collapse-plus faq">
-        <details class="collapse" name="faq" open><summary class="collapse-title">Why is the length of an emoji 2 in JavaScript?</summary><div class="collapse-content"><p>JavaScript strings use UTF-16. Emoji live outside the Basic Multilingual Plane, so each one is stored as a surrogate pair of two code units, and <code>.length</code> counts code units.</p></div></details>
-        <details class="collapse" name="faq"><summary class="collapse-title">Why is a family emoji length 8?</summary><div class="collapse-content"><p>It is three emoji (man, woman, girl) joined by two zero width joiners: 2 + 1 + 2 + 1 + 2 code units. It displays as one character, which is one grapheme cluster.</p></div></details>
-        <details class="collapse" name="faq"><summary class="collapse-title">Is [...str].length correct?</summary><div class="collapse-content"><p>It counts code points, which is better than code units but still wrong for emoji sequences, flags, skin tones and combining accents.</p></div></details>
-        <details class="collapse" name="faq"><summary class="collapse-title">How do I count characters like a human would?</summary><div class="collapse-content"><p>Count grapheme clusters: <code>length(str)</code> from graphemely, or <code>Intl.Segmenter</code> with granularity grapheme.</p></div></details>
-      </div>
       <h2 id="related">Related guides</h2>
       <!-- @related -->
       <ol class="reading">
-        <li><a href="truncate-string-with-emoji.html"><span class="read-n">01</span><span class="read-text"><span class="read-title">Truncate a string with emoji</span><span class="read-desc">Cut text to a length with an ellipsis, never half an emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-truncate"/></svg></a></li>
-        <li><a href="reverse-string-unicode.html"><span class="read-n">03</span><span class="read-text"><span class="read-title">Reverse a string with Unicode</span><span class="read-desc">Reverse text without scrambling flags, accents or emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-reverse"/></svg></a></li>
-        <li><a href="split-string-into-characters.html"><span class="read-n">04</span><span class="read-text"><span class="read-title">Split a string into characters</span><span class="read-desc">Get the visible characters, not code units or code points.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-split"/></svg></a></li>
-        <li><a href="substring-without-breaking-emoji.html"><span class="read-n">05</span><span class="read-text"><span class="read-title">Substring without breaking emoji</span><span class="read-desc">A Unicode safe substring and slice with negative indices.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-slice"/></svg></a></li>
-        <li><a href="lone-surrogates.html"><span class="read-n">06</span><span class="read-text"><span class="read-title">Remove lone surrogates</span><span class="read-desc">Detect and repair the broken halves of emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-well"/></svg></a></li>
+        <li><a href="truncate-string-with-emoji.html"><span class="read-n">01</span><span class="read-text"><span class="read-title">Truncating text</span><span class="read-desc">Shorten text to a length with an ellipsis, never half a character.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-truncate"/></svg></a></li>
+        <li><a href="split-string-into-characters.html"><span class="read-n">03</span><span class="read-text"><span class="read-title">Splitting text into characters</span><span class="read-desc">Visible characters instead of code units or code points.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-split"/></svg></a></li>
+        <li><a href="lone-surrogates.html"><span class="read-n">04</span><span class="read-text"><span class="read-title">Lone surrogates</span><span class="read-desc">Find and repair the broken halves of emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-well"/></svg></a></li>
       </ol>
       <!-- /@related -->
       </article>
@@ -337,7 +288,7 @@
     <div class="wrap">
       <div class="colophon-head">
         <p class="colophon-word">graphemely</p>
-        <p class="colophon-tag">Truncate, slice and count strings with emoji safely in JavaScript and TypeScript.</p>
+        <p class="colophon-tag">String functions for JavaScript that count the characters people see.</p>
       </div>
       <div class="colophon-grid">
         <div class="colophon-col">
@@ -353,12 +304,10 @@
         <nav class="colophon-col" aria-labelledby="f-guides">
           <h2 class="colophon-title" id="f-guides">Guides</h2>
           <ul>
-            <li><a href="truncate-string-with-emoji.html">Truncate a string with emoji</a></li>
-            <li><a href="string-length-emoji.html">String length with emoji</a></li>
-            <li><a href="reverse-string-unicode.html">Reverse a string with Unicode</a></li>
-            <li><a href="split-string-into-characters.html">Split a string into characters</a></li>
-            <li><a href="substring-without-breaking-emoji.html">Substring without breaking emoji</a></li>
-            <li><a href="lone-surrogates.html">Remove lone surrogates</a></li>
+            <li><a href="truncate-string-with-emoji.html">Truncating text</a></li>
+            <li><a href="string-length-emoji.html">Counting characters</a></li>
+            <li><a href="split-string-into-characters.html">Splitting text into characters</a></li>
+            <li><a href="lone-surrogates.html">Lone surrogates</a></li>
           </ul>
         </nav>
         <nav class="colophon-col" aria-labelledby="f-project">

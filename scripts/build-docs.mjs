@@ -80,7 +80,7 @@ for (const file of pages) {
 }
 
 // Function entries point at the API index on the home page.
-const api = ['graphemes', 'length', 'count', 'slice', 'at', 'splitAt', 'truncate', 'reverse', 'padStart', 'padEnd', 'wrap', 'isWellFormed', 'toWellFormed'];
+const api = ['graphemes', 'length', 'count', 'measure', 'slice', 'at', 'splitAt', 'truncate', 'reverse', 'padStart', 'padEnd', 'wrap', 'isWellFormed', 'toWellFormed'];
 for (const name of api) index.push({ kind: 'Function', title: `${name}()`, page: 'API index', url: `./#fn-${name}` });
 for (const rule of ['no-unsafe-string-split', 'no-unsafe-reverse', 'prefer-graphemely-truncate']) {
   index.push({ kind: 'Rule', title: `graphemely/${rule}`, page: 'ESLint plugin', url: `https://github.com/kwy404/graphemely/blob/main/docs/rules/${rule}.md` });

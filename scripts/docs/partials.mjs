@@ -10,43 +10,29 @@ export const guides = [
   {
     file: 'truncate-string-with-emoji.html',
     short: 'Truncate',
-    title: 'Truncate a string with emoji',
-    desc: 'Cut text to a length with an ellipsis, never half an emoji.',
+    title: 'Truncating text',
+    desc: 'Shorten text to a length with an ellipsis, never half a character.',
     icon: 'truncate',
   },
   {
     file: 'string-length-emoji.html',
     short: 'Length',
-    title: 'String length with emoji',
-    desc: 'Why an emoji has length 2, and how to count what users see.',
+    title: 'Counting characters',
+    desc: 'Why an emoji can have a length of 2, and how to count what people see.',
     icon: 'length',
-  },
-  {
-    file: 'reverse-string-unicode.html',
-    short: 'Reverse',
-    title: 'Reverse a string with Unicode',
-    desc: 'Reverse text without scrambling flags, accents or emoji.',
-    icon: 'reverse',
   },
   {
     file: 'split-string-into-characters.html',
     short: 'Split',
-    title: 'Split a string into characters',
-    desc: 'Get the visible characters, not code units or code points.',
+    title: 'Splitting text into characters',
+    desc: 'Visible characters instead of code units or code points.',
     icon: 'split',
-  },
-  {
-    file: 'substring-without-breaking-emoji.html',
-    short: 'Substring',
-    title: 'Substring without breaking emoji',
-    desc: 'A Unicode safe substring and slice with negative indices.',
-    icon: 'slice',
   },
   {
     file: 'lone-surrogates.html',
     short: 'Surrogates',
-    title: 'Remove lone surrogates',
-    desc: 'Detect and repair the broken halves of emoji.',
+    title: 'Lone surrogates',
+    desc: 'Find and repair the broken halves of emoji.',
     icon: 'well',
   },
 ];
@@ -141,7 +127,7 @@ export function footer(_args, page) {
     <div class="wrap">
       <div class="colophon-head">
         <p class="colophon-word">graphemely</p>
-        <p class="colophon-tag">Truncate, slice and count strings with emoji safely in JavaScript and TypeScript.</p>
+        <p class="colophon-tag">String functions for JavaScript that count the characters people see.</p>
       </div>
       <div class="colophon-grid">
         <div class="colophon-col">

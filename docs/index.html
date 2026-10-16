@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>graphemely: Truncate, Slice and Count Strings with Emoji Safely in JavaScript</title>
-  <meta name="description" content="Unicode safe string length, truncate, substring and reverse for JavaScript. Counts grapheme clusters, so emoji, flags and accents never break. 2 kB, zero deps.">
+  <title>graphemely: Unicode safe string functions for JavaScript</title>
+  <meta name="description" content="String functions for JavaScript that count and cut text by visible character, so emoji, flags and accents never break.">
   <link rel="canonical" href="https://kwy404.github.io/graphemely/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#7B6CF6">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="@kwy404/graphemely">
-  <meta property="og:title" content="graphemely: Truncate, Slice and Count Strings with Emoji Safely in JavaScript">
-  <meta property="og:description" content="Unicode safe string length, truncate, substring and reverse for JavaScript. Counts grapheme clusters, so emoji, flags and accents never break. 2 kB, zero deps.">
+  <meta property="og:title" content="graphemely: Unicode safe string functions for JavaScript">
+  <meta property="og:description" content="String functions for JavaScript that count and cut text by visible character, so emoji, flags and accents never break.">
   <meta property="og:url" content="https://kwy404.github.io/graphemely/">
   <meta property="og:image" content="https://kwy404.github.io/graphemely/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Gem the graphemely cat next to the text: truncate, slice and count strings with emoji safely in JavaScript">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="graphemely: Truncate, Slice and Count Strings with Emoji Safely in JavaScript">
-  <meta name="twitter:description" content="Unicode safe string length, truncate, substring and reverse for JavaScript. Counts grapheme clusters, so emoji, flags and accents never break. 2 kB, zero deps.">
+  <meta name="twitter:title" content="graphemely: Unicode safe string functions for JavaScript">
+  <meta name="twitter:description" content="String functions for JavaScript that count and cut text by visible character, so emoji, flags and accents never break.">
   <meta name="twitter:image" content="https://kwy404.github.io/graphemely/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
     {
       "@type": "SoftwareSourceCode",
       "name": "@kwy404/graphemely",
-      "description": "Truncate, slice and count strings with emoji safely in JavaScript and TypeScript, by grapheme cluster.",
+      "description": "String functions for JavaScript and TypeScript that count and cut text by grapheme cluster.",
       "url": "https://kwy404.github.io/graphemely/",
       "codeRepository": "https://github.com/kwy404/graphemely",
       "programmingLanguage": [
@@ -60,8 +60,7 @@
           "https://github.com/kwy404",
           "https://www.linkedin.com/in/alexandre-silva-173687256/"
         ]
-      },
-      "keywords": "truncate string emoji javascript, string length emoji, grapheme clusters, unicode safe substring, reverse string unicode, split string into characters"
+      }
     },
     {
       "@type": "WebSite",
@@ -190,8 +189,8 @@
             <li><a href="#problem"><span class="c-n">01</span><span class="c-title">The problem in four lines<small>Why .length and .slice break emoji.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
             <li><a href="#playground"><span class="c-n">02</span><span class="c-title">The Text Lab<small>Paste anything and watch it split into clusters.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
             <li><a href="#eslint"><span class="c-n">05</span><span class="c-title">The linter<small>Three ESLint rules, running live in your browser.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
-            <li><a href="#api"><span class="c-n">06</span><span class="c-title">Index of functions<small>Thirteen replacements for the native methods.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
-            <li><a href="#guides"><span class="c-n">08</span><span class="c-title">Six guides<small>Fixes for the common string bugs, one per page.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
+            <li><a href="#api"><span class="c-n">06</span><span class="c-title">Index of functions<small>Fourteen functions, most of them native replacements.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
+            <li><a href="#guides"><span class="c-n">08</span><span class="c-title">Four guides<small>The common string bugs, one per page.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
           </ol>
         </nav>
       </div>
@@ -243,7 +242,7 @@
           <div class="facts">
             <p class="fact"><span class="fact-n">2 kB</span><span class="fact-l">About, gzipped</span></p>
             <p class="fact"><span class="fact-n">0</span><span class="fact-l">Dependencies</span></p>
-            <p class="fact"><span class="fact-n">13</span><span class="fact-l">Functions</span></p>
+            <p class="fact"><span class="fact-n">14</span><span class="fact-l">Functions</span></p>
             <p class="fact"><span class="fact-n">3</span><span class="fact-l">ESLint rules</span></p>
             <div class="cover-cat">
               <img src="assets/mascot.svg" alt="Gem, the graphemely cat, playing with a ball of yarn whose thread is cut cleanly" width="88" height="88">
@@ -396,9 +395,9 @@
         <div class="features" id="features" aria-label="Features">
           <a class="feat" href="string-length-emoji.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-length"/></svg><span><b>Real length</b><span>Count graphemes, not UTF-16 code units.</span></span></a>
           <a class="feat" href="truncate-string-with-emoji.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-truncate"/></svg><span><b>Truncate</b><span>Ellipsis and word boundaries, never half an emoji.</span></span></a>
-          <a class="feat" href="substring-without-breaking-emoji.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-slice"/></svg><span><b>Slice and at</b><span>Unicode safe substring with negative indices.</span></span></a>
-          <a class="feat" href="reverse-string-unicode.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-reverse"/></svg><span><b>Reverse</b><span>Flags, skin tones and accents stay intact.</span></span></a>
-          <a class="feat" href="split-string-into-characters.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-split"/></svg><span><b>Split</b><span>Split a string into the characters users see.</span></span></a>
+          <a class="feat" href="#fn-slice"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-slice"/></svg><span><b>Slice and at</b><span>Cut by visible character, with negative indices.</span></span></a>
+          <a class="feat" href="#fn-reverse"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-reverse"/></svg><span><b>Reverse</b><span>Flags, skin tones and accents stay intact.</span></span></a>
+          <a class="feat" href="split-string-into-characters.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-split"/></svg><span><b>Split</b><span>Split text into the characters people see.</span></span></a>
           <a class="feat" href="lone-surrogates.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-well"/></svg><span><b>Well formed</b><span>Detect and repair lone surrogates.</span></span></a>
           <a class="feat" href="#fn-wrap"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wrap"/></svg><span><b>Pad and wrap</b><span>Fixed width text and word wrap by grapheme.</span></span></a>
           <a class="feat" href="#eslint"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-eslint"/></svg><span><b>ESLint plugin</b><span>Find split(''), unsafe reverse and hand made truncation.</span></span></a>
@@ -546,10 +545,11 @@
           <div class="idx" id="fn-graphemes"><p class="idx-line"><span class="idx-name">graphemes(str)</span><span class="idx-dots"></span><span class="idx-ret">string[]</span></p><p>Replaces <code>str.split('')</code> and <code>[...str]</code>.</p></div>
           <div class="idx" id="fn-length"><p class="idx-line"><span class="idx-name">length(str)</span><span class="idx-dots"></span><span class="idx-ret">number</span></p><p>Replaces <code>str.length</code>.</p></div>
           <div class="idx" id="fn-count"><p class="idx-line"><span class="idx-name">count(str)</span><span class="idx-dots"></span><span class="idx-ret">number</span></p><p>Alias of <code>length</code> that does not shadow anything.</p></div>
+          <div class="idx" id="fn-measure"><p class="idx-line"><span class="idx-name">measure(str)</span><span class="idx-dots"></span><span class="idx-ret">Measurement</span></p><p>Graphemes, code points, UTF-16 units and UTF-8 bytes in one call.</p></div>
           <div class="idx" id="fn-slice"><p class="idx-line"><span class="idx-name">slice(str, start?, end?)</span><span class="idx-dots"></span><span class="idx-ret">string</span></p><p>Replaces <code>str.slice</code> and <code>str.substring</code>.</p></div>
           <div class="idx" id="fn-at"><p class="idx-line"><span class="idx-name">at(str, index)</span><span class="idx-dots"></span><span class="idx-ret">string | undefined</span></p><p>Replaces <code>str.at</code> and <code>str[i]</code>.</p></div>
           <div class="idx" id="fn-splitAt"><p class="idx-line"><span class="idx-name">splitAt(str, index)</span><span class="idx-dots"></span><span class="idx-ret">[string, string]</span></p><p>Replaces two slices.</p></div>
-          <div class="idx" id="fn-truncate"><p class="idx-line"><span class="idx-name">truncate(str, max, options?)</span><span class="idx-dots"></span><span class="idx-ret">string</span></p><p>Replaces <code>str.slice(0, n) + '...'</code>. Options: <code>ellipsis</code>, <code>wordBoundary</code>.</p></div>
+          <div class="idx" id="fn-truncate"><p class="idx-line"><span class="idx-name">truncate(str, max, options?)</span><span class="idx-dots"></span><span class="idx-ret">string</span></p><p>Replaces <code>str.slice(0, n) + '...'</code>. Options: <code>ellipsis</code>, <code>wordBoundary</code>, <code>position</code> (end, start or middle).</p></div>
           <div class="idx" id="fn-reverse"><p class="idx-line"><span class="idx-name">reverse(str)</span><span class="idx-dots"></span><span class="idx-ret">string</span></p><p>Replaces <code>str.split('').reverse().join('')</code>.</p></div>
           <div class="idx" id="fn-padStart"><p class="idx-line"><span class="idx-name">padStart(str, n, pad?)</span><span class="idx-dots"></span><span class="idx-ret">string</span></p><p>Replaces <code>str.padStart</code>.</p></div>
           <div class="idx" id="fn-padEnd"><p class="idx-line"><span class="idx-name">padEnd(str, n, pad?)</span><span class="idx-dots"></span><span class="idx-ret">string</span></p><p>Replaces <code>str.padEnd</code>.</p></div>
@@ -631,17 +631,15 @@
           <div>
             <p class="kicker">Guides</p>
             <h2 id="guides">Fix the common string bugs</h2>
-            <p class="dek">Six short guides, one per bug: what goes wrong, why, and the fix to copy and paste.</p>
+            <p class="dek">Four short guides: what goes wrong, why, and the fix to copy and paste.</p>
           </div>
         </header>
         <!-- @related -->
       <ol class="reading">
-        <li><a href="truncate-string-with-emoji.html"><span class="read-n">01</span><span class="read-text"><span class="read-title">Truncate a string with emoji</span><span class="read-desc">Cut text to a length with an ellipsis, never half an emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-truncate"/></svg></a></li>
-        <li><a href="string-length-emoji.html"><span class="read-n">02</span><span class="read-text"><span class="read-title">String length with emoji</span><span class="read-desc">Why an emoji has length 2, and how to count what users see.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-length"/></svg></a></li>
-        <li><a href="reverse-string-unicode.html"><span class="read-n">03</span><span class="read-text"><span class="read-title">Reverse a string with Unicode</span><span class="read-desc">Reverse text without scrambling flags, accents or emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-reverse"/></svg></a></li>
-        <li><a href="split-string-into-characters.html"><span class="read-n">04</span><span class="read-text"><span class="read-title">Split a string into characters</span><span class="read-desc">Get the visible characters, not code units or code points.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-split"/></svg></a></li>
-        <li><a href="substring-without-breaking-emoji.html"><span class="read-n">05</span><span class="read-text"><span class="read-title">Substring without breaking emoji</span><span class="read-desc">A Unicode safe substring and slice with negative indices.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-slice"/></svg></a></li>
-        <li><a href="lone-surrogates.html"><span class="read-n">06</span><span class="read-text"><span class="read-title">Remove lone surrogates</span><span class="read-desc">Detect and repair the broken halves of emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-well"/></svg></a></li>
+        <li><a href="truncate-string-with-emoji.html"><span class="read-n">01</span><span class="read-text"><span class="read-title">Truncating text</span><span class="read-desc">Shorten text to a length with an ellipsis, never half a character.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-truncate"/></svg></a></li>
+        <li><a href="string-length-emoji.html"><span class="read-n">02</span><span class="read-text"><span class="read-title">Counting characters</span><span class="read-desc">Why an emoji can have a length of 2, and how to count what people see.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-length"/></svg></a></li>
+        <li><a href="split-string-into-characters.html"><span class="read-n">03</span><span class="read-text"><span class="read-title">Splitting text into characters</span><span class="read-desc">Visible characters instead of code units or code points.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-split"/></svg></a></li>
+        <li><a href="lone-surrogates.html"><span class="read-n">04</span><span class="read-text"><span class="read-title">Lone surrogates</span><span class="read-desc">Find and repair the broken halves of emoji.</span></span><svg class="icon read-icon" aria-hidden="true"><use href="assets/icons.svg#i-well"/></svg></a></li>
       </ol>
       <!-- /@related -->
       </div>
@@ -677,7 +675,7 @@
     <div class="wrap">
       <div class="colophon-head">
         <p class="colophon-word">graphemely</p>
-        <p class="colophon-tag">Truncate, slice and count strings with emoji safely in JavaScript and TypeScript.</p>
+        <p class="colophon-tag">String functions for JavaScript that count the characters people see.</p>
       </div>
       <div class="colophon-grid">
         <div class="colophon-col">
@@ -693,12 +691,10 @@
         <nav class="colophon-col" aria-labelledby="f-guides">
           <h2 class="colophon-title" id="f-guides">Guides</h2>
           <ul>
-            <li><a href="truncate-string-with-emoji.html">Truncate a string with emoji</a></li>
-            <li><a href="string-length-emoji.html">String length with emoji</a></li>
-            <li><a href="reverse-string-unicode.html">Reverse a string with Unicode</a></li>
-            <li><a href="split-string-into-characters.html">Split a string into characters</a></li>
-            <li><a href="substring-without-breaking-emoji.html">Substring without breaking emoji</a></li>
-            <li><a href="lone-surrogates.html">Remove lone surrogates</a></li>
+            <li><a href="truncate-string-with-emoji.html">Truncating text</a></li>
+            <li><a href="string-length-emoji.html">Counting characters</a></li>
+            <li><a href="split-string-into-characters.html">Splitting text into characters</a></li>
+            <li><a href="lone-surrogates.html">Lone surrogates</a></li>
           </ul>
         </nav>
         <nav class="colophon-col" aria-labelledby="f-project">

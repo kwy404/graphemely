@@ -125,6 +125,25 @@ function length(str) {
   return graphemes(str).length;
 }
 var count = length;
+function measure(str) {
+  assertString(str, "str");
+  let codePoints = 0;
+  let bytes = 0;
+  for (let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
+    codePoints++;
+    if (code < 128) bytes += 1;
+    else if (code < 2048) bytes += 2;
+    else if (code >= 55296 && code <= 56319 && isLowSurrogate(str.charCodeAt(i + 1))) {
+      bytes += 4;
+      i++;
+    } else bytes += 3;
+  }
+  return { graphemes: length(str), codePoints, codeUnits: str.length, bytes };
+}
+function isLowSurrogate(code) {
+  return code >= 56320 && code <= 57343;
+}
 function at(str, index) {
   const list = graphemes(str);
   let i = Math.trunc(index) || 0;
@@ -140,29 +159,50 @@ function splitAt(str, index) {
 }
 var WHITESPACE = /^\s+$/;
 var DEFAULT_ELLIPSIS = "\u2026";
+var isSpace = (g) => g !== void 0 && WHITESPACE.test(g);
+function keepHead(list, room, wordBoundary) {
+  let kept = list.slice(0, room);
+  if (!wordBoundary) return kept;
+  if (!isSpace(list[room])) {
+    let cut = kept.length - 1;
+    while (cut > 0 && !isSpace(kept[cut])) cut--;
+    if (cut > 0) kept = kept.slice(0, cut);
+  }
+  while (kept.length > 0 && isSpace(kept[kept.length - 1])) kept.pop();
+  return kept;
+}
+function keepTail(list, room, wordBoundary) {
+  if (room <= 0) return [];
+  let kept = list.slice(list.length - room);
+  if (!wordBoundary) return kept;
+  if (!isSpace(list[list.length - room - 1])) {
+    let cut = 0;
+    while (cut < kept.length - 1 && !isSpace(kept[cut])) cut++;
+    if (cut < kept.length - 1) kept = kept.slice(cut + 1);
+  }
+  while (kept.length > 0 && isSpace(kept[0])) kept.shift();
+  return kept;
+}
 function truncate(str, maxLength, options = {}) {
   if (!(maxLength >= 0)) {
     throw new RangeError(`graphemely: maxLength must be a non negative number, got ${maxLength}`);
   }
-  const { ellipsis = DEFAULT_ELLIPSIS, wordBoundary = false } = options;
+  const { ellipsis = DEFAULT_ELLIPSIS, wordBoundary = false, position = "end" } = options;
   const max = Math.floor(maxLength);
   if (str.length <= max) return str;
   const list = graphemes(str);
   if (list.length <= max) return str;
+  const fromStart = position === "start";
   const ellipsisLength = ellipsis === DEFAULT_ELLIPSIS ? 1 : length(ellipsis);
-  if (ellipsisLength >= max) return list.slice(0, max).join("");
+  if (ellipsisLength >= max) return (fromStart ? keepTail(list, max, false) : list.slice(0, max)).join("");
   const room = max - ellipsisLength;
-  let kept = list.slice(0, room);
-  if (wordBoundary) {
-    const next = list[room];
-    if (!WHITESPACE.test(next)) {
-      let cut = kept.length - 1;
-      while (cut > 0 && !WHITESPACE.test(kept[cut])) cut--;
-      if (cut > 0) kept = kept.slice(0, cut);
-    }
-    while (kept.length > 0 && WHITESPACE.test(kept[kept.length - 1])) kept.pop();
+  if (fromStart) return ellipsis + keepTail(list, room, wordBoundary).join("");
+  if (position === "middle") {
+    const headRoom = Math.ceil(room / 2);
+    const head = keepHead(list, headRoom, wordBoundary).join("");
+    return head + ellipsis + keepTail(list, room - headRoom, wordBoundary).join("");
   }
-  return kept.join("") + ellipsis;
+  return keepHead(list, room, wordBoundary).join("") + ellipsis;
 }
 function reverse(str) {
   return graphemes(str).reverse().join("");
@@ -261,6 +301,7 @@ export {
   graphemes,
   isWellFormed,
   length,
+  measure,
   padEnd,
   padStart,
   reverse,
