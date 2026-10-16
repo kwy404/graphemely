@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format is based on 
 
 ## [Unreleased]
 
+### Added
+
+- `measure(str)` returns the size of a string in graphemes, code points, UTF-16 code units and UTF-8 bytes in one call, for form limits and database columns that count in different units.
+- `truncate` takes a `position` option: `'end'` (the default), `'start'` to keep the end of the text, or `'middle'` to keep both ends, which suits file names and paths. `wordBoundary` works on whichever side is cut.
+
 ### Changed
 
 - Docs site rebuilt as an editorial type specimen with Monsoon: a Text Lab that shows every grapheme cluster with its code points, UTF-16 units and bytes, a live ESLint demo that runs the plugin's own rules in the browser, a search dialog, numbered guides with a table of contents rail, and new line drawings. `npm run docs:build` regenerates the shared parts, the search index and the highlighted code.

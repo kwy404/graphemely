@@ -102,6 +102,53 @@ export function length(str: string): number {
  */
 export const count: (str: string) => number = length;
 
+/** The size of a string in each unit, returned by {@link measure}. */
+export interface Measurement {
+  /** Visible characters (grapheme clusters), the same as {@link length}. */
+  graphemes: number;
+  /** Unicode code points, the same as `[...str].length`. */
+  codePoints: number;
+  /** UTF-16 code units, the same as `str.length`. */
+  codeUnits: number;
+  /**
+   * Bytes once encoded as UTF-8, the same as `new TextEncoder().encode(str).length`.
+   * A lone surrogate counts as the 3 bytes of U+FFFD, as `TextEncoder` writes it.
+   */
+  bytes: number;
+}
+
+/**
+ * Measures a string in graphemes, code points, UTF-16 code units and UTF-8
+ * bytes in one call. Useful for form limits and database columns, which are
+ * often counted in a different unit than the one people see.
+ *
+ * @example
+ * ```ts
+ * measure('Hi \u{1F44B}\u{1F3FD}');
+ * // { graphemes: 4, codePoints: 5, codeUnits: 7, bytes: 11 }
+ * ```
+ */
+export function measure(str: string): Measurement {
+  assertString(str, 'str');
+  let codePoints = 0;
+  let bytes = 0;
+  for (let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
+    codePoints++;
+    if (code < 0x80) bytes += 1;
+    else if (code < 0x800) bytes += 2;
+    else if (code >= 0xd800 && code <= 0xdbff && isLowSurrogate(str.charCodeAt(i + 1))) {
+      bytes += 4;
+      i++;
+    } else bytes += 3;
+  }
+  return { graphemes: length(str), codePoints, codeUnits: str.length, bytes };
+}
+
+function isLowSurrogate(code: number): boolean {
+  return code >= 0xdc00 && code <= 0xdfff;
+}
+
 /**
  * Returns the grapheme at `index`. Negative indices count back from the end,
  * like `Array.prototype.at`.
@@ -178,10 +225,45 @@ export interface TruncateOptions {
    * @defaultValue `false`
    */
   wordBoundary?: boolean;
+  /**
+   * Where the text is cut. `'end'` keeps the beginning, `'start'` keeps the
+   * end, and `'middle'` keeps both ends, which suits file names and paths.
+   * With `wordBoundary`, each cut moves to whitespace on the side that is cut.
+   * @defaultValue `'end'`
+   */
+  position?: 'end' | 'start' | 'middle';
 }
 
 const WHITESPACE = /^\s+$/;
 const DEFAULT_ELLIPSIS = '\u2026';
+const isSpace = (g: string | undefined): boolean => g !== undefined && WHITESPACE.test(g);
+
+/** The first `room` graphemes, moved back to whitespace when `wordBoundary` is set. */
+function keepHead(list: string[], room: number, wordBoundary: boolean): string[] {
+  let kept = list.slice(0, room);
+  if (!wordBoundary) return kept;
+  if (!isSpace(list[room])) {
+    let cut = kept.length - 1;
+    while (cut > 0 && !isSpace(kept[cut])) cut--;
+    if (cut > 0) kept = kept.slice(0, cut);
+  }
+  while (kept.length > 0 && isSpace(kept[kept.length - 1])) kept.pop();
+  return kept;
+}
+
+/** The last `room` graphemes, moved forward to whitespace when `wordBoundary` is set. */
+function keepTail(list: string[], room: number, wordBoundary: boolean): string[] {
+  if (room <= 0) return [];
+  let kept = list.slice(list.length - room);
+  if (!wordBoundary) return kept;
+  if (!isSpace(list[list.length - room - 1])) {
+    let cut = 0;
+    while (cut < kept.length - 1 && !isSpace(kept[cut])) cut++;
+    if (cut < kept.length - 1) kept = kept.slice(cut + 1);
+  }
+  while (kept.length > 0 && isSpace(kept[0])) kept.shift();
+  return kept;
+}
 
 /**
  * Shortens a string to at most `maxLength` graphemes, adding an ellipsis
@@ -202,6 +284,8 @@ const DEFAULT_ELLIPSIS = '\u2026';
  * truncate('Hello world', 8);                         // 'Hello w\u2026'
  * truncate('Hello world', 8, { wordBoundary: true }); // 'Hello\u2026'
  * truncate('Hello world', 8, { ellipsis: '...' });    // 'Hello...'
+ * truncate('vacation-photo-0042.jpeg', 15, { position: 'middle' });
+ * // 'vacatio…42.jpeg'
  * truncate('ab\u{1F468}\u200D\u{1F469}\u200D\u{1F467}cd', 4);
  * // 'ab\u{1F468}\u200D\u{1F469}\u200D\u{1F467}\u2026'
  * ```
@@ -210,28 +294,25 @@ export function truncate(str: string, maxLength: number, options: TruncateOption
   if (!(maxLength >= 0)) {
     throw new RangeError(`graphemely: maxLength must be a non negative number, got ${maxLength}`);
   }
-  const { ellipsis = DEFAULT_ELLIPSIS, wordBoundary = false } = options;
+  const { ellipsis = DEFAULT_ELLIPSIS, wordBoundary = false, position = 'end' } = options;
   const max = Math.floor(maxLength);
   // A string never has more graphemes than code units.
   if (str.length <= max) return str;
   const list = graphemes(str);
   if (list.length <= max) return str;
 
+  const fromStart = position === 'start';
   const ellipsisLength = ellipsis === DEFAULT_ELLIPSIS ? 1 : length(ellipsis);
-  if (ellipsisLength >= max) return list.slice(0, max).join('');
+  if (ellipsisLength >= max) return (fromStart ? keepTail(list, max, false) : list.slice(0, max)).join('');
 
   const room = max - ellipsisLength;
-  let kept = list.slice(0, room);
-  if (wordBoundary) {
-    const next = list[room] as string;
-    if (!WHITESPACE.test(next)) {
-      let cut = kept.length - 1;
-      while (cut > 0 && !WHITESPACE.test(kept[cut] as string)) cut--;
-      if (cut > 0) kept = kept.slice(0, cut);
-    }
-    while (kept.length > 0 && WHITESPACE.test(kept[kept.length - 1] as string)) kept.pop();
+  if (fromStart) return ellipsis + keepTail(list, room, wordBoundary).join('');
+  if (position === 'middle') {
+    const headRoom = Math.ceil(room / 2);
+    const head = keepHead(list, headRoom, wordBoundary).join('');
+    return head + ellipsis + keepTail(list, room - headRoom, wordBoundary).join('');
   }
-  return kept.join('') + ellipsis;
+  return keepHead(list, room, wordBoundary).join('') + ellipsis;
 }
 
 /**

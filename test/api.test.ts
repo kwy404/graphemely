@@ -5,6 +5,7 @@ import {
   graphemes,
   isWellFormed,
   length,
+  measure,
   padEnd,
   padStart,
   reverse,
@@ -198,6 +199,59 @@ describe('truncate', () => {
   it('throws on invalid maxLength', () => {
     expect(() => truncate('abc', -1)).toThrow(RangeError);
     expect(() => truncate('abc', Number.NaN)).toThrow(RangeError);
+  });
+
+  it('keeps the end with position start', () => {
+    expect(truncate('Hello world', 8, { position: 'start' })).toBe('\u{2026}o world');
+    expect(truncate(`ab${FAMILY}cd`, 4, { position: 'start' })).toBe(`\u{2026}${FAMILY}cd`);
+    expect(truncate('Hello', 2, { position: 'start', ellipsis: '...' })).toBe('lo');
+    expect(truncate('Hello', 0, { position: 'start' })).toBe('');
+    expect(truncate('Hello', 9, { position: 'start' })).toBe('Hello');
+  });
+
+  it('cuts at word boundaries from the start', () => {
+    expect(truncate('the quick brown fox', 10, { position: 'start', wordBoundary: true })).toBe('\u{2026}brown fox');
+    expect(truncate('the quick brown fox', 11, { position: 'start', wordBoundary: true })).toBe('\u{2026}brown fox');
+    expect(truncate('Supercalifragilistic', 6, { position: 'start', wordBoundary: true })).toBe('\u{2026}istic');
+    expect(truncate('Supercalifragilistic ', 6, { position: 'start', wordBoundary: true })).toBe('\u{2026}stic ');
+  });
+
+  it('keeps both ends with position middle', () => {
+    expect(truncate('vacation-photo-0042.jpeg', 15, { position: 'middle' })).toBe('vacatio\u{2026}42.jpeg');
+    expect(length(truncate('vacation-photo-0042.jpeg', 15, { position: 'middle' }))).toBe(15);
+    expect(truncate(`${FLAG_BR}abcdef${FAMILY}`, 4, { position: 'middle' })).toBe(`${FLAG_BR}a\u{2026}${FAMILY}`);
+    expect(truncate('abcdef', 2, { position: 'middle' })).toBe('a\u{2026}');
+    expect(truncate('abcdef', 1, { position: 'middle' })).toBe('a');
+  });
+
+  it('cuts at word boundaries on both sides in the middle', () => {
+    expect(truncate('the quick brown fox jumps', 12, { position: 'middle', wordBoundary: true })).toBe('the\u{2026}jumps');
+    expect(truncate('one two three four', 11, { position: 'middle', wordBoundary: true })).toBe('one\u{2026}four');
+  });
+});
+
+describe('measure', () => {
+  it('counts every unit at once', () => {
+    expect(measure('Hi \u{1F44B}\u{1F3FD}')).toEqual({ graphemes: 4, codePoints: 5, codeUnits: 7, bytes: 11 });
+    expect(measure('')).toEqual({ graphemes: 0, codePoints: 0, codeUnits: 0, bytes: 0 });
+    expect(measure(FAMILY)).toEqual({ graphemes: 1, codePoints: 5, codeUnits: 8, bytes: 18 });
+    expect(measure(E_ACUTE_NFD)).toEqual({ graphemes: 1, codePoints: 2, codeUnits: 2, bytes: 3 });
+    expect(measure(E_ACUTE_NFC).bytes).toBe(2);
+  });
+
+  it('matches TextEncoder and spread, lone surrogates included', () => {
+    const encoder = new TextEncoder();
+    for (const text of [FAMILY, FLAG_BR, THAI, HANGUL_JAMO, KEYCAP_1, `x${LONE_HIGH}y`, `${LONE_LOW}z`, LONE_HIGH, 'caf\u{E9} \u{20AC}']) {
+      const m = measure(text);
+      expect(m.bytes).toBe(encoder.encode(text).length);
+      expect(m.codePoints).toBe([...text].length);
+      expect(m.codeUnits).toBe(text.length);
+      expect(m.graphemes).toBe(length(text));
+    }
+  });
+
+  it('throws a TypeError for non string input', () => {
+    expect(() => measure(null as unknown as string)).toThrow(TypeError);
   });
 });
 
