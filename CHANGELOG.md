@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format is based on 
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-16
+
 ### Added
 
 - `measure(str)` returns the size of a string in graphemes, code points, UTF-16 code units and UTF-8 bytes in one call, for form limits and database columns that count in different units.
@@ -46,7 +48,8 @@ All notable changes to this project are documented here. The format is based on 
 - ESLint plugin at `@kwy404/graphemely/eslint-plugin` with the rules `no-unsafe-string-split`, `no-unsafe-reverse` and `prefer-graphemely-truncate`, plus a `recommended` flat config.
 - ESM and CommonJS builds with TypeScript declarations.
 
-[Unreleased]: https://github.com/kwy404/graphemely/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/kwy404/graphemely/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/kwy404/graphemely/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/kwy404/graphemely/compare/v0.1.2...v1.0.0
 [0.1.2]: https://github.com/kwy404/graphemely/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/kwy404/graphemely/compare/v0.1.0...v0.1.1

@@ -1,4 +1,4 @@
-// graphemely 1.0.0, MIT license, https://github.com/kwy404/graphemely
+// graphemely 1.1.0, MIT license, https://github.com/kwy404/graphemely
 // Copied from dist/index.js by scripts/copy-docs.mjs, do not edit by hand.
 // src/fallback.ts
 function unicodeRegex(source, approximation) {

@@ -1,6 +1,6 @@
 {
   "name": "@kwy404/graphemely",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Count, slice and truncate JavaScript strings by visible character, so emoji, flags and accents never break.",
   "keywords": [
     "grapheme",
