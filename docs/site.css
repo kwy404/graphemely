@@ -95,7 +95,6 @@ body {
   letter-spacing: -0.03em;
   text-decoration: none;
 }
-.wordmark img { width: 2.1rem; height: 2.1rem; }
 .mast-nav { display: flex; align-items: center; gap: 1.6rem; }
 .mast-nav a {
   display: inline-flex;
@@ -862,10 +861,77 @@ body {
 .lost { display: grid; gap: 2rem; align-items: center; padding-block: clamp(3rem, 8vw, 7rem); }
 @media (min-width: 900px) { .lost { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
 .lost h1 { font-weight: 360; letter-spacing: -0.03em; line-height: 1.02; }
+.lost-gem { width: 11.25rem; height: 11.25rem; }
 .lost-no { font: italic 300 clamp(6rem, 18vw, 13rem)/0.8 var(--font-display); letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1.25px var(--rose); }
+
+/* Special dates -------------------------------------------------------
+   seasons.js sets data-season on <html>; seasons.css points --season-gem and
+   --season-accent at the art of that season, in light and dark versions. */
+
+.wordmark-gem { flex: none; width: 2.1rem; height: 2.1rem; }
+.season-chip[hidden] { display: none; }
+.season-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 1.5rem;
+  padding: 0 0.25rem 0 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--m-radius-full);
+  background: transparent;
+  color: var(--foreground);
+  font: 500 0.62rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.season-chip:hover { border-color: var(--foreground); }
+.season-chip-icon { width: 0.85rem; height: 0.85rem; color: var(--rose); }
+.season-switch { position: relative; flex: none; width: 1.65rem; height: 0.95rem; border-radius: 1rem; background: var(--border); transition: background-color var(--m-duration-fast); }
+.season-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(0.95rem - 4px);
+  height: calc(0.95rem - 4px);
+  border-radius: 50%;
+  background: var(--background);
+  transition: transform var(--m-duration-fast);
+}
+.season-chip[aria-pressed='true'] .season-switch { background: var(--rose); }
+.season-chip[aria-pressed='true'] .season-switch::after { transform: translateX(0.7rem); }
+@media (max-width: 640px) { :root[data-season-id] .strip-vol { display: none; } }
+@media (max-width: 480px) { :root[data-season-id] .strip-npm { display: none; } :root[data-season-id] .strip-row { justify-content: center; } }
+
+main { position: relative; }
+:root[data-season] main::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  height: clamp(2.6rem, 4.6vw, 4.5rem);
+  background: var(--season-accent) top center / auto 100% repeat-x;
+  pointer-events: none;
+  animation: garland-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes garland-in {
+  from { opacity: 0; transform: translateY(-1.25rem); }
+}
+:root[data-season] .cover-grid { padding-top: clamp(4.25rem, 7vw, 6rem); }
+:root[data-season] .article-grid { padding-top: clamp(4.25rem, 6vw, 5.5rem); }
+:root[data-season] .lost { padding-top: clamp(4.5rem, 9vw, 8rem); }
+.season-fx { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
+.cover > .wrap,
+.cover > .specimen { position: relative; z-index: 1; }
+.season-icons { display: none; }
+:root[data-season] .season-icons { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--rose); }
+.cover-lines .season-icons { margin-left: auto; }
+.season-icons .icon { width: 1.05rem; height: 1.05rem; }
 
 [v-cloak] { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .peek-tile, .peek-n { animation: none; }
+  :root[data-season] main::before { animation: none; }
 }

@@ -11,6 +11,9 @@ All notable changes to this project are documented here. The format is based on 
 
 ### Changed
 
+- Docs site: the home page opens with a paste and see demo. Paste any text and its characters appear as tiles, next to what `.length` says and a native `slice` cut beside a safe one.
+- Docs site: four guides with plain titles. The reverse and substring pages now point to `reverse` and `slice` in the function index. The READMEs are shorter.
+- Docs site: special dates. On New Year, Carnival, Easter, Valentine's Day, Festa Junina (Midsummer outside Brazil), Halloween and Christmas the site dresses Gem in costume, hangs a garland and adds light seasonal particles. A chip in the top strip turns it off, and `?season=<id>` or `?season=off` previews it.
 - Docs site rebuilt as an editorial type specimen with Monsoon: a Text Lab that shows every grapheme cluster with its code points, UTF-16 units and bytes, a live ESLint demo that runs the plugin's own rules in the browser, a search dialog, numbered guides with a table of contents rail, and new line drawings. `npm run docs:build` regenerates the shared parts, the search index and the highlighted code.
 
 ## [1.0.0] - 2026-10-13

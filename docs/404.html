@@ -28,6 +28,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monsooncss@0.2.0/dist/monsoon.min.css">
   <link rel="stylesheet" href="/graphemely/site.css">
+  <link rel="stylesheet" href="/graphemely/seasons.css">
+  <script src="/graphemely/seasons.js"></script>
   <script>(function(){try{var t=localStorage.getItem('voodoo:theme');if(t&&t.charAt(0)==='"')t=JSON.parse(t);var r=document.documentElement;if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);r.style.colorScheme=t}}catch(e){}})();</script>
   <script src="https://cdn.jsdelivr.net/npm/voodoojs@1.0.0/dist/voodoo.full.min.js" data-manual defer></script>
   <script type="module" src="/graphemely/site.js"></script>
@@ -38,14 +40,15 @@
   <header class="masthead" v-data="{ menu: false }" @keydown.esc="menu = false" @keydown.ctrl.k.prevent.window="openSearch()" @keydown.meta.k.prevent.window="openSearch()">
     <div class="strip">
       <div class="wrap strip-row">
-        <span>Vol. 1.0.0</span>
+        <span class="strip-vol">Vol. 1.0.0</span>
+        <button type="button" class="season-chip" aria-pressed="true" hidden><svg class="icon icon-xs season-chip-icon" aria-hidden="true"><use/></svg><span class="season-chip-name"></span><span class="season-switch" aria-hidden="true"></span></button>
         <span class="strip-mid">A field guide to Unicode safe strings in JavaScript</span>
-        <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm i @kwy404/graphemely</a>
+        <a class="strip-npm" href="https://www.npmjs.com/package/@kwy404/graphemely">npm i @kwy404/graphemely</a>
       </div>
     </div>
     <div class="bar">
       <div class="wrap bar-row">
-        <a class="wordmark" href="/graphemely/./" aria-label="graphemely home"><img src="/graphemely/assets/mascot.svg" alt="" width="34" height="34"><span>graphemely</span></a>
+        <a class="wordmark" href="/graphemely/./" aria-label="graphemely home"><span class="gem-art wordmark-gem" aria-hidden="true"></span><span>graphemely</span></a>
         <nav class="mast-nav" id="site-nav" aria-label="Site" :class="{ open: menu }" @click="menu = false">
           <a href="/graphemely/./#playground">Text Lab</a>
           <a href="/graphemely/./#guides">Guides</a>
@@ -115,7 +118,7 @@
   <text class="a-lbl" x="122" y="40">ONE EMOJI, TWO HALVES</text>
 </svg>
 <!-- /@art -->
-        <img class="mt-8 mx-auto" src="/graphemely/assets/mascot.svg" alt="Gem, the graphemely cat, looking at a cut thread" width="180" height="180">
+        <span class="gem-art lost-gem mt-8 mx-auto" role="img" aria-label="Gem, the graphemely cat, looking at a cut thread"></span>
       </figure>
     </div>
   </main>
@@ -174,7 +177,7 @@
           </ul>
         </nav>
       </div>
-      <p class="colophon-base"><span>MIT licensed, 2026.</span><span>Every character on this site was counted by grapheme.</span></p>
+      <p class="colophon-base"><span>MIT licensed, 2026.</span><span class="season-icons" aria-hidden="true"></span><span>Every character on this site was counted by grapheme.</span></p>
     </div>
   </footer>
   <!-- /@footer -->

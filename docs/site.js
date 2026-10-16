@@ -78,7 +78,7 @@ const SEASON_SAMPLES = {
   carnival: { label: 'Carnival', value: `Samba ${cp(0x1f483, 0x1f3fd)}${cp(0x1f941)}${cp(0x1f3ad)}` },
   easter: { label: 'Easter', value: `Egg hunt ${cp(0x1f430)}${cp(0x1f95a)}${cp(0x1f423)}` },
   valentine: { label: 'Love', value: `Yours ${cp(0x1f469, 0x200d, 0x2764, 0xfe0f, 0x200d, 0x1f468)}${cp(0x1f48c)}` },
-  junina: { label: 'Bonfire', value: `Arrai\u{E1} ${cp(0x1f33d)}${cp(0x1f525)}${cp(0x1fa97)}` },
+  junina: { label: 'Bonfire', value: `Arrai\u{E1} ${cp(0x1f33d)}${cp(0x1f525)}${cp(0x1f3b6)}` },
   halloween: { label: 'Halloween', value: `Boo ${cp(0x1f383)}${cp(0x1f47b)}${cp(0x1f9d9, 0x1f3fd, 0x200d, 0x2640, 0xfe0f)}` },
   christmas: { label: 'Christmas', value: `Ho ho ${cp(0x1f385, 0x1f3fd)}${cp(0x1f384)}${cp(0x2603, 0xfe0f)}` },
 };
@@ -437,9 +437,268 @@ function lintGlobals({ lint }) {
   return { sample, check, syncScroll };
 }
 
+/* Special dates ---------------------------------------------------------- */
+// seasons.js (loaded in the head) picks the season and sets data-season on
+// <html>; the costume, the garland and the colors follow in CSS. Here: the chip
+// with the off switch, the seasonal icons and the falling particles.
+
+const SEASON_ICONS = {
+  newyear: ['firework', 'glass', 'clock'],
+  carnival: ['mask', 'popper', 'drum'],
+  easter: ['egg', 'bunny', 'tulip'],
+  valentine: ['heart', 'letter', 'balloon'],
+  junina: ['bonfire', 'corn', 'flags'],
+  halloween: ['pumpkin', 'bat', 'ghost'],
+  christmas: ['tree', 'snowflake', 'gift'],
+};
+
+const isDark = () => {
+  const theme = document.documentElement.getAttribute('data-theme');
+  return theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+};
+
+// What falls, rises or bursts over the cover, per season.
+const FX = {
+  newyear: { mode: 'burst', colors: ['#FBBF24', '#22D3EE', '#F472B6', '#A78BFA'] },
+  carnival: { mode: 'fall', shape: 'rect', colors: ['#F43F5E', '#22D3EE', '#FBBF24', '#8B5CF6', '#10B981'] },
+  easter: { mode: 'fall', shape: 'petal', colors: ['#F9A8D4', '#FDE68A', '#A5B4FC', '#86EFAC'] },
+  valentine: { mode: 'fall', shape: 'heart', colors: ['#F43F5E', '#FB7185', '#FDA4AF'] },
+  junina: { mode: 'rise', colors: ['#F97316', '#FBBF24', '#FDE047'] },
+  halloween: { mode: 'fall', shape: 'leaf', colors: ['#E8772E', '#C2410C', '#D9A02B'], bats: true },
+  christmas: { mode: 'fall', shape: 'dot', colors: ['#9DB8E0', '#B9CBE8'], dark: ['#E2E8F0', '#CBD5E1'] },
+};
+
+/** One light canvas behind the cover. Paused while hidden, never built for reduced motion. */
+function seasonFx(id) {
+  const cover = document.querySelector('.cover');
+  const spec = FX[id];
+  if (!cover || !spec || reducedMotion()) return null;
+  const canvas = document.createElement('canvas');
+  canvas.className = 'season-fx';
+  canvas.setAttribute('aria-hidden', 'true');
+  cover.prepend(canvas);
+  const ctx = canvas.getContext('2d');
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const pick = (list) => list[Math.floor(Math.random() * list.length)];
+  let w = 0;
+  let h = 0;
+  let parts = [];
+  let bats = [];
+  let raf = 0;
+  let last = 0;
+  let nextBurst = 0;
+  let wanted = false;
+  let onScreen = true;
+
+  function resize() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = cover.clientWidth;
+    h = cover.clientHeight;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  const palette = () => (isDark() && spec.dark ? spec.dark : spec.colors);
+
+  function make(initial) {
+    const color = pick(palette());
+    if (spec.mode === 'rise') return { x: rand(0, w), y: initial ? rand(0, h) : h + 6, vx: rand(-6, 6), vy: rand(-46, -22), r: rand(1.2, 2.6), life: 0, max: rand(3, 6), color };
+    const size = spec.shape === 'dot' ? rand(1.6, 3.4) : rand(4, 8);
+    return { x: rand(0, w), y: initial ? rand(-h, h) : rand(-40, -10), vy: rand(14, 34), r: size, sway: rand(10, 28), phase: rand(0, 6.3), spin: rand(-1.6, 1.6), a: rand(0, 6.3), color };
+  }
+
+  function populate() {
+    const count = Math.round(Math.min(42, Math.max(14, (w * h) / 32000)));
+    parts = spec.mode === 'burst' ? [] : Array.from({ length: count }, () => make(true));
+    bats = spec.bats ? [0, 1].map((i) => ({ x: rand(-80, w * 0.3), y: rand(70, 150), v: rand(28, 46), s: 0.55 + i * 0.2, t: rand(0, 6) })) : [];
+  }
+
+  function burst() {
+    const x = rand(w * 0.1, w * 0.9);
+    const y = rand(h * 0.08, h * 0.45);
+    const color = pick(spec.colors);
+    for (let i = 0; i < 26; i++) {
+      const angle = (i / 26) * Math.PI * 2;
+      const speed = rand(50, 95);
+      parts.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, r: rand(1.2, 2.2), life: 0, max: rand(1.1, 1.6), color });
+    }
+  }
+
+  function draw(p) {
+    ctx.fillStyle = p.color;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.a || 0);
+    switch (spec.shape) {
+      case 'rect':
+        ctx.fillRect(-p.r * 0.6, -p.r * 0.3, p.r * 1.2, p.r * 0.6);
+        break;
+      case 'leaf':
+      case 'petal':
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.r, p.r * (spec.shape === 'leaf' ? 0.45 : 0.6), 0, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+      case 'heart': {
+        const s = p.r / 10;
+        ctx.scale(s, s);
+        ctx.beginPath();
+        ctx.moveTo(0, 6);
+        ctx.bezierCurveTo(-11, -1, -8, -10, 0, -5);
+        ctx.bezierCurveTo(8, -10, 11, -1, 0, 6);
+        ctx.fill();
+        break;
+      }
+      default:
+        ctx.beginPath();
+        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawBat(b) {
+    const flap = Math.sin(b.t * 9) * 5;
+    ctx.save();
+    ctx.translate(b.x, b.y + Math.sin(b.t * 2) * 8);
+    ctx.scale(b.s, b.s);
+    ctx.fillStyle = isDark() ? '#A79BF2' : '#3A2E5C';
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(-12, -10 - flap, -26, -6 - flap);
+    ctx.quadraticCurveTo(-18, 0, -14, 8);
+    ctx.quadraticCurveTo(-6, 4, 0, 8);
+    ctx.quadraticCurveTo(6, 4, 14, 8);
+    ctx.quadraticCurveTo(18, 0, 26, -6 - flap);
+    ctx.quadraticCurveTo(12, -10 - flap, 0, 0);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000 || 0);
+    last = now;
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalAlpha = 0.72;
+    if (spec.mode === 'burst') {
+      if (now > nextBurst) {
+        burst();
+        nextBurst = now + rand(1100, 2200);
+      }
+      parts = parts.filter((p) => (p.life += dt) < p.max);
+      for (const p of parts) {
+        p.vy += 40 * dt;
+        p.vx *= 0.985;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        ctx.globalAlpha = 0.8 * (1 - p.life / p.max);
+        draw(p);
+      }
+    } else {
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        if (spec.mode === 'rise') {
+          p.life += dt;
+          p.x += (p.vx + Math.sin(p.life * 3) * 6) * dt;
+          p.y += p.vy * dt;
+          ctx.globalAlpha = 0.8 * Math.max(0, 1 - p.life / p.max);
+          if (p.life > p.max || p.y < -10) parts[i] = make(false);
+        } else {
+          p.phase += dt;
+          p.a += p.spin * dt;
+          p.x += Math.cos(p.phase) * p.sway * dt;
+          p.y += p.vy * dt;
+          if (p.y > h + 12) parts[i] = make(false);
+        }
+        draw(p);
+      }
+      ctx.globalAlpha = 0.85;
+      for (const b of bats) {
+        b.t += dt;
+        b.x += b.v * dt;
+        if (b.x > w + 60) {
+          b.x = -60;
+          b.y = rand(70, 150);
+        }
+        drawBat(b);
+      }
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function run() {
+    const go = wanted && onScreen && !document.hidden;
+    if (go && !raf) {
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    } else if (!go && raf) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    }
+    if (!wanted) ctx.clearRect(0, 0, w, h);
+  }
+
+  resize();
+  populate();
+  new ResizeObserver(() => {
+    resize();
+    populate();
+  }).observe(cover);
+  new IntersectionObserver(([entry]) => {
+    onScreen = entry.isIntersecting;
+    run();
+  }).observe(cover);
+  document.addEventListener('visibilitychange', run);
+  return {
+    start() {
+      wanted = true;
+      run();
+    },
+    stop() {
+      wanted = false;
+      run();
+    },
+  };
+}
+
+/** The chip in the masthead strip, the seasonal icons and the particles. */
+function seasonUi() {
+  const api = window.GraphemelySeasons;
+  const state = api && api.state;
+  if (!state || !state.id) return;
+  const icons = SEASON_ICONS[state.id] || [];
+  const href = (name) => `assets/seasons/icons.svg#s-${state.id}-${name}`;
+  for (const holder of document.querySelectorAll('.season-icons')) {
+    holder.innerHTML = icons.map((name) => `<svg class="icon" aria-hidden="true"><use href="${href(name)}"/></svg>`).join('');
+  }
+  const fx = seasonFx(state.id);
+  const chip = document.querySelector('.season-chip');
+  const sync = () => {
+    if (chip) {
+      chip.setAttribute('aria-pressed', String(state.on));
+      chip.title = `${state.on ? 'Turn off' : 'Turn on'} the ${state.name} theme`;
+    }
+    if (fx) {
+      if (state.on) fx.start();
+      else fx.stop();
+    }
+  };
+  if (chip) {
+    chip.querySelector('.season-chip-name').textContent = `${state.name} mode`;
+    chip.querySelector('use')?.setAttribute('href', href(icons[0]));
+    chip.hidden = false;
+    chip.addEventListener('click', () => {
+      api.set(!state.on);
+      sync();
+    });
+  }
+  sync();
+}
+
 /* Start ------------------------------------------------------------------ */
 
 // Last, so every helper above is initialized before the first render.
+seasonUi();
 const V = window.V;
 
 if (V) {

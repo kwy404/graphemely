@@ -71,14 +71,15 @@ export function header(_args, page) {
   <header class="masthead" v-data="{ menu: false }" @keydown.esc="menu = false" @keydown.ctrl.k.prevent.window="openSearch()" @keydown.meta.k.prevent.window="openSearch()">
     <div class="strip">
       <div class="wrap strip-row">
-        <span>Vol. 1.0.0</span>
+        <span class="strip-vol">Vol. 1.0.0</span>
+        <button type="button" class="season-chip" aria-pressed="true" hidden><svg class="icon icon-xs season-chip-icon" aria-hidden="true"><use/></svg><span class="season-chip-name"></span><span class="season-switch" aria-hidden="true"></span></button>
         <span class="strip-mid">A field guide to Unicode safe strings in JavaScript</span>
-        <a href="https://www.npmjs.com/package/@kwy404/graphemely">npm i @kwy404/graphemely</a>
+        <a class="strip-npm" href="https://www.npmjs.com/package/@kwy404/graphemely">npm i @kwy404/graphemely</a>
       </div>
     </div>
     <div class="bar">
       <div class="wrap bar-row">
-        <a class="wordmark" href="./" aria-label="graphemely home"><img src="assets/mascot.svg" alt="" width="34" height="34"><span>graphemely</span></a>
+        <a class="wordmark" href="./" aria-label="graphemely home"><span class="gem-art wordmark-gem" aria-hidden="true"></span><span>graphemely</span></a>
         <nav class="mast-nav" id="site-nav" aria-label="Site" :class="{ open: menu }" @click="menu = false">
           ${links}
           <a href="https://github.com/kwy404/graphemely">GitHub ${icon('out', 'icon icon-xs')}</a>
@@ -164,7 +165,7 @@ export function footer(_args, page) {
           </ul>
         </nav>
       </div>
-      <p class="colophon-base"><span>MIT licensed, 2026.</span><span>Every character on this site was counted by grapheme.</span></p>
+      <p class="colophon-base"><span>MIT licensed, 2026.</span><span class="season-icons" aria-hidden="true"></span><span>Every character on this site was counted by grapheme.</span></p>
     </div>
   </footer>
   `;

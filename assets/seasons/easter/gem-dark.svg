@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Gem, the graphemely cat, in bunny ears with a basket of painted eggs">
+  <title>Gem, the graphemely cat, in bunny ears with a basket of painted eggs</title>
+  <path d="M108 318 C 52 312 40 250 78 222" fill="none" stroke="#7B6CF6" stroke-width="26" stroke-linecap="round"/>
+  <ellipse cx="170" cy="292" rx="92" ry="82" fill="#7B6CF6"/>
+  <ellipse cx="170" cy="310" rx="54" ry="56" fill="#EEEBFF"/>
+  <path d="M112 236 Q170 266 228 236" fill="none" stroke="#FF6F91" stroke-width="12" stroke-linecap="round"/>
+  <path d="M170 252 L184 266 L170 284 L156 266 Z" fill="#FF6F91" stroke="#FF6F91" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M158 266 H182 M170 254 V282" fill="none" stroke="#EEEBFF" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+  <path d="M96 130 L92 52 Q94 44 102 48 L160 92 Z" fill="#7B6CF6" stroke="#7B6CF6" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M244 130 L248 52 Q246 44 238 48 L180 92 Z" fill="#7B6CF6" stroke="#7B6CF6" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M108 112 L106 72 L140 98 Z" fill="#FF6F91" stroke="#FF6F91" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M232 112 L234 72 L200 98 Z" fill="#FF6F91" stroke="#FF6F91" stroke-width="6" stroke-linejoin="round"/>
+  <ellipse cx="170" cy="160" rx="96" ry="82" fill="#7B6CF6"/>
+  <ellipse cx="170" cy="190" rx="46" ry="32" fill="#EEEBFF"/>
+  <ellipse cx="132" cy="152" rx="12" ry="15" fill="#231F3A"/>
+  <ellipse cx="208" cy="152" rx="12" ry="15" fill="#231F3A"/>
+  <circle cx="136" cy="146" r="4.5" fill="#EEEBFF"/>
+  <circle cx="212" cy="146" r="4.5" fill="#EEEBFF"/>
+  <ellipse cx="108" cy="184" rx="13" ry="8" fill="#FF6F91" opacity="0.55"/>
+  <ellipse cx="232" cy="184" rx="13" ry="8" fill="#FF6F91" opacity="0.55"/>
+  <path d="M161 176 H179 L170 186 Z" fill="#FF6F91" stroke="#FF6F91" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M170 187 V194 M170 194 Q162 203 153 196 M170 194 Q178 203 187 196" fill="none" stroke="#231F3A" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="138" cy="366" rx="24" ry="14" fill="#EEEBFF"/>
+  <ellipse cx="200" cy="366" rx="24" ry="14" fill="#EEEBFF"/>
+  <path d="M236 270 C 256 248 270 236 286 228" fill="none" stroke="#7B6CF6" stroke-width="30" stroke-linecap="round"/>
+  <circle cx="290" cy="226" r="19" fill="#EEEBFF"/>
+  <path d="M300 214 C 318 196 330 196 338 206" fill="none" stroke="#FF6F91" stroke-width="5" stroke-linecap="round"/>
+  <path d="M348 224 C 354 240 352 256 346 268" fill="none" stroke="#FF6F91" stroke-width="5" stroke-linecap="round"/>
+  <path d="M334 222 L326 232 M346 206 L356 198 M352 214 H364" fill="none" stroke="#7B6CF6" stroke-width="4" stroke-linecap="round"/>
+  
+  <g transform="rotate(-14 136 70)"><ellipse cx="136" cy="40" rx="19" ry="50" fill="#FFF7ED"/><ellipse cx="136" cy="44" rx="9" ry="36" fill="#F9A8D4"/></g>
+  <g transform="rotate(12 206 66)"><ellipse cx="206" cy="36" rx="19" ry="50" fill="#FFF7ED"/><ellipse cx="206" cy="40" rx="9" ry="36" fill="#F9A8D4"/></g>
+  <path d="M88 112Q170 60 252 112" fill="none" stroke="#F9A8D4" stroke-width="9" stroke-linecap="round"/>
+  <g transform="translate(330 330)">
+    <path d="M-48-8q48-80 96 0" fill="none" stroke="#9A5B2A" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="-24" cy="-22" rx="15" ry="20" fill="#A5B4FC"/><path d="M-37 -22l5 4 5-4 5 4 5-4 5 4" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="2" cy="-30" rx="15" ry="20" fill="#FDE68A"/><path d="M-11 -30l5 4 5-4 5 4 5-4 5 4" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="26" cy="-20" rx="15" ry="20" fill="#F9A8D4"/><path d="M13 -20l5 4 5-4 5 4 5-4 5 4" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-56-12h112l-14 58h-84Z" fill="#C08A4A"/>
+    <path d="M-52 4h104M-46 22h92M-40 38h80" stroke="#8A5A2B" stroke-width="3.5"/>
+    <path d="M-30-12l6 58M0-12v58M30-12l-6 58" stroke="#8A5A2B" stroke-width="3"/>
+  </g>
+</svg>

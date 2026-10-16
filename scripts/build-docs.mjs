@@ -6,13 +6,17 @@
 // for <!-- @art name -->, from the drawing in docs/assets/art/name.svg, inlined
 // so its strokes follow the page theme. It also writes the search index and
 // bundles the ESLint demo (acorn plus the real rules from dist/eslint-plugin.js).
+// Special dates: it draws the seasonal art (scripts/docs/seasons-art.mjs), copies
+// it to docs/assets/seasons, writes docs/seasons.css and a minified docs/seasons.js,
+// and links both from the head of every page.
 //
 // Usage: npm run docs:build   (runs the library build, this script and the
 // Shiki highlighter, in that order). Running it twice gives the same files.
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { build } from 'esbuild';
+import { build, transform } from 'esbuild';
 import * as partials from './docs/partials.mjs';
+import { writeSeasonArt } from './docs/seasons-art.mjs';
 
 const root = new URL('../', import.meta.url);
 const docs = new URL('docs/', root);
@@ -39,6 +43,19 @@ function art(name) {
     .trim();
 }
 
+// Special dates: art, styles and the script that picks the season.
+{
+  const css = writeSeasonArt(root);
+  writeFileSync(new URL('seasons.css', docs), css);
+  rmSync(new URL('assets/seasons/', docs), { recursive: true, force: true });
+  cpSync(new URL('assets/seasons/', root), new URL('assets/seasons/', docs), { recursive: true, filter: (src) => !src.endsWith('.js') });
+  const source = readFileSync(new URL('assets/seasons/seasons.js', root), 'utf8');
+  const { code } = await transform(source, { minify: true, target: 'es2019' });
+  writeFileSync(new URL('seasons.js', docs), `// graphemely special dates, minified from assets/seasons/seasons.js by scripts/build-docs.mjs.\n${code}`);
+  console.log(`seasons: art, seasons.css and seasons.js (${code.length} bytes) written`);
+}
+const SEASON_HEAD = '\n  <link rel="stylesheet" href="seasons.css">\n  <script src="seasons.js"></script>';
+
 const pages = readdirSync(docs)
   .filter((file) => file.endsWith('.html'))
   .sort();
@@ -62,6 +79,10 @@ for (const file of pages) {
     const body = name === 'art' ? `\n${art(args.trim())}\n` : partials[name](args.trim(), page);
     return `<!-- @${name}${args} -->${body}<!-- /@${name} -->`;
   });
+  // Every full page (not the small redirect pages) loads the special date theme.
+  if (!after.includes('href="seasons.css"') && !after.includes('/seasons.css"')) {
+    after = after.replace(/(<link rel="stylesheet" href="(?:\/graphemely\/)?site\.css">)/, `$1${SEASON_HEAD}`);
+  }
   // GitHub Pages serves 404.html at any missing path, so its own links are rooted.
   if (file === '404.html') after = after.replace(/ (href|src)="(?![a-z]+:|\/|#)([^"]*)"/g, ' $1="/graphemely/$2"');
   if (after !== before) writeFileSync(url, after);
