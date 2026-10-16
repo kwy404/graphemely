@@ -169,31 +169,73 @@
   <!-- /@header -->
   <main id="main">
     <section class="cover" aria-labelledby="title">
+      <span class="season-accent" aria-hidden="true"></span>
       <div class="wrap cover-grid">
-        <div>
+        <div class="cover-title">
           <p class="kicker">Unicode safe strings for JavaScript and TypeScript</p>
-          <h1 id="title">Truncate, slice and count strings with <em>emoji</em> safely in JavaScript</h1>
-          <p class="lead"><strong>graphemely</strong> counts and cuts text by grapheme cluster, the characters people actually see. String length with emoji, truncate with an ellipsis, Unicode safe substring, reverse, pad and wrap, without ever splitting an emoji, a flag, a skin tone or an accent.</p>
+          <h1 id="title">Strings, counted the way people <em>see</em> them</h1>
+        </div>
+        <div class="peek" v-data="{ text: '', cut: -1, touched: false }" v-init="intro" v-cloak>
+          <span class="crop tl" aria-hidden="true"></span><span class="crop tr" aria-hidden="true"></span><span class="crop bl" aria-hidden="true"></span><span class="crop br" aria-hidden="true"></span>
+          <span class="gem-art peek-cat" aria-hidden="true"></span>
+          <div class="peek-head">
+            <label class="kicker peek-label" for="peek-text">Paste and see</label>
+            <div class="peek-chips" role="group" aria-label="Examples">
+              <button type="button" class="preset" v-for="p in samples()" :key="p.id" :aria-pressed="text === p.value ? 'true' : 'false'" @click="text = p.value; cut = -1; touched = true" v-text="p.label"></button>
+            </div>
+          </div>
+          <textarea id="peek-text" class="peek-text" rows="1" spellcheck="false" autocomplete="off" placeholder="Paste or type anything, emoji welcome" v-model="text" @input="cut = -1; touched = true" @focus="touched = true"></textarea>
+          <ol class="peek-tiles" aria-label="The characters you see, one tile each">
+            <li class="peek-tile" v-for="t in peek(text, cut).tiles" :key="t.key" :class="{ out: !t.kept, torn: t.torn, edge: t.edge }" :style="'--i:' + t.d" v-text="t.glyph"></li>
+            <li class="peek-tile peek-rest" v-if="peek(text, cut).rest" v-text="'+' + peek(text, cut).rest"></li>
+          </ol>
+          <div class="peek-counts">
+            <p class="peek-count"><span class="peek-n rose" v-for="v in [peek(text, cut).total]" :key="v" v-text="v"></span><span class="peek-l">characters you see</span><code>length(text)</code></p>
+            <p class="peek-count"><span class="peek-n" v-for="v in [peek(text, cut).units]" :key="v" v-text="v"></span><span class="peek-l">what .length says</span><code>text.length</code></p>
+          </div>
+          <p class="peek-verdict" aria-live="polite" v-text="peek(text, cut).verdict"></p>
+          <div class="peek-cut" v-show="peek(text, cut).total">
+            <div class="peek-cut-head">
+              <span class="kicker">Cut after</span>
+              <button type="button" class="tool peek-step" aria-label="One character less" :disabled="peek(text, cut).n <= 0" @click="cut = Math.max(0, peek(text, cut).n - 1)"><span aria-hidden="true">&#8722;</span></button>
+              <output class="peek-cut-n" v-text="peek(text, cut).n"></output>
+              <button type="button" class="tool peek-step" aria-label="One character more" :disabled="peek(text, cut).n >= peek(text, cut).max" @click="cut = Math.min(peek(text, cut).max, peek(text, cut).n + 1)"><span aria-hidden="true">+</span></button>
+            </div>
+            <div class="peek-row">
+              <code v-text="'text.slice(0, ' + peek(text, cut).n + ')'"></code>
+              <output class="out" v-text="peek(text, cut).native"></output>
+              <span class="verdict" :class="peek(text, cut).nativeOk ? 'ok' : 'bad'" v-text="peek(text, cut).nativeOk ? 'whole characters' : 'cuts a character'"></span>
+            </div>
+            <div class="peek-row">
+              <code v-text="'slice(text, 0, ' + peek(text, cut).n + ')'"></code>
+              <output class="out" v-text="peek(text, cut).mine"></output>
+              <span class="verdict ok">whole characters</span>
+            </div>
+          </div>
+          <a class="peek-link ul-link" href="#playground">See every code point in the Text Lab</a>
+        </div>
+        <div class="cover-more">
+          <p class="lead"><strong>graphemely</strong> counts, slices and truncates JavaScript strings by grapheme cluster, so an emoji, a flag or an accent is never cut in half. About 2 kB, no dependencies.</p>
           <div class="cover-actions">
 <figure class="code terminal" data-lang="bash">
 <div class="code-bar"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="code-tab"><span class="file-icon file-icon-bash" aria-hidden="true"></span>Terminal</span><button type="button" class="code-copy" v-copy-from="#code-1" aria-label="Copy command">Copy</button></div>
 <pre tabindex="0" class="shiki shiki-themes light-plus dark-plus" style="--shiki-light:#000000;--shiki-dark:#D4D4D4;--shiki-light-bg:#FFFFFF;--shiki-dark-bg:#1E1E1E"><code id="code-1"><span class="line"><span style="--shiki-light:#795E26;--shiki-dark:#DCDCAA">npm</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> install</span><span style="--shiki-light:#A31515;--shiki-dark:#CE9178"> @kwy404/graphemely</span></span></code></pre>
 </figure>
-            <a class="btn btn-primary btn-lg rounded-full" href="#playground">Open the Text Lab <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a>
+            <a class="btn btn-primary btn-lg rounded-full" href="#api">Read the API <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a>
             <a class="btn btn-outline btn-lg rounded-full" href="https://github.com/kwy404/graphemely"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-github"/></svg> GitHub</a>
           </div>
         </div>
-        <nav class="cover-toc" aria-labelledby="contents-title">
-          <p class="kicker cover-toc-title" id="contents-title">In this issue</p>
-          <ol>
-            <li><a href="#problem"><span class="c-n">01</span><span class="c-title">The problem in four lines<small>Why .length and .slice break emoji.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
-            <li><a href="#playground"><span class="c-n">02</span><span class="c-title">The Text Lab<small>Paste anything and watch it split into clusters.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
-            <li><a href="#eslint"><span class="c-n">05</span><span class="c-title">The linter<small>Three ESLint rules, running live in your browser.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
-            <li><a href="#api"><span class="c-n">06</span><span class="c-title">Index of functions<small>Fourteen functions, most of them native replacements.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
-            <li><a href="#guides"><span class="c-n">08</span><span class="c-title">Four guides<small>The common string bugs, one per page.</small></span><svg class="c-go" aria-hidden="true"><use href="assets/icons.svg#i-arrow"/></svg></a></li>
-          </ol>
-        </nav>
       </div>
+      <nav class="wrap cover-lines" aria-labelledby="contents-title">
+        <p class="kicker" id="contents-title">In this issue</p>
+        <ol>
+          <li><a href="#problem"><span class="c-n">01</span><span class="c-title">The problem</span></a></li>
+          <li><a href="#playground"><span class="c-n">02</span><span class="c-title">The Text Lab</span></a></li>
+          <li><a href="#eslint"><span class="c-n">05</span><span class="c-title">The linter</span></a></li>
+          <li><a href="#api"><span class="c-n">06</span><span class="c-title">Functions</span></a></li>
+          <li><a href="#guides"><span class="c-n">08</span><span class="c-title">Guides</span></a></li>
+        </ol>
+      </nav>
       <div class="specimen">
         <div class="wrap specimen-grid">
           <figure class="specimen-art">
@@ -245,7 +287,7 @@
             <p class="fact"><span class="fact-n">14</span><span class="fact-l">Functions</span></p>
             <p class="fact"><span class="fact-n">3</span><span class="fact-l">ESLint rules</span></p>
             <div class="cover-cat">
-              <img src="assets/mascot.svg" alt="Gem, the graphemely cat, playing with a ball of yarn whose thread is cut cleanly" width="88" height="88">
+              <span class="gem-art" role="img" aria-label="Gem, the graphemely cat, playing with a ball of yarn whose thread is cut cleanly"></span>
               <p>Gem, our cover cat, only ever cuts the yarn between two characters.</p>
             </div>
           </div>

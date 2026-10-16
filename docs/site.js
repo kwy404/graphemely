@@ -3,21 +3,9 @@
 // Voodoo.js loads from the CDN with `data-manual`, so this module can publish
 // helpers on `V.config.globals` before the first render and then start the page.
 // Everything else (theme toggle, menu, tabs, copy buttons, the rail scrollspy,
-// the Text Lab and the ESLint demo) is declared in the HTML with v-* attributes.
+// the paste and see demo, the Text Lab and the ESLint demo) is declared in the
+// HTML with v-* attributes. The special date theme is at the end of this file.
 import searchIndex from './search-index.js';
-
-const V = window.V;
-
-if (V) {
-  Object.assign(V.config.globals, searchGlobals());
-  if (document.getElementById('playground')) {
-    // graphemely.js is a copy of dist/index.js and lint.js bundles the real
-    // ESLint rules (run `npm run docs:build`).
-    const [lib, linter] = await Promise.all([import('./graphemely.js'), import('./lint.js')]);
-    Object.assign(V.config.globals, labGlobals(lib), lintGlobals(linter));
-  }
-  V.start();
-}
 
 /* Search dialog ---------------------------------------------------------- */
 
@@ -60,10 +48,160 @@ function searchGlobals() {
   return { find, openSearch, go };
 }
 
+/* Shared text helpers ---------------------------------------------------- */
+
+const cp = (...points) => String.fromCodePoint(...points);
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** Visible form of a piece of text: spaces, marks and invisible characters get a placeholder. */
+function glyphOf(text, isWellFormed) {
+  if (text === ' ') return '\u{2423}';
+  if (text === '\n' || text === '\r\n') return '\u{21B5}';
+  if (!isWellFormed(text)) return '\u{FFFD}';
+  if (/^\p{M}/u.test(text)) return '\u{25CC}' + text;
+  if (/^[\p{Cf}\p{Cc}]+$/u.test(text)) return '\u{25CC}';
+  return text;
+}
+
+/** Shows each lone surrogate as the replacement character a browser draws for it. */
+function visible(text, isWellFormed) {
+  if (isWellFormed(text)) return text;
+  return text.replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, '\u{FFFD}');
+}
+
+/* Paste and see ---------------------------------------------------------- */
+
+// One sample per special date, shown first while its theme is on. Written as
+// escapes, so no source file of the site contains a literal emoji.
+const SEASON_SAMPLES = {
+  newyear: { label: 'New Year', value: `Cheers ${cp(0x1f942)}${cp(0x1f386)}${cp(0x2728)}` },
+  carnival: { label: 'Carnival', value: `Samba ${cp(0x1f483, 0x1f3fd)}${cp(0x1f941)}${cp(0x1f3ad)}` },
+  easter: { label: 'Easter', value: `Egg hunt ${cp(0x1f430)}${cp(0x1f95a)}${cp(0x1f423)}` },
+  valentine: { label: 'Love', value: `Yours ${cp(0x1f469, 0x200d, 0x2764, 0xfe0f, 0x200d, 0x1f468)}${cp(0x1f48c)}` },
+  junina: { label: 'Bonfire', value: `Arrai\u{E1} ${cp(0x1f33d)}${cp(0x1f525)}${cp(0x1fa97)}` },
+  halloween: { label: 'Halloween', value: `Boo ${cp(0x1f383)}${cp(0x1f47b)}${cp(0x1f9d9, 0x1f3fd, 0x200d, 0x2640, 0xfe0f)}` },
+  christmas: { label: 'Christmas', value: `Ho ho ${cp(0x1f385, 0x1f3fd)}${cp(0x1f384)}${cp(0x2603, 0xfe0f)}` },
+};
+
+function peekGlobals({ graphemes, isWellFormed, slice }) {
+  const MAX_TILES = 40;
+  const base = [
+    { id: 'family', label: 'Family', value: `Hi ${cp(0x1f468, 0x200d, 0x1f469, 0x200d, 0x1f467)}!` },
+    { id: 'flags', label: 'Flags', value: `Ol\u{E1} ${cp(0x1f1e7, 0x1f1f7)}${cp(0x1f1f5, 0x1f1f9)}` },
+    { id: 'accents', label: 'Accents', value: 'Cafe\u{301} cre\u{300}me' },
+    { id: 'skin', label: 'Skin tones', value: `Nice ${cp(0x1f44d, 0x1f3fd)}${cp(0x1f44b, 0x1f3ff)}` },
+  ];
+  let listFor = null;
+  let list = base;
+
+  /** The examples, with the special date one first while its theme is on. */
+  function samples() {
+    const season = document.documentElement.getAttribute('data-season');
+    if (season !== listFor) {
+      listFor = season;
+      const extra = SEASON_SAMPLES[season];
+      list = extra ? [{ id: season, ...extra }, ...base.slice(0, 3)] : base;
+    }
+    return list;
+  }
+
+  /**
+   * Types the first example in, one character at a time, until the visitor
+   * takes over. Called by v-init with `this` set to the demo's scope.
+   */
+  function intro() {
+    const scope = this;
+    const sample = samples()[0].value;
+    if (reducedMotion()) {
+      scope.text = sample;
+      return;
+    }
+    const parts = graphemes(sample);
+    let shown = 0;
+    const step = () => {
+      if (scope.touched) return;
+      shown += 1;
+      scope.text = parts.slice(0, shown).join('');
+      if (shown < parts.length) setTimeout(step, parts[shown - 1] === ' ' ? 130 : 80);
+    };
+    setTimeout(step, 450);
+  }
+
+  let memoKey = null;
+  let memo = null;
+  let lastKeys = new Set();
+
+  /** Everything the demo shows for one text and one cut position (-1 picks one). */
+  function peek(text, cut) {
+    const str = String(text ?? '');
+    const want = Number(cut);
+    const key = `${want}\u{0}${str}`;
+    if (key === memoKey) return memo;
+
+    const parts = graphemes(str);
+    const total = parts.length;
+    const ends = new Set([0]);
+    const starts = [];
+    let offset = 0;
+    for (const g of parts) {
+      starts.push(offset);
+      offset += g.length;
+      ends.add(offset);
+    }
+
+    // Left alone, the cut goes to the first place where native slice breaks a character.
+    let n = want >= 0 ? Math.min(want, total) : -1;
+    if (n < 0) {
+      for (let k = 1; k <= total && n < 0; k++) if (!ends.has(k)) n = k;
+      if (n < 0) n = Math.min(total, 5);
+    }
+
+    // Only tiles that were not on screen before animate in, staggered from the first new one.
+    const keys = new Set();
+    let firstNew = -1;
+    const tiles = parts.slice(0, MAX_TILES).map((g, i) => {
+      const k = `${i}:${g}`;
+      keys.add(k);
+      if (firstNew < 0 && !lastKeys.has(k)) firstNew = i;
+      return {
+        key: k,
+        d: firstNew < 0 ? 0 : Math.min(i - firstNew, 14),
+        glyph: glyphOf(g, isWellFormed),
+        kept: i < n,
+        edge: i === n - 1 && n < total,
+        torn: starts[i] < n && n < starts[i] + g.length,
+      };
+    });
+    lastKeys = keys;
+
+    const units = str.length;
+    let verdict;
+    if (!total) verdict = 'Nothing here yet. Paste a message, a name or a row of emoji.';
+    else if (units === total) verdict = 'Here .length agrees with your eyes. Now try an emoji.';
+    else verdict = `${units} UTF-16 units for ${total} characters: .length is off by ${units - total}.`;
+
+    memoKey = key;
+    memo = {
+      total,
+      units,
+      tiles,
+      rest: Math.max(0, total - MAX_TILES),
+      n,
+      max: total,
+      verdict,
+      native: visible(str.slice(0, n), isWellFormed),
+      nativeOk: ends.has(n),
+      mine: slice(str, 0, n),
+    };
+    return memo;
+  }
+
+  return { samples, intro, peek };
+}
+
 /* Text Lab --------------------------------------------------------------- */
 
 function labGlobals({ graphemes, isWellFormed, reverse, slice, truncate, at }) {
-  const cp = (...points) => String.fromCodePoint(...points);
   const ELLIPSIS = '\u{2026}';
   const encoder = new TextEncoder();
   const bytes = (text) => encoder.encode(text).length;
@@ -97,15 +235,7 @@ function labGlobals({ graphemes, isWellFormed, reverse, slice, truncate, at }) {
     return '';
   }
 
-  /** Visible form of a piece of text: spaces, marks and invisible characters get a placeholder. */
-  function glyph(text) {
-    if (text === ' ') return '\u{2423}';
-    if (text === '\n' || text === '\r\n') return '\u{21B5}';
-    if (!isWellFormed(text)) return '\u{FFFD}';
-    if (/^\p{M}/u.test(text)) return '\u{25CC}' + text;
-    if (/^[\p{Cf}\p{Cc}]+$/u.test(text)) return '\u{25CC}';
-    return text;
-  }
+  const glyph = (text) => glyphOf(text, isWellFormed);
 
   /** True when `value` is made of whole graphemes of `str`, starting at the beginning. */
   function cleanPrefix(str, value) {
@@ -305,4 +435,20 @@ function lintGlobals({ lint }) {
   }
 
   return { sample, check, syncScroll };
+}
+
+/* Start ------------------------------------------------------------------ */
+
+// Last, so every helper above is initialized before the first render.
+const V = window.V;
+
+if (V) {
+  Object.assign(V.config.globals, searchGlobals());
+  if (document.getElementById('playground')) {
+    // graphemely.js is a copy of dist/index.js and lint.js bundles the real
+    // ESLint rules (run `npm run docs:build`).
+    const [lib, linter] = await Promise.all([import('./graphemely.js'), import('./lint.js')]);
+    Object.assign(V.config.globals, peekGlobals(lib), labGlobals(lib), lintGlobals(linter));
+  }
+  V.start();
 }

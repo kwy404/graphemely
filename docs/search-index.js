@@ -2,7 +2,7 @@
 export default [
  {
   "kind": "Home",
-  "title": "Truncate, slice and count strings with emoji safely in JavaScript",
+  "title": "Strings, counted the way people see them",
   "page": "graphemely",
   "url": "./"
  },
